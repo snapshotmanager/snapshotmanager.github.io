@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>snapm 0.6.0 Release Notes</title>
+<title>Welcome!</title>
 
 
 
 
 
-<meta name="keywords" content="release">
+<meta name="keywords" content="welcome, news">
 
 
 
@@ -28,7 +28,7 @@
 
 
   
-  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;snapm-release-notes-0-6-0&#x2F;">
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;welcome&#x2F;">
 
 
 <link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
@@ -266,9 +266,9 @@ class="" id="top">
       <div class="breadcrumbs">
           <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
           <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
-          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-6-0&#x2F;">snapm 0.6.0 Release Notes</a>
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;">Welcome!</a>
       </div>
-      <h1 class="post-title">snapm 0.6.0 Release Notes</h1>
+      <h1 class="post-title">Welcome!</h1>
       
       
       <div class="post-meta">
@@ -287,10 +287,10 @@ class="" id="top">
 
 
 
-<span title="2025-12-22 00:00:00 +0000">2025-12-22</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;794 words&nbsp;·&nbsp;
+<span title="2025-12-21 00:00:00 +0000">2025-12-21</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;34 words&nbsp;·&nbsp;
       
           
-&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;snapm-release-notes-0.6.0.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;welcome.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
 
       
       </div>
@@ -310,26 +310,7 @@ class="" id="top">
       <ul>
         
         <li>
-          <a href="#overview" aria-label="Overview">Overview</a>
-          
-          <ul>
-            
-            <li>
-              <a href="#notes" aria-label="Notes">Notes</a>
-              
-            </li>
-            
-            <li>
-              <a href="#what-s-changed" aria-label="What&#x27;s Changed">What&#x27;s Changed</a>
-              
-            </li>
-            
-            <li>
-              <a href="#known-issues" aria-label="Known issues">Known issues</a>
-              
-            </li>
-            
-          </ul>
+          <a href="#welcome" aria-label="Welcome!">Welcome!</a>
           
         </li>
         
@@ -342,49 +323,10 @@ class="" id="top">
 
   
   <div class="post-content">
-      <h1 id="overview">Overview</h1>
-<p>This release introduces significant new features and fixes, including the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html#difference-engine">Difference Engine</a> for efficiently computing changes between two snapshot sets, or the system root file system and a snapshot set. Users should upgrade to <a href="https://github.com/snapshotmanager/snapm/releases/tag/v0.6.0">v0.6.0</a> as soon as possible to take advantage of these enhancements.</p>
-<h2 id="notes">Notes</h2>
-<ul>
-<li>The fsdiff API is considered unstable and may be subject to change in a future release.</li>
-<li>The <code>snapset diff</code> <code>--output-format=json</code> JSON schema is also potentially subject to change and will be formalised in a future release.</li>
-<li>The <code>snapset diff</code>/<code>snapset diffreport</code> command syntax is stable but output and formatting may change in future releases.</li>
-<li>Future releases may include new content differs for specific file types and more comprehensive file type detection when libmagic is disabled.</li>
-<li>Generating content diffs of large file system trees with many content changes may consume large amounts of memory: <code>snapm</code> will refuse to diff trees if <code>VmRSS</code> exceeds 33% of system memory after walking the filesystem. Caching is disabled if <code>VmRSS</code> exceeds 60% of system memory after computing diffs.</li>
-</ul>
-<h2 id="what-s-changed">What's Changed</h2>
-<ul>
-<li>lvm2: Fix "no device" case for _is_lvm_device() and avoid no provider test if /boot is not a mount point by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/589">#589</a></li>
-<li>Add mount manager by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/541">#541</a></li>
-<li>snapm: fix renaming of snapshot sets with boot entries by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/591">#591</a></li>
-<li>schedule: fix timeline garbage collection by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/596">#596</a></li>
-<li>schedule: fix TIMELINE policy retention indexing when <code>keep_x &gt; len(x)</code> by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/607">#607</a></li>
-<li>stratis: re-use initial DBus query for StratisSnapshot cache by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/615">#615</a></li>
-<li>container_tests: fix GcPolicyParamsTimeline.evaluate() tests edge case by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/628">#628</a></li>
-<li>Clean up and enhance progress implementation by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/646">#646</a></li>
-<li>doc: add missing snapm.manager._mounts to Sphinx docs by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/661">#661</a></li>
-<li>Fix progress message overflow, bar width, and BrokenPipeError handling by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/662">#662</a></li>
-<li>progress: clean up Progress and add Throbber classes by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/675">#675</a></li>
-<li>progress: Fix <code>Throbber</code> <code>no_clear</code> bug and add styles by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/679">#679</a></li>
-<li>mounts: fix incorrect SnapshotSet instead of name in name_map by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/684">#684</a></li>
-<li>snapm: add fsdiff snapshot set comparison facility by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/620">#620</a></li>
-<li>progress: cleanups and log integration by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/698">#698</a></li>
-<li>snapm: implement snapshot set comparison UI (snapm snapset diff) by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/707">#707</a></li>
-<li>snapm: address v0.6.0 feature/fix release blockers by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/759">#759</a></li>
-<li>snapm: fix "Computing diffs" progress bar flicker and at move detector progress by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/775">#775</a></li>
-<li>doc: add missing links, summary format and clarify defaults for output formats by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/779">#779</a></li>
-<li>fsdiff: catch EOFError on truncated cache file by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/782">#782</a></li>
-<li>fsdiff: move detector may mis-detect identical files as moves by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/784">#784</a></li>
-<li>fsdiff: optimize cache writing and add progress reporting by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/791">#791</a></li>
-<li>fsdiff: implement best-effort file type detection and "always exclude" paths by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/810">#810</a></li>
-</ul>
-<h2 id="known-issues">Known issues</h2>
-<p>There is one known issue for this release. Please see the wiki pages for more details, status, and workarounds:</p>
-<ul>
-<li><a href="https://github.com/snapshotmanager/snapm/wiki/Known-issue:-snapm-snapset-%7Bmount,umount%7D-and-podman-netfs-mounts">snapm snapset {mount,umount} and podman netfs mounts</a></li>
-</ul>
-<p>This will be addressed in a future release.</p>
-<p><strong>Full Changelog</strong>: <a href="https://github.com/snapshotmanager/snapm/compare/v0.5.2...v0.6.0">v0.5.2...v0.6.0</a></p>
+      <h1 id="welcome">Welcome!</h1>
+<p>Welcome to the <em>Snapshot Manager</em> blog! We'll be sharing news, release
+announcements, future plans and updates, technical tips and more.</p>
+<p>Come back soon or subscribe to our feed to be notified of updates.</p>
 
   </div>
   
@@ -394,7 +336,10 @@ class="" id="top">
       <ul class="post-tags">
           
           
-          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;release&#x2F;">release</a></li>
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;welcome&#x2F;">welcome</a></li>
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;news&#x2F;">news</a></li>
           
       </ul>
       
@@ -405,12 +350,12 @@ class="" id="top">
 
 <nav class="paginav">
     
-    <a class="prev" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;">
-        <span class="title">« Prev</span>
-        <br>
-        <span>Welcome!</span>
-    </a>
     
+    <a class="next" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-6-0&#x2F;">
+        <span class="title">Next »</span>
+        <br>
+        <span>snapm 0.6.0 Release Notes</span>
+    </a>
     
 </nav>
 

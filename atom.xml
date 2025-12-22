@@ -1338,6 +1338,29 @@ For thin‑provisioned snapshots (lvm2‑thin, Stratis), “Free” reflects thi
         
     </entry>
     <entry xml:lang="en">
+        <title>Welcome!</title>
+        <published>2025-12-21T00:00:00+00:00</published>
+        <updated>2025-12-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/welcome/"/>
+        <id>https://snapshotmanager.github.io/blog/welcome/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/welcome/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome!&lt;&#x2F;h1&gt;
+&lt;p&gt;Welcome to the &lt;em&gt;Snapshot Manager&lt;&#x2F;em&gt; blog! We&#x27;ll be sharing news, release
+announcements, future plans and updates, technical tips and more.&lt;&#x2F;p&gt;
+&lt;p&gt;Come back soon or subscribe to our feed to be notified of updates.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>Stratis Clients and Supported Operating Systems</title>
         <published>2021-12-23T00:00:00+00:00</published>
         <updated>2021-12-23T00:00:00+00:00</updated>

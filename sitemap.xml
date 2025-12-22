@@ -11,7 +11,14 @@
         <lastmod>2025-12-22</lastmod>
     </url>
     <url>
+        <loc>https://snapshotmanager.github.io/blog/welcome/</loc>
+        <lastmod>2025-12-21</lastmod>
+    </url>
+    <url>
         <loc>https://snapshotmanager.github.io/categories/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/categories/blog-posts/</loc>
     </url>
     <url>
         <loc>https://snapshotmanager.github.io/categories/release-notes/</loc>
@@ -24,7 +31,13 @@
         <loc>https://snapshotmanager.github.io/tags/</loc>
     </url>
     <url>
+        <loc>https://snapshotmanager.github.io/tags/news/</loc>
+    </url>
+    <url>
         <loc>https://snapshotmanager.github.io/tags/release/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/tags/welcome/</loc>
     </url>
     <url>
         <loc>https://snapshotmanager.github.io/users/</loc>
