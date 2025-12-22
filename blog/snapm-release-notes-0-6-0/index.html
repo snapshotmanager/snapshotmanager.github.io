@@ -287,7 +287,7 @@ class="" id="top">
 
 
 
-<span title="2025-12-22 00:00:00 +0000">2025-12-22</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;849 words&nbsp;·&nbsp;
+<span title="2025-12-22 00:00:00 +0000">2025-12-22</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;881 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;snapm-release-notes-0.6.0.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -344,21 +344,26 @@ class="" id="top">
   <div class="post-content">
       <h1 id="overview">Overview</h1>
 <p>This release introduces significant new features and fixes, including the
-Mount Manager](https://github.com/snapshotmanager/snapm/pull/541) and the
-Difference
-Engine](https://snapm.readthedocs.io/en/latest/user_guide.html#difference-engine)
+<a href="https://github.com/snapshotmanager/snapm/pull/541">Mount Manager</a> and the
+<a href="https://snapm.readthedocs.io/en/latest/user_guide.html#difference-engine">Difference
+Engine</a>
 for efficiently computing changes between two snapshot sets, or the system root
 file system and a snapshot set. Fixes include Stratis plugin performance
-enhancements and bug fixes for lvm2 device callouts . Users should upgrade to
-v0.6.0](https://github.com/snapshotmanager/snapm/releases/tag/v0.6.0) as soon
+enhancements and bug fixes for lvm2 device callouts.</p>
+<p>Users should upgrade to
+<a href="https://github.com/snapshotmanager/snapm/releases/tag/v0.6.0">v0.6.0</a> as soon
 as possible to take advantage of these enhancements.</p>
 <h2 id="notes">Notes</h2>
 <ul>
 <li>It is now possible to mount individual snapshot sets and interact with them
 using the <code>snapset {mount,umount}</code>, <code>snapset exec</code>, and <code>snapset shell</code>
 commands. Snapshot sets are mounted under <code>/run/snapm/mounts</code>.</li>
-<li>The fsdiff API is considered unstable and may be subject to change in a
-future release.</li>
+<li>Comprehensive file system comparison is now available with the <code>snapset diff</code>
+and <code>snapset diffreport</code> commands. See <code>snapm(8)</code> and the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html#difference-engine">user
+guide</a>
+for more information.</li>
+<li>The <code>snapm.fsdiff</code> API is considered unstable and may be subject to change in
+a future release.</li>
 <li>The <code>snapset diff</code> <code>--output-format=json</code> JSON schema is also potentially
 subject to change and will be formalised in a future release.</li>
 <li>The <code>snapset diff</code>/<code>snapset diffreport</code> command syntax is stable but output
