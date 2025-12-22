@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://snapshotmanager.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/</loc>
+        <lastmod>2025-12-22</lastmod>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/categories/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/categories/release-notes/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/howto/</loc>
+        <lastmod>2025-12-22</lastmod>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/tags/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/tags/release/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/users/</loc>
+        <lastmod>2021-12-23</lastmod>
+    </url>
+</urlset>

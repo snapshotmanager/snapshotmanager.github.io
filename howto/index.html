@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en" dir="i18n_dir">
+
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Snapshot Manager how-to&#x2F;walkthrough</title>
+
+
+
+
+<meta name="keywords" content="Snapshot, Snapshot Manager, Snapshots, Linux">
+
+
+
+
+<meta name="description" content="Easy to use snapshot management for Linux.">
+
+
+
+
+
+
+
+
+
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;howto&#x2F;">
+
+
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-base.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-common.css">
+<link rel="icon" href="https://snapshotmanager.github.io/snapm-favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://snapshotmanager.github.io/snapm-favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://snapshotmanager.github.io/snapm-favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://snapshotmanager.github.io/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+
+
+
+<link rel="alternate" type="application/atom+xml" title="RSS" href="https://snapshotmanager.github.io/atom.xml">
+
+
+
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+    
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(30, 32, 48);           /* macchiato-mantle */
+                --entry: rgb(36, 39, 58);           /* macchiato-base  */
+                --primary: rgb(202, 211, 245);      /* macchiato-text */
+                --secondary: rgb(184,192, 224);     /* macchiato-subtext1 */
+                --tertiary: rgb(54, 58, 79);        /* macchiato-surface0 */
+                --content: rgb(165, 173, 203);      /* macchiato-subtext0 */
+                --hljs-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --code-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --border: rgb(30, 32, 48);          /* macchiato-mantle */
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+    
+</noscript>
+
+
+</head>
+
+<body
+class="" id="top">
+  <script>
+    const preft = localStorage.getItem("pref-theme");
+    if (preft === "dark") {
+      document.body.classList.add("dark");
+    } else if (preft === "light") {
+      document.body.classList.remove("dark");
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  </script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a
+        href="https:&#x2F;&#x2F;snapshotmanager.github.io"
+        accesskey="h"
+        title="Snapshot Manager (Alt + H)"
+      >
+        
+        <svg
+          id="cela-logo"
+          xmlns="http://www.w3.org/2000/svg"
+          height="30"
+          viewBox="0 0 50 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="butt"
+          stroke-linejoin="miter"
+          stroke-miterlimit="4"
+          stroke-opacity="1"
+        >
+          <path
+            style="fill: currentColor; stroke-width: 0.0479086"
+            d="M 12.270265,1.9966968 V 2.442102 h 10.985976 v 9.68036 H 12.50726 v 0.474769 h 10.748981 v 9.712398 H 1.3364433 V 1.9971379 H 0.86090326 V 22.751899 H 23.731004 V 1.9966869 Z"
+          />
+          <path
+            style="fill: none; stroke-width: 0.574903"
+            d="M 32.198343,22.621669 40.600759,2.5585859 49.04204,22.613747"
+          />
+          <path
+            style="fill: currentColor; stroke-width: 0.574903"
+            d="m 36.438812,12.346394 h 8.364306"
+          />
+          <rect
+            style="fill: currentColor; stroke-width: 0.134146"
+            width="8.8630762"
+            height="0.4188053"
+            x="23.518629"
+            y="22.305271"
+          />
+          <rect
+            style="fill: currentColor; stroke-width: 0.134146"
+            width="9.8420162"
+            height="0.4188053"
+            x="1.0488266"
+            y="1.9709774"
+          />
+        </svg>
+        
+        
+      </a>
+      <div class="logo-switches">
+        <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+          <svg
+            id="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg
+            id="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <ul class="lang-switch">
+          <li>en</li>
+          <li>zh</li>
+        </ul>
+      </div>
+    </div>
+    
+    <ul id="menu">
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;" title="Archive">
+          <span>Archive</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags" title="Tags">
+          <span>Tags</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories" title="Categories">
+          <span>Categories</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;getzola.org&#x2F;" title="Zola">
+          <span>Zola</span>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  stroke-width="2"·
+  stroke-linecap="round" stroke-linejoin="round" height=12 width=12>
+  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+  <path d="M15 3h6v6"></path>
+  <path d="M10 14L21 3"></path>
+</svg>
+
+
+</a>
+      </li>
+      
+    </ul>
+    
+  </nav>
+</header>
+
+<main class="main">
+  
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;howto&#x2F;">Snapshot Manager how-to&#x2F;walkthrough</a>
+      </div>
+      <h1 class="post-title">Snapshot Manager how-to&#x2F;walkthrough</h1>
+      
+      
+      <div class="post-meta">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span title="2025-12-22 00:00:00 +0000">2025-12-22</span>&nbsp;·&nbsp;18 min&nbsp;·&nbsp;3578 words&nbsp;·&nbsp;
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/static&#x2F;howto.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+      
+      </div>
+      
+  </header>
+
+  
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#snapshot-sets" aria-label="Snapshot Sets">Snapshot Sets</a>
+          
+        </li>
+        
+        <li>
+          <a href="#size-policies" aria-label="Size Policies">Size Policies</a>
+          
+        </li>
+        
+        <li>
+          <a href="#comparison-modes" aria-label="Comparison Modes">Comparison Modes</a>
+          
+        </li>
+        
+        <li>
+          <a href="#command-reference" aria-label="Command Reference">Command Reference</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#the-snapm-command" aria-label="The snapm Command">The snapm Command</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#snapset-commands" aria-label="Snapset Commands">Snapset Commands</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#autoindex-for-recurring-snapshot-sets" aria-label="Autoindex for recurring snapshot sets">Autoindex for recurring snapshot sets</a>
+              
+            </li>
+            
+            <li>
+              <a href="#output-formats" aria-label="Output Formats">Output Formats</a>
+              
+            </li>
+            
+            <li>
+              <a href="#tree-output-legend" aria-label="Tree Output Legend">Tree Output Legend</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#snapshot-commands" aria-label="Snapshot Commands">Snapshot Commands</a>
+          
+        </li>
+        
+        <li>
+          <a href="#plugin-commands" aria-label="Plugin Commands">Plugin Commands</a>
+          
+        </li>
+        
+        <li>
+          <a href="#schedule-commands" aria-label="Schedule Commands">Schedule Commands</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#schedule-delete" aria-label="schedule delete">schedule delete</a>
+              
+            </li>
+            
+            <li>
+              <a href="#schedule-edit" aria-label="schedule edit">schedule edit</a>
+              
+            </li>
+            
+            <li>
+              <a href="#schedule-disable" aria-label="schedule disable">schedule disable</a>
+              
+            </li>
+            
+            <li>
+              <a href="#schedule-list" aria-label="schedule list">schedule list</a>
+              
+            </li>
+            
+            <li>
+              <a href="#schedule-show" aria-label="schedule show">schedule show</a>
+              
+            </li>
+            
+            <li>
+              <a href="#schedule-gc" aria-label="schedule gc">schedule gc</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#reporting-commands" aria-label="Reporting Commands">Reporting Commands</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#json-output" aria-label="JSON Output">JSON Output</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#common-use-cases" aria-label="Common Use Cases">Common Use Cases</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#system-updates-and-rollback" aria-label="System Updates and Rollback">System Updates and Rollback</a>
+              
+            </li>
+            
+            <li>
+              <a href="#development-and-testing" aria-label="Development and Testing">Development and Testing</a>
+              
+            </li>
+            
+            <li>
+              <a href="#data-protection" aria-label="Data Protection">Data Protection</a>
+              
+            </li>
+            
+            <li>
+              <a href="#automated-scheduling" aria-label="Automated Scheduling">Automated Scheduling</a>
+              
+            </li>
+            
+            <li>
+              <a href="#configuration-management" aria-label="Configuration Management">Configuration Management</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#best-practices" aria-label="Best Practices">Best Practices</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#naming-conventions" aria-label="Naming Conventions">Naming Conventions</a>
+              
+            </li>
+            
+            <li>
+              <a href="#size-policy-guidelines" aria-label="Size Policy Guidelines">Size Policy Guidelines</a>
+              
+            </li>
+            
+            <li>
+              <a href="#retention-policies" aria-label="Retention Policies">Retention Policies</a>
+              
+            </li>
+            
+            <li>
+              <a href="#monitoring-and-maintenance" aria-label="Monitoring and Maintenance">Monitoring and Maintenance</a>
+              
+            </li>
+            
+            <li>
+              <a href="#access-control" aria-label="Access Control">Access Control</a>
+              
+            </li>
+            
+            <li>
+              <a href="#data-sensitivity" aria-label="Data Sensitivity">Data Sensitivity</a>
+              
+            </li>
+            
+            <li>
+              <a href="#boot-security" aria-label="Boot Security">Boot Security</a>
+              
+            </li>
+            
+            <li>
+              <a href="#with-systemd-services" aria-label="With Systemd Services">With Systemd Services</a>
+              
+            </li>
+            
+            <li>
+              <a href="#with-backup-systems" aria-label="With Backup Systems">With Backup Systems</a>
+              
+            </li>
+            
+            <li>
+              <a href="#with-configuration-management" aria-label="With Configuration Management">With Configuration Management</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#troubleshooting" aria-label="Troubleshooting">Troubleshooting</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#common-issues" aria-label="Common Issues">Common Issues</a>
+              
+            </li>
+            
+            <li>
+              <a href="#performance-considerations" aria-label="Performance Considerations">Performance Considerations</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#debugging" aria-label="Debugging">Debugging</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#debug-mode" aria-label="Debug Mode">Debug Mode</a>
+              
+            </li>
+            
+            <li>
+              <a href="#log-analysis" aria-label="Log Analysis">Log Analysis</a>
+              
+            </li>
+            
+            <li>
+              <a href="#storage-backend-debugging" aria-label="Storage Backend Debugging">Storage Backend Debugging</a>
+              
+            </li>
+            
+            <li>
+              <a href="#configuration-validation" aria-label="Configuration Validation">Configuration Validation</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#getting-help" aria-label="Getting Help">Getting Help</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#command-line-help" aria-label="Command Line Help">Command Line Help</a>
+              
+            </li>
+            
+            <li>
+              <a href="#manual-pages" aria-label="Manual Pages">Manual Pages</a>
+              
+            </li>
+            
+            <li>
+              <a href="#field-reference" aria-label="Field Reference">Field Reference</a>
+              
+            </li>
+            
+            <li>
+              <a href="#version-information" aria-label="Version Information">Version Information</a>
+              
+            </li>
+            
+            <li>
+              <a href="#online-resources" aria-label="Online Resources">Online Resources</a>
+              
+            </li>
+            
+            <li>
+              <a href="#community-support" aria-label="Community Support">Community Support</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#appendix" aria-label="Appendix">Appendix</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#storage-backend-details" aria-label="Storage Backend Details">Storage Backend Details</a>
+              
+            </li>
+            
+            <li>
+              <a href="#exit-codes" aria-label="Exit Codes">Exit Codes</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <p>User Guide</p>
+<p>This guide provides user documentation for the snapshot manager (snapm) tool.</p>
+<p>Overview</p>
+<p>Snapshot manager (snapm) is a tool for managing coordinated sets of snapshots on Linux systems. The snapm tool allows snapshots of multiple volumes to be captured at the same time, representing the system state at the time the snapshot set was created. The tool has a modular plugin architecture allowing different snapshot backends to be used together. Currently snapshots using LVM2 copy-on-write as well as thinly provisioned snapshots using both LVM2 and Stratis are supported.</p>
+<p>Key Concepts</p>
+<h3 id="snapshot-sets">Snapshot Sets</h3>
+<p>Snapshot manager groups snapshots taken at the same moment in time into a named "snapshot set", or snapset. This allows the snapshots to be managed as a single unit and simplifies the management of snapshots of multiple volumes. Each snapshot set must contain at least one snapshot.</p>
+<h3 id="size-policies">Size Policies</h3>
+<p>Size policies control the size of fixed-sized snapshots and check for available space when creating a snapshot set. Some snapshot implementations (Lvm2CoW) require a fixed size to be specified for the snapshot backstore when the snapshot is created. The default size allocated by snapshot manager is 2x the current file system usage, allowing the existing content of the volume to be overwritten twice before exhausting the snapshot space. Plugins for snapshot providers that do not require a fixed snapshot size will check that space is available for the requested size policy at snapshot set creation time.</p>
+<p>Available size policies:</p>
+<ul>
+<li><strong>FIXED</strong> - a fixed size given on the command line</li>
+<li><strong>FREE</strong> - a percentage fraction of the free space available</li>
+<li><strong>USED</strong> - a percentage fraction of the space currently used on the mount point (may be greater than 100%)</li>
+<li><strong>SIZE</strong> - a percentage fraction of the origin device size from 0 to 100%</li>
+</ul>
+<p>The FIXED size policy accepts optional units of KiB, MiB, GiB, TiB, PiB, EiB and ZiB. Units may be abbreviated to the first character.</p>
+<p>The USED size policy can only be applied to mounted file systems.</p>
+<p>Difference Engine</p>
+<p>The Difference Engine is a core facility in <code>snapm</code> that allows for detailed comparisons between two snapshot sets, or between a snapshot set and the currently running system.</p>
+<p>How it Works</p>
+<p>The engine operates by recursively walking the file system trees of both the source and target. It performs a multi-stage analysis to identify changes:</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Entry Detection</strong>: Identifies files, directories, and symlinks that have been added, removed, or modified.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Move Detection</strong>: By matching content hashes, the engine can identify files that have been renamed or moved between directories rather than simply being deleted and recreated.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Metadata Analysis</strong>: Detects changes in file permissions (mode), ownership (UID/GID), and extended attributes (xattrs).</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Content Comparison</strong>: Performs deep content comparisons for regular files, including generating standard unified diffs for text files.</p>
+<p>Output Formats and Use Cases</p>
+<p>The Difference Engine supports several output formats via the <code>snapset diff</code> <code>--output-format</code> argument, each suited to different tasks:</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>paths</strong>: Useful for scripting, allowing you to pipe a list of changed files to other tools like <code>tar</code> or <code>rsync</code>.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>full</strong>: Provides a detailed report including old and new file attributes (permissions, ownership, size, modification time) for every change.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>short</strong>: A concise summary listing the change status code and path for each modified file.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>json</strong>: Outputs the complete difference data as a JSON object, suitable for parsing by external tools and automation scripts.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>diff</strong>: Generates a standard unified diff of content changes for modified files. This format is useful for generating patches or detailed content review.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>summary</strong>: Brief summary of the count of different change types. Change types are colorized using the same coding as <code>tree</code> output.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>tree</strong>: (Default) Displays changes in a hierarchical tree structure, similar to the standard <code>tree</code> command but annotated with change status.</p>
+<p>In addition differences can be reported in a tabular format using the standard <code>snapm</code> reporting mechanism using the <code>snapset diffreport</code> command. The available <code>diffreport</code> report output fields are:</p>
+<ul>
+<li><strong>path</strong>: Difference path (string)</li>
+<li><strong>type</strong>: Difference type (string)</li>
+<li><strong>size_delta</strong>: Diff size change (size)</li>
+<li><strong>content</strong>: Content changed (string)</li>
+<li><strong>metadata</strong>: Metadata changed (string)</li>
+<li><strong>mode_old</strong>: Old path mode (string)</li>
+<li><strong>mode_new</strong>: New path mode (string)</li>
+<li><strong>category</strong>: File category (string)</li>
+<li><strong>movedfrom</strong>: Move source (string)</li>
+<li><strong>movedto</strong>: Move destination (string)</li>
+<li><strong>diffsummary</strong>: Summary of content differences (string)</li>
+<li><strong>hash_old</strong>: Old file content hash (string)</li>
+<li><strong>hash_new</strong>: New file content hash (string)</li>
+<li><strong>filetype</strong>: File type (string)</li>
+<li><strong>mtime_old</strong>: Old modification time (time)</li>
+<li><strong>mtime_new</strong>: New modification time (time)</li>
+</ul>
+<h3 id="comparison-modes">Comparison Modes</h3>
+<p>You can fine-tune the comparison using various flags:</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Content-Only</strong> (<code>-c</code>): Ignores all metadata changes and only reports files where the actual data has changed.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Ignore Options</strong>: Use <code>--ignore-timestamps</code>, <code>--ignore-permissions</code>, or <code>--ignore-ownership</code> to filter out "noise" during comparisons.</p>
+<p>Performance and the Diff Cache</p>
+<p>Walking large file systems and computing content hashes can be resource-intensive. To improve performance, <code>snapm</code> implements a <strong>diffcache</strong>.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>How it works</strong>: When a comparison is performed, the results are compressed and stored in <code>/var/cache/snapm/diffcache</code>.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Cache Reuse</strong>: Subsequent <code>diff</code> or <code>diffreport</code> commands between the same two sets will load the results from the cache instead of re-scanning the file systems.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Expiry</strong>: By default, cache entries expire after <strong>15 minutes</strong>. This ensures that results remain fresh if the running system (<code>.</code>) is one of the comparison targets. Use <code>--cache-expires=EXPIRES_SECS</code> to override the default value (900s).</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>Manual Control</strong>: You can override the expiry or disable the cache entirely using the <code>--cache-mode={auto,never,always}</code> and <code>--cache-expires=EXPIRES_SECS</code> options. These options are mutually exclusive.</p>
+<h2 id="command-reference">Command Reference</h2>
+<h3 id="the-snapm-command">The <code>snapm</code> Command</h3>
+<p>The <code>snapm</code> command provides the CLI interface to the snapshot manager. It is able to create, delete, and display snapshots and snapshot sets and provides reports listing the snapshots, snapshot sets, and schedules available on the system. Each snapm command operates on a particular object type: a snapshot set, an individual snapshot, or a schedule.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset &lt;command&gt; &lt;options&gt;  </span><span style="color:#65737e;"># snapset command
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot &lt;command&gt; &lt;options&gt; </span><span style="color:#65737e;"># snapshot command
+</span><span>
+</span></code></pre>
+<h2 id="snapset-commands">Snapset Commands</h2>
+<p>The <code>snapset</code> subcommand is used to create, delete, rename, activate, deactivate, list and display snapshot sets.</p>
+<p>snapset create</p>
+<p>Create a new snapshot set with the provided name and list of sources (mount point or block device paths):</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create </span><span style="color:#b48ead;">[</span><span>-b|--bootable</span><span style="color:#b48ead;">] [</span><span>-r|--revert</span><span style="color:#b48ead;">] [</span><span>--size-policy policy</span><span style="color:#b48ead;">] </span><span>&lt;name&gt; &lt;source&gt; </span><span style="color:#b48ead;">[</span><span>&lt;source&gt; ...</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>Per-source path size policies are specified by adding a ':' and the required policy to the corresponding mount point path, for example:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup /:2G /var:1G /home
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup /:25%</span><span style="color:#bf616a;">FREE</span><span> /var:25%</span><span style="color:#bf616a;">FREE</span><span> /home
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup /:100%</span><span style="color:#bf616a;">USED</span><span> /var:100%</span><span style="color:#bf616a;">USED</span><span> /home
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup /:100%</span><span style="color:#bf616a;">SIZE</span><span> /var:100%</span><span style="color:#bf616a;">SIZE</span><span> /home
+</span><span>
+</span></code></pre>
+<p>If no size policy is specified the default is <code>200%USED</code> for mounted file systems and 25%SIZE for unmounted block devices. To ensure a volume can be completely overwritten specify <code>100%SIZE</code>. This requires more storage capacity but avoids the possibility of the snapshot running out of space. A default size policy for all source paths that do not specify an explicit per-path policy can be set with the <code>--size-policy</code> argument:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup</span><span style="color:#bf616a;"> --size-policy</span><span> 100%</span><span style="color:#bf616a;">SIZE</span><span> / /home /var
+</span><span>
+</span></code></pre>
+<p>On success the <code>snapm snapset create</code> command displays the newly created snapshot set on stdout:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create</span><span style="color:#bf616a;"> -br --size-policy</span><span> 100%</span><span style="color:#bf616a;">USED</span><span> backup / /home /var
+</span><span style="color:#bf616a;">SnapsetName:</span><span>      backup
+</span><span style="color:#bf616a;">Sources:</span><span>          /, /home, /var
+</span><span style="color:#bf616a;">NrSnapshots:</span><span>      3
+</span><span style="color:#bf616a;">Time:</span><span>             2024-12-05 19:10:44
+</span><span style="color:#bf616a;">UUID:</span><span>             d3f5e3cd-a383-5dba-b597-9134a2c426e9
+</span><span style="color:#bf616a;">Status:</span><span>           Active
+</span><span style="color:#bf616a;">Autoactivate:</span><span>     yes
+</span><span style="color:#bf616a;">Bootable:</span><span>         yes
+</span><span style="color:#bf616a;">BootEntries:
+</span><span>  </span><span style="color:#bf616a;">SnapshotEntry:</span><span>  f574a20
+</span><span>  </span><span style="color:#bf616a;">RevertEntry:</span><span>    f428f9f
+</span><span>
+</span></code></pre>
+<h4 id="autoindex-for-recurring-snapshot-sets">Autoindex for recurring snapshot sets</h4>
+<p>The <code>--autoindex</code> argument allows creating a recurring snapshot set with a common basename and unique index (a non-negative integer).  This can be used to take regular snapshots with a common name:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create hourly</span><span style="color:#bf616a;"> --autoindex</span><span> /:25%</span><span style="color:#bf616a;">SIZE</span><span> /var:25%</span><span style="color:#bf616a;">SIZE
+</span><span style="color:#bf616a;">SnapsetName:</span><span>      hourly.3
+</span><span style="color:#bf616a;">Sources:</span><span>          /, /var
+</span><span style="color:#bf616a;">NrSnapshots:</span><span>      2
+</span><span style="color:#bf616a;">Time:</span><span>             2025-03-26 14:17:18
+</span><span style="color:#bf616a;">UUID:</span><span>             ae082452-7995-5316-ac65-388eadd9879c
+</span><span style="color:#bf616a;">Status:</span><span>           Active
+</span><span style="color:#bf616a;">Autoactivate:</span><span>     yes
+</span><span style="color:#bf616a;">Bootable:</span><span>         no
+</span><span>
+</span></code></pre>
+<p>The basename and index values are available via the <code>snapset list</code> report:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -o</span><span>+basename,index
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Time                 NrSnapshots Status  Sources  Basename     Index
+</span><span style="color:#bf616a;">backup</span><span>       2025-03-25 18:12:54            2 Invalid /, /var  backup           -
+</span><span style="color:#bf616a;">hourly.0</span><span>     2025-03-25 19:40:39            2 Invalid /, /var  hourly           0
+</span><span style="color:#bf616a;">hourly.1</span><span>     2025-03-26 14:17:11            2 Active  /, /var  hourly           1
+</span><span style="color:#bf616a;">hourly.2</span><span>     2025-03-26 14:17:15            2 Active  /, /var  hourly           2
+</span><span style="color:#bf616a;">hourly.3</span><span>     2025-03-26 14:17:18            2 Active  /, /var  hourly           3
+</span><span>
+</span></code></pre>
+<p>snapset delete</p>
+<p>Delete an existing snapset by name or uuid.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset delete &lt;name|</span><span style="color:#bf616a;">uuid</span><span>&gt;
+</span><span>
+</span></code></pre>
+<p>snapset diff</p>
+<p>Compare two snapshot sets, or a snapshot set and the running system.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diff </span><span style="color:#b48ead;">[</span><span>options</span><span style="color:#b48ead;">] </span><span>&lt;from&gt; &lt;to&gt;
+</span><span>
+</span></code></pre>
+<p>The <code>from</code> and <code>to</code> arguments specify the snapshot sets to compare. The special value <code>.</code> may be used to refer to the running system (the root file system).  The command detects added, removed, and modified files. File content comparisons can be performed to generate standard unified diffs.</p>
+<p>Supported output formats (<code>-o</code>/<code>--output-format</code>) include:</p>
+<ul>
+<li><strong>paths</strong> - A simple list of changed paths</li>
+<li><strong>full</strong> - Detailed change information</li>
+<li><strong>short</strong> - Abbreviated change summary</li>
+<li><strong>json</strong> - JSON formatted change data</li>
+<li><strong>diff</strong> - Standard unified diff of file content</li>
+<li><strong>summary</strong> - Brief summary of the count of different change types</li>
+<li><strong>tree</strong> - A hierarchical tree view of changes (default)</li>
+</ul>
+<p>The <code>-o</code>/<code>--output-format</code> option may be given multiple times to request different output formats for the same run. The <code>diff</code> and <code>summary</code> formats also accept an optional <code>--stat</code> option to enable <code>diffstat</code> style change summaries. The <code>json</code> output format supports <code>--pretty</code> to enable pretty-printing the JSON output.</p>
+<p>Compare the snapshot set "backup" to the running system using a tree view:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diff</span><span style="color:#bf616a;"> --output-format</span><span> tree backup .
+</span><span>
+</span></code></pre>
+<p>Generate a unified diff of content changes between two snapshot sets, ignoring file modification times to focus only on content:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diff</span><span style="color:#bf616a;"> --output-format</span><span> diff</span><span style="color:#bf616a;"> --ignore-timestamps</span><span> weekly.0 weekly.1
+</span><span>
+</span></code></pre>
+<p>Options are available to control the comparison:</p>
+<ul>
+<li><code>--content-only</code> / <code>-c</code>: Only check for file content changes</li>
+<li><code>--ignore-timestamps</code> / <code>-t</code>: Ignore modification times</li>
+<li><code>--ignore-permissions</code> / <code>-p</code>: Ignore permission changes</li>
+<li><code>--ignore-ownership</code> / <code>-w</code>: Ignore ownership changes</li>
+<li><code>--include-pattern</code> / <code>--exclude-pattern</code>: Filter paths using glob patterns</li>
+</ul>
+<h4 id="output-formats">Output Formats</h4>
+<p>The <code>--output-format</code> argument controls the presentation of differences. Available formats are:</p>
+<ul>
+<li>
+<p><strong>paths</strong>: Lists modified paths, one per line. Useful for piping to other tools or scripts.</p>
+</li>
+<li></li>
+</ul>
+<p><strong>full</strong>: Provides a detailed report including old and new file attributes (permissions, ownership, size, modification time) for every change.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>short</strong>: A concise summary listing the change status code and path for each modified file.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>json</strong>: Outputs the complete difference data as a JSON object, suitable for parsing by external tools and automation scripts.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>diff</strong>: Generates a standard unified diff of content changes for modified files. This format is useful for generating patches or detailed content review.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>summary</strong>: Brief summary of the count of different change types. Change types are colorized using the same coding as <code>tree</code> output.</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>tree</strong>: (Default) Displays changes in a hierarchical tree structure, similar to the standard <code>tree</code> command but annotated with change status. The default if no <code>--output-format</code> option is given is <code>tree</code>.</p>
+<h4 id="tree-output-legend">Tree Output Legend</h4>
+<p>The <strong>tree</strong> output format uses specific prefixes and colors (if enabled) to indicate the type of change:</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[+]</code> <strong>Path added</strong> (green): The file or directory is present in the target but not the source.</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[-]</code> <strong>Path removed</strong> (red): The file or directory is present in the source but not the target.</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[*]</code> <strong>Path modified</strong> (yellow): The file content or attributes have changed.</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[&lt;]</code> <strong>Path moved from</strong> (cyan): The source path of a renamed or moved file.</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[&gt;]</code> <strong>Path moved to</strong> (cyan): The destination path of a renamed or moved file.</p>
+<ul>
+<li></li>
+</ul>
+<p><code>[!]</code> <strong>Path file type changed</strong> (blue): The file type (regular file, symlink, directory, etc.) has changed between source and target.</p>
+<p>snapset diffreport</p>
+<p>Generate a tabular report of differences between snapshot sets.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diffreport </span><span style="color:#b48ead;">[</span><span>options</span><span style="color:#b48ead;">] </span><span>&lt;from&gt; &lt;to&gt;
+</span><span>
+</span></code></pre>
+<p>This command performs the same comparison logic as <code>snapset diff</code> but formats the output as a column-based report. It accepts standard reporting arguments including <code>--options</code>, <code>--sort</code>, <code>--noheadings</code>, and <code>--json</code>.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diffreport</span><span style="color:#bf616a;"> --json</span><span> backup current
+</span><span>
+</span></code></pre>
+<p>To list specific fields describing the changes:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset diffreport</span><span style="color:#bf616a;"> -opath</span><span>,state,size_diff old_snap new_snap
+</span><span>
+</span></code></pre>
+<p>snapset rename</p>
+<p>Rename an existing snapset.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset rename &lt;old_name&gt; &lt;new_name&gt;
+</span><span>
+</span></code></pre>
+<p>snapset revert</p>
+<p>Revert an existing snapset, re-setting the content of the origin volumes to the state they were in at the time the snapset was created. The snapset to be reverted may be specified either by its name or uuid.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset revert &lt;name|</span><span style="color:#bf616a;">uuid</span><span>&gt;
+</span><span>
+</span></code></pre>
+<p>If the origins of the snapshot set are in use at the time of the revert the operation is deferred until the next time the snapshot set is activated (for example during a reboot). If a revert boot entry was created for the snapshot set the <code>revert</code> command will suggest booting into it to continue:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset revert upgrade
+</span><span style="color:#bf616a;">WARNING</span><span> - Snapshot set upgrade origin is in use: reboot required to complete revert
+</span><span style="color:#bf616a;">Boot</span><span> into &#39;</span><span style="color:#a3be8c;">Revert upgrade 2024-06-10 15:25:15 (6.8.9-300.fc40.x86_64)</span><span>&#39; to continue
+</span><span>
+</span></code></pre>
+<p>snapset resize</p>
+<p>Resize the members in an existing snapset, applying a new size policy to specified sources or applying a new default size policy to all snapshots within a snapset.</p>
+<p>Resize the <code>/var</code> member of the snapshot set named upgrade to 100%SIZE:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset resize upgrade /var:100%</span><span style="color:#bf616a;">SIZE
+</span><span>
+</span></code></pre>
+<p>Resize each member of the snapshot set named backup to the 200%USED size policy:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset resize backup</span><span style="color:#bf616a;"> --size-policy</span><span> 200%</span><span style="color:#bf616a;">USED
+</span><span>
+</span></code></pre>
+<p>snapset split</p>
+<p>Split snapshots from an existing snapshot set into a new snapshot set. Split the snapshot set named 'name' into a new snapshot set named 'new_name'. Each listed source from 'name' is split into the new snapshot set. Sources that are not listed on the command line remain part of the original snapshot set. It is an error to split all sources from a snapshot set: in this case use 'snapm snapset rename' instead.</p>
+<p>To split the source "/home" from the existing snapshot set "upgrade" into a new snapshot set named "noupgrade":</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset split upgrade noupgrade /home
+</span><span style="color:#bf616a;">SnapsetName:</span><span>      noupgrade
+</span><span style="color:#bf616a;">Sources:</span><span>          /home
+</span><span style="color:#bf616a;">NrSnapshots:</span><span>      1
+</span><span style="color:#bf616a;">Time:</span><span>             2025-03-31 20:21:29
+</span><span style="color:#bf616a;">UUID:</span><span>             30e69b86-5c48-5e5d-be1a-bf3d63aef8f7
+</span><span style="color:#bf616a;">Status:</span><span>           Inactive
+</span><span style="color:#bf616a;">Autoactivate:</span><span>     no
+</span><span style="color:#bf616a;">Bootable:</span><span>         no
+</span><span>
+</span></code></pre>
+<p>snapset activate</p>
+<p>Activate the members of an existing snapset, or all snapsets if no name or uuid argument is given.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset activate </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapset deactivate</p>
+<p>Deactivate the members of an existing snapset, or all snapsets if no name or uuid argument is given.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset deactivate </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapset autoactivate</p>
+<p>Enable or disable autoactivation for the snapshots in a snapshot set.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset autoactivate </span><span style="color:#b48ead;">[</span><span>--yes|--no</span><span style="color:#b48ead;">] [</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapset list</p>
+<p>List available snapsets matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>By default the information is presented as a tabular report with column headings indicating the meaning of each value. The default column selection includes the SnapsetName, Time, NrSnapshots, Status, and Sources fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Time                 NrSnapshots Status  Sources
+</span><span style="color:#bf616a;">backup</span><span>       2024-12-05 19:14:03            3 Active  /, /home, /var
+</span><span style="color:#bf616a;">upgrade</span><span>      2024-12-05 19:14:09            2 Active  /, /var
+</span><span>
+</span></code></pre>
+<p>Custom field specifications may be given with the <code>-o</code>/<code>--options</code> argument. To obtain a list of available fields run <code>snapm snapset list -ohelp</code>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -ohelp
+</span><span style="color:#bf616a;">Snapshot</span><span> set Fields
+</span><span style="color:#bf616a;">-------------------
+</span><span>  </span><span style="color:#bf616a;">name</span><span>         - Snapshot set name </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">uuid</span><span>         - Snapshot set UUID </span><span style="color:#b48ead;">[</span><span>uuid</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">timestamp</span><span>    - Snapshot set creation time as a UNIX epoch value </span><span style="color:#b48ead;">[</span><span>num</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">time</span><span>         - Snapshot set creation time </span><span style="color:#b48ead;">[</span><span>time</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">nr_snapshots</span><span> - Number of snapshots </span><span style="color:#b48ead;">[</span><span>num</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">sources</span><span>      - Snapshot set sources </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">mountpoints</span><span>  - Snapshot set mount points </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">devices</span><span>      - Snapshot set devices </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">status</span><span>       - Snapshot set status </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">autoactivate</span><span> - Autoactivation status </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">bootable</span><span>     - Configured for snapshot boot </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">bootentry</span><span>    - Snapshot set boot entry </span><span style="color:#b48ead;">[</span><span>sha</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">revertentry</span><span>  - Snapshot set revert boot entry </span><span style="color:#b48ead;">[</span><span>sha</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>To specify custom fields pass a comma separated list to <code>-o</code>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -oname</span><span>,time
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Time
+</span><span style="color:#bf616a;">backup</span><span>       2024-12-05 19:14:03
+</span><span style="color:#bf616a;">upgrade</span><span>      2024-12-05 19:14:09
+</span><span>
+</span></code></pre>
+<p>To add fields to the default field set prefix the list of fields with the <code>+</code> character:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -o</span><span>+bootentry,revertentry
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Time                 NrSnapshots Status  Sources        SnapshotEntry RevertEntry
+</span><span style="color:#bf616a;">backup</span><span>       2024-12-05 19:14:03            3 Active  /, /home, /var 41573a414f9d5 1cc5bc59c9b90
+</span><span style="color:#bf616a;">upgrade</span><span>      2024-12-05 19:14:09            2 Active  /, /var        a60dab4d3fb36 4ce6b27f16f30
+</span><span>
+</span></code></pre>
+<p>The report can also be produced in JSON notation, suitable for parsing by other tools using the <code>--json</code> argument:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> --json
+</span><span>{
+</span><span>    &quot;</span><span style="color:#a3be8c;">Snapsets</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>        {
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_name</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">backup</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2024-12-05 19:14:03</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_nr_snapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 3,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Active</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>                &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/home</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>            </span><span style="color:#bf616a;">]
+</span><span>        },
+</span><span>        {
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_name</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">upgrade</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2024-12-05 19:14:09</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_nr_snapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 2,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Active</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>                &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>            </span><span style="color:#bf616a;">]
+</span><span>        }
+</span><span>    </span><span style="color:#bf616a;">]
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>JSON reports use the full report field name (including the <code>snapset_</code>, <code>snapshot_</code>, <code>schedule_</code>, or <code>plugin_</code> prefix). Fields and sort order are specified with <code>--options</code> and <code>--sort</code> as usual. For further report formatting options refer to the <code>snapm(8)</code> manual page.</p>
+<p>snapset show</p>
+<p>Display available snapsets matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset show </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>By default the output is formatted in the same way as the output of the <code>snapm snapset create</code> command:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset show upgrade
+</span><span style="color:#bf616a;">SnapsetName:</span><span>      upgrade
+</span><span style="color:#bf616a;">Sources:</span><span>          /, /var
+</span><span style="color:#bf616a;">NrSnapshots:</span><span>      2
+</span><span style="color:#bf616a;">Time:</span><span>             2024-12-05 19:14:09
+</span><span style="color:#bf616a;">UUID:</span><span>             87c6df8f-bd8c-5c9d-b081-4f6d6068cc07
+</span><span style="color:#bf616a;">Status:</span><span>           Active
+</span><span style="color:#bf616a;">Autoactivate:</span><span>     yes
+</span><span style="color:#bf616a;">Bootable:</span><span>         yes
+</span><span style="color:#bf616a;">BootEntries:
+</span><span>  </span><span style="color:#bf616a;">SnapshotEntry:</span><span>  a60dab4
+</span><span>  </span><span style="color:#bf616a;">RevertEntry:</span><span>    4ce6b27
+</span><span>
+</span></code></pre>
+<p>The individual snapshots making up each set are also displayed if <code>--members</code> is used:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset show</span><span style="color:#bf616a;"> --members
+</span><span style="color:#bf616a;">SnapsetName:</span><span>      upgrade
+</span><span style="color:#bf616a;">Sources:</span><span>          /, /var
+</span><span style="color:#bf616a;">NrSnapshots:</span><span>      2
+</span><span style="color:#bf616a;">Time:</span><span>             2024-12-05 19:19:30
+</span><span style="color:#bf616a;">UUID:</span><span>             f0a46cde-9eed-5335-b239-66ed53e5b503
+</span><span style="color:#bf616a;">Status:</span><span>           Active
+</span><span style="color:#bf616a;">Autoactivate:</span><span>     yes
+</span><span style="color:#bf616a;">Bootable:</span><span>         yes
+</span><span style="color:#bf616a;">BootEntries:
+</span><span>  </span><span style="color:#bf616a;">SnapshotEntry:</span><span>  dfce8d8
+</span><span>  </span><span style="color:#bf616a;">RevertEntry:</span><span>    fc414b0
+</span><span style="color:#bf616a;">Snapshots:
+</span><span>    </span><span style="color:#bf616a;">Name:</span><span>         fedora/root-snapset_upgrade_1733426370_-
+</span><span>    </span><span style="color:#bf616a;">SnapsetName:</span><span>  upgrade
+</span><span>    </span><span style="color:#bf616a;">Origin:</span><span>       /dev/fedora/root
+</span><span>    </span><span style="color:#bf616a;">Time:</span><span>         2024-12-05 19:19:30
+</span><span>    </span><span style="color:#bf616a;">Source:</span><span>       /
+</span><span>    </span><span style="color:#bf616a;">MountPoint:</span><span>   /
+</span><span>    </span><span style="color:#bf616a;">Provider:</span><span>     lvm2-cow
+</span><span>    </span><span style="color:#bf616a;">UUID:</span><span>         7566dde3-96f4-5288-8b15-18be7c520327
+</span><span>    </span><span style="color:#bf616a;">Status:</span><span>       Active
+</span><span>    </span><span style="color:#bf616a;">Size:</span><span>         8.8GiB
+</span><span>    </span><span style="color:#bf616a;">Free:</span><span>         8.8GiB
+</span><span>    </span><span style="color:#bf616a;">Autoactivate:</span><span> yes
+</span><span>    </span><span style="color:#bf616a;">DevicePath:</span><span>   /dev/fedora/root-snapset_upgrade_1733426370_-
+</span><span>    </span><span style="color:#bf616a;">VolumeGroup:</span><span>  fedora
+</span><span>    </span><span style="color:#bf616a;">LogicalVolume:</span><span> root-snapset_upgrade_1733426370_-
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">Name:</span><span>         fedora/var-snapset_upgrade_1733426370_-var
+</span><span>    </span><span style="color:#bf616a;">SnapsetName:</span><span>  upgrade
+</span><span>    </span><span style="color:#bf616a;">Origin:</span><span>       /dev/fedora/var
+</span><span>    </span><span style="color:#bf616a;">Time:</span><span>         2024-12-05 19:19:30
+</span><span>    </span><span style="color:#bf616a;">Source:</span><span>       /var
+</span><span>    </span><span style="color:#bf616a;">MountPoint:</span><span>   /var
+</span><span>    </span><span style="color:#bf616a;">Provider:</span><span>     lvm2-cow
+</span><span>    </span><span style="color:#bf616a;">UUID:</span><span>         22674f3e-f5c4-5632-9add-2df51985679e
+</span><span>    </span><span style="color:#bf616a;">Status:</span><span>       Active
+</span><span>    </span><span style="color:#bf616a;">Size:</span><span>         6.4GiB
+</span><span>    </span><span style="color:#bf616a;">Free:</span><span>         6.4GiB
+</span><span>    </span><span style="color:#bf616a;">Autoactivate:</span><span> yes
+</span><span>    </span><span style="color:#bf616a;">DevicePath:</span><span>   /dev/fedora/var-snapset_upgrade_1733426370_-var
+</span><span>    </span><span style="color:#bf616a;">VolumeGroup:</span><span>  fedora
+</span><span>    </span><span style="color:#bf616a;">LogicalVolume:</span><span> var-snapset_upgrade_1733426370_-var
+</span><span>
+</span></code></pre>
+<p>The output is also available in JSON notation using the <code>--json</code> argument:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset show</span><span style="color:#bf616a;"> --json</span><span> before-upgrade
+</span><span style="color:#96b5b4;">[
+</span><span>    {
+</span><span>        &quot;</span><span style="color:#a3be8c;">SnapsetName</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">before-upgrade</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>            &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>            &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>        </span><span style="color:#bf616a;">],
+</span><span>        &quot;</span><span style="color:#a3be8c;">MountPoints</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>            &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>            &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>        </span><span style="color:#bf616a;">],
+</span><span>        &quot;</span><span style="color:#a3be8c;">Devices</span><span>&quot;</span><span style="color:#bf616a;">: </span><span style="color:#b48ead;">[]</span><span>,
+</span><span>        &quot;</span><span style="color:#a3be8c;">NrSnapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 2,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Timestamp</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 1756555124,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2025-08-30 12:58:44</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">UUID</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">87e31113-75a5-5eb6-b016-762639a2c7ed</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Active</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Autoactivate</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> true,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Bootable</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> true,
+</span><span>        &quot;</span><span style="color:#a3be8c;">BootEntries</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>{
+</span><span>            &quot;</span><span style="color:#a3be8c;">SnapshotEntry</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">7c56dc0</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">RevertEntry</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">457f733</span><span>&quot;
+</span><span>        }
+</span><span>    }
+</span><span style="color:#bf616a;">]
+</span><span>
+</span></code></pre>
+<p>The <code>show --json</code> command uses the normal <code>show</code> output property names as the JSON keys. A <code>BootEntries</code> object will be added if either boot or revert entries are configured for the snapshot set.</p>
+<h2 id="snapshot-commands">Snapshot Commands</h2>
+<p>The <code>snapshot</code> command is used to manipulate, list, and display snapshots.</p>
+<p>snapshot activate</p>
+<p>Activate individual snapshots matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot activate </span><span style="color:#b48ead;">[</span><span>-N name</span><span style="color:#b48ead;">] [</span><span>-U uuid</span><span style="color:#b48ead;">] [</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapshot deactivate</p>
+<p>Deactivate individual snapshots matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot deactivate </span><span style="color:#b48ead;">[</span><span>-N name</span><span style="color:#b48ead;">] [</span><span>-U uuid</span><span style="color:#b48ead;">] [</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapshot autoactivate</p>
+<p>Enable or disable autoactivation for individual snapshots matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot autoactivate </span><span style="color:#b48ead;">[</span><span>--yes|--no</span><span style="color:#b48ead;">] [</span><span>-N name</span><span style="color:#b48ead;">] [</span><span>-U uuid</span><span style="color:#b48ead;">] [</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>snapshot list</p>
+<p>List available snapshots matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>By default the information is presented as a tabular report with column headings indicating the meaning of each value. The default column selection includes the SnapsetName, Name, Origin, Source, Status, Size, Free, Autoactivate, and Provider fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Name                                         Origin           Source  Status  Size   Free   Autoactivate Provider
+</span><span style="color:#bf616a;">upgrade</span><span>      fedora/root-snapset_upgrade_1733426499_-     /dev/fedora/root /       Active  8.8GiB 8.8GiB yes          lvm2-cow
+</span><span style="color:#bf616a;">upgrade</span><span>      fedora/var-snapset_upgrade_1733426499_-var   /dev/fedora/var  /var    Active  6.4GiB 6.4GiB yes          lvm2-cow
+</span><span style="color:#bf616a;">upgrade</span><span>      fedora/home-snapset_upgrade_1733426499_-home /dev/fedora/home /home   Active  1.0GiB 1.9GiB yes          lvm2-thin
+</span><span>
+</span></code></pre>
+<blockquote>
+<p><strong>Note:</strong>
+For thin‑provisioned snapshots (lvm2‑thin, Stratis), “Free” reflects thin‑pool free space and may exceed “Size”.</p>
+</blockquote>
+<p>snapshot show</p>
+<p>Display available snapshots matching selection criteria.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot show </span><span style="color:#b48ead;">[</span><span>&lt;name|uuid&gt;</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<h2 id="plugin-commands">Plugin Commands</h2>
+<p>The <code>plugin</code> command is used to display information on the available snapshot provider plugins.</p>
+<p>plugin list</p>
+<p>The <code>plugin list</code> command lists the available plugins:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> plugin list
+</span><span style="color:#bf616a;">PluginName</span><span> PluginVersion PluginType
+</span><span style="color:#bf616a;">lvm2-cow</span><span>   0.1.0         Lvm2CowSnapshot
+</span><span style="color:#bf616a;">lvm2-thin</span><span>  0.1.0         Lvm2ThinSnapshot
+</span><span style="color:#bf616a;">stratis</span><span>    0.1.0         StratisSnapshot
+</span><span>
+</span></code></pre>
+<h2 id="schedule-commands">Schedule Commands</h2>
+<p>The <code>schedule</code> command is used to create, display and manage schedules for automatic snapshot set creation.</p>
+<p>schedule create</p>
+<p>Create a new schedule with the provided name and list of sources (mount point or block device paths):</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule create </span><span style="color:#b48ead;">[</span><span>-b|--bootable</span><span style="color:#b48ead;">] [</span><span>-r|--revert</span><span style="color:#b48ead;">] [</span><span>--size-policy policy</span><span style="color:#b48ead;">] [</span><span>-p|--policy-type policy_type</span><span style="color:#b48ead;">] [</span><span>--keep-count count</span><span style="color:#b48ead;">] [</span><span>--keep-years years</span><span style="color:#b48ead;">] [</span><span>--keep-months months</span><span style="color:#b48ead;">] [</span><span>--keep-weeks weeks</span><span style="color:#b48ead;">] [</span><span>--keep-days days</span><span style="color:#b48ead;">] [</span><span>--keep-yearly yearly</span><span style="color:#b48ead;">] [</span><span>--keep-quarterly quarterly</span><span style="color:#b48ead;">] [</span><span>--keep-monthly monthly</span><span style="color:#b48ead;">] [</span><span>--keep-weekly weekly</span><span style="color:#b48ead;">] [</span><span>--keep-daily daily</span><span style="color:#b48ead;">] [</span><span>--keep-hourly hourly</span><span style="color:#b48ead;">]</span><span style="color:#bf616a;"> --calendarspec</span><span> calendarspec &lt;name&gt; source...
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule create</span><span style="color:#bf616a;"> --policy-type</span><span> count</span><span style="color:#bf616a;"> --keep-count</span><span> 2</span><span style="color:#bf616a;"> --bootable --revert --size-policy</span><span> 25%</span><span style="color:#bf616a;">SIZE --calendarspec</span><span> hourly hourly / /var
+</span><span style="color:#bf616a;">Name:</span><span> hourly
+</span><span style="color:#bf616a;">SourceSpecs:</span><span> /, /var
+</span><span style="color:#bf616a;">DefaultSizePolicy:</span><span> 25%</span><span style="color:#bf616a;">SIZE
+</span><span style="color:#bf616a;">Calendarspec:</span><span> hourly
+</span><span style="color:#bf616a;">Boot:</span><span> yes
+</span><span style="color:#bf616a;">Revert:</span><span> yes
+</span><span style="color:#bf616a;">GcPolicy:
+</span><span>    </span><span style="color:#bf616a;">Name:</span><span> hourly
+</span><span>    </span><span style="color:#bf616a;">Type:</span><span> Count
+</span><span>    </span><span style="color:#bf616a;">Params:</span><span> keep_count=2
+</span><span style="color:#bf616a;">Enabled:</span><span> yes
+</span><span style="color:#bf616a;">Running:</span><span> yes
+</span><span>
+</span></code></pre>
+<h3 id="schedule-delete">schedule delete</h3>
+<p>Delete an existing schedule by name:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule delete &lt;name&gt;
+</span><span>
+</span></code></pre>
+<h3 id="schedule-edit">schedule edit</h3>
+<p>Modify an existing schedule by name:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule edit </span><span style="color:#b48ead;">[</span><span>-b|--bootable</span><span style="color:#b48ead;">] [</span><span>-r|--revert</span><span style="color:#b48ead;">] [</span><span>--size-policy policy</span><span style="color:#b48ead;">] [</span><span>-p|--policy-type policy_type</span><span style="color:#b48ead;">] [</span><span>--keep-count count</span><span style="color:#b48ead;">] [</span><span>--keep-years years</span><span style="color:#b48ead;">] [</span><span>--keep-months months</span><span style="color:#b48ead;">] [</span><span>--keep-weeks weeks</span><span style="color:#b48ead;">] [</span><span>--keep-days days</span><span style="color:#b48ead;">] [</span><span>--keep-yearly yearly</span><span style="color:#b48ead;">] [</span><span>--keep-quarterly quarterly</span><span style="color:#b48ead;">] [</span><span>--keep-monthly monthly</span><span style="color:#b48ead;">] [</span><span>--keep-weekly weekly</span><span style="color:#b48ead;">] [</span><span>--keep-daily daily</span><span style="color:#b48ead;">] [</span><span>--keep-hourly hourly</span><span style="color:#b48ead;">]</span><span style="color:#bf616a;"> --calendarspec</span><span> calendarspec &lt;name&gt; </span><span style="color:#b48ead;">[</span><span>source...</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<p>schedule enable</p>
+<p>Enable an existing schedule by name:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule enable &lt;name&gt;
+</span><span>
+</span></code></pre>
+<h3 id="schedule-disable">schedule disable</h3>
+<p>Disable an existing schedule by name:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule disable &lt;name&gt;
+</span><span>
+</span></code></pre>
+<h3 id="schedule-list">schedule list</h3>
+<p>List configured schedules:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule list </span><span style="color:#b48ead;">[</span><span>--nameprefixes</span><span style="color:#b48ead;">] [</span><span>--noheadings</span><span style="color:#b48ead;">] [</span><span>--options fields</span><span style="color:#b48ead;">] [</span><span>--sort fields</span><span style="color:#b48ead;">] [</span><span>--rows|--json</span><span style="color:#b48ead;">] [</span><span>--separator separator</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule list
+</span><span style="color:#bf616a;">ScheduleName</span><span> ScheduleSources         SizePolicy OnCalendar     Enabled
+</span><span style="color:#bf616a;">custom</span><span>       /, /home:100%</span><span style="color:#bf616a;">SIZE</span><span>, /var 50%</span><span style="color:#bf616a;">SIZE    </span><span>*-*-1 01:00:00 yes
+</span><span style="color:#bf616a;">monthly</span><span>      /:25%</span><span style="color:#bf616a;">SIZE</span><span>, /var:25%</span><span style="color:#bf616a;">SIZE</span><span> monthly    no
+</span><span style="color:#bf616a;">hourly</span><span>       /, /var                 25%</span><span style="color:#bf616a;">SIZE</span><span>    hourly         yes
+</span><span>
+</span></code></pre>
+<h3 id="schedule-show">schedule show</h3>
+<p>Display configured schedule:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule show &lt;name&gt;
+</span><span>
+</span></code></pre>
+<h3 id="schedule-gc">schedule gc</h3>
+<p>Run configured garbage collection policy for schedule:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule gc &lt;name&gt;
+</span><span>
+</span></code></pre>
+<h2 id="reporting-commands">Reporting Commands</h2>
+<p>The <code>snapm snapset list</code>, <code>snapm snapshot list</code>, <code>snapm plugin list</code>, and <code>snapm schedule list</code> commands generate a tabular report as output.  To control the list of displayed fields use the <code>-o</code>/<code>--options FIELDS</code> argument:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -oname</span><span>,sources
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Sources
+</span><span style="color:#bf616a;">backup</span><span>       /, /home, /var
+</span><span style="color:#bf616a;">userdata</span><span>     /data, /home
+</span><span>
+</span></code></pre>
+<p>To add extra fields to the default selection, prefix the field list with the <code>+</code> character:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -o</span><span>+uuid
+</span><span style="color:#bf616a;">SnapsetName</span><span>  Time                 NrSnapshots Status   Sources          UUID
+</span><span style="color:#bf616a;">backup</span><span>       2024-12-05 19:26:28            3 Active   /, /home, /var   53514020-e88d-5f53-bf09-42c6ab6e325d
+</span><span style="color:#bf616a;">userdata</span><span>     2024-12-05 19:26:45            2 Inactive /data, /home     e8d58051-7a94-5802-8328-54661ab1a70f
+</span><span>
+</span></code></pre>
+<p>To display the available fields for either report use the field name <code>help</code>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -ohelp
+</span><span style="color:#bf616a;">Snapshot</span><span> set Fields
+</span><span style="color:#bf616a;">-------------------
+</span><span>  </span><span style="color:#bf616a;">name</span><span>         - Snapshot set name </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">uuid</span><span>         - Snapshot set UUID </span><span style="color:#b48ead;">[</span><span>uuid</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">basename</span><span>     - Snapshot set basename </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">index</span><span>        - Snapshot set index </span><span style="color:#b48ead;">[</span><span>idx</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">timestamp</span><span>    - Snapshot set creation time as a UNIX epoch value </span><span style="color:#b48ead;">[</span><span>num</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">time</span><span>         - Snapshot set creation time </span><span style="color:#b48ead;">[</span><span>time</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">nr_snapshots</span><span> - Number of snapshots </span><span style="color:#b48ead;">[</span><span>num</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">sources</span><span>      - Snapshot set sources </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">mountpoints</span><span>  - Snapshot set mount points </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">devices</span><span>      - Snapshot set devices </span><span style="color:#b48ead;">[</span><span>strlist</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">status</span><span>       - Snapshot set status </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">autoactivate</span><span> - Autoactivation status </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">bootable</span><span>     - Configured for snapshot boot </span><span style="color:#b48ead;">[</span><span>str</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">bootentry</span><span>    - Snapshot set boot entry </span><span style="color:#b48ead;">[</span><span>sha</span><span style="color:#b48ead;">]
+</span><span>  </span><span style="color:#bf616a;">revertentry</span><span>  - Snapshot set revert boot entry </span><span style="color:#b48ead;">[</span><span>sha</span><span style="color:#b48ead;">]
+</span><span>
+</span></code></pre>
+<h3 id="json-output">JSON Output</h3>
+<p>All reports can optionally be formatted as JSON for parsing by other tools using the <code>--json</code> argument:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> --json
+</span><span>{
+</span><span>    &quot;</span><span style="color:#a3be8c;">Snapsets</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>        {
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_name</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">backup</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2025-09-09 17:12:21</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_nr_snapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 3,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Inactive</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>                &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/home</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>            </span><span style="color:#bf616a;">]
+</span><span>        },
+</span><span>        {
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_name</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">before-upgrade</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2025-09-08 18:43:57</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_nr_snapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 2,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Active</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">snapset_sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>                &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>                &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>            </span><span style="color:#bf616a;">]
+</span><span>        }
+</span><span>    </span><span style="color:#bf616a;">]
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>The <code>create</code> and <code>show</code> commands also support optional JSON output using the <code>--json</code> argument.  In this case the JSON schema maps the normal <code>show</code> output property names to JSON keys:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset show</span><span style="color:#bf616a;"> --json</span><span> before-upgrade
+</span><span style="color:#96b5b4;">[
+</span><span>    {
+</span><span>        &quot;</span><span style="color:#a3be8c;">SnapsetName</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">before-upgrade</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Sources</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>            &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>            &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>        </span><span style="color:#bf616a;">],
+</span><span>        &quot;</span><span style="color:#a3be8c;">MountPoints</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> [
+</span><span>            &quot;</span><span style="color:#a3be8c;">/</span><span>&quot;</span><span style="color:#bf616a;">,
+</span><span>            &quot;</span><span style="color:#a3be8c;">/var</span><span>&quot;
+</span><span>        </span><span style="color:#bf616a;">],
+</span><span>        &quot;</span><span style="color:#a3be8c;">Devices</span><span>&quot;</span><span style="color:#bf616a;">: </span><span style="color:#b48ead;">[]</span><span>,
+</span><span>        &quot;</span><span style="color:#a3be8c;">NrSnapshots</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 2,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Timestamp</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> 1757353437,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Time</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">2025-09-08 18:43:57</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">UUID</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">6330328b-a9d0-5b41-ac96-53b371449965</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Status</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>&quot;</span><span style="color:#a3be8c;">Active</span><span>&quot;,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Autoactivate</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> true,
+</span><span>        &quot;</span><span style="color:#a3be8c;">Bootable</span><span>&quot;</span><span style="color:#bf616a;">:</span><span> true,
+</span><span>        &quot;</span><span style="color:#a3be8c;">BootEntries</span><span>&quot;</span><span style="color:#bf616a;">: </span><span>{
+</span><span>            &quot;</span><span style="color:#a3be8c;">SnapshotEntry</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">66dc7ad</span><span>&quot;,
+</span><span>            &quot;</span><span style="color:#a3be8c;">RevertEntry</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">6832c11</span><span>&quot;
+</span><span>        }
+</span><span>    }
+</span><span style="color:#bf616a;">]
+</span><span>
+</span></code></pre>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<h3 id="system-updates-and-rollback">System Updates and Rollback</h3>
+<p>Before performing system updates, create a bootable snapshot:</p>
+<p>Create snapshot set before update:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create</span><span style="color:#bf616a;"> --bootable --revert</span><span> pre-update / /var
+</span><span>
+</span></code></pre>
+<p>Perform system update:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">dnf</span><span> update
+</span><span>
+</span></code></pre>
+<p>If update causes issues, revert:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset revert pre-update
+</span><span>
+</span></code></pre>
+<p>Or boot into snapshot from boot menu (select: "Snapshot pre-update YYYY-MM-DD HH:MM:SS (version)"):</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">reboot
+</span><span>
+</span></code></pre>
+<p>Clean up when satisfied with update:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset delete pre-update
+</span><span>
+</span></code></pre>
+<h3 id="development-and-testing">Development and Testing</h3>
+<p>Create development checkpoints for experimental work:</p>
+<ul>
+<li>Create checkpoint before major changes:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create dev-checkpoint /home /var/lib/myapp
+</span><span>
+</span></code></pre>
+<ul>
+<li>Make experimental changes</li>
+<li>If changes don't work out, revert:</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset revert dev-checkpoint
+</span><span>
+</span></code></pre>
+<h3 id="data-protection">Data Protection</h3>
+<p>Regular data snapshots for important directories allow backups to be captured from snapshots, lowering production impact by reducing backup downtime.</p>
+<p>Daily backup of user data:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create daily-backup /home /var/lib/database
+</span><span>
+</span></code></pre>
+<p>Weekly system snapshots:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create weekly-system / /var</span><span style="color:#bf616a;"> --size-policy</span><span> 50%</span><span style="color:#bf616a;">SIZE
+</span><span>
+</span></code></pre>
+<h3 id="automated-scheduling">Automated Scheduling</h3>
+<p>Set up automated snapshot schedules:</p>
+<p>Hourly snapshots, keep 24:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule create</span><span style="color:#bf616a;"> --autoindex </span><span>\
+</span><span style="color:#bf616a;">    --policy-type</span><span> count \
+</span><span style="color:#bf616a;">    --keep-count</span><span> 24 \
+</span><span style="color:#bf616a;">    --calendarspec</span><span> hourly \
+</span><span>    hourly / /home
+</span><span>
+</span></code></pre>
+<p>Daily snapshots, keep 7 days:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule create</span><span style="color:#bf616a;"> --autoindex </span><span>\
+</span><span style="color:#bf616a;">    --policy-type</span><span> age \
+</span><span style="color:#bf616a;">    --keep-days</span><span> 7 \
+</span><span style="color:#bf616a;">    --calendarspec</span><span> daily \
+</span><span>    daily / /home /var
+</span><span>
+</span></code></pre>
+<p>Monthly bootable snapshots, keep 12:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule create</span><span style="color:#bf616a;"> --autoindex </span><span>\
+</span><span style="color:#bf616a;">    --bootable --revert </span><span>\
+</span><span style="color:#bf616a;">    --policy-type</span><span> timeline \
+</span><span style="color:#bf616a;">    --keep-monthly</span><span> 12 \
+</span><span style="color:#bf616a;">    --calendarspec</span><span> monthly \
+</span><span>    monthly / /var
+</span><span>
+</span></code></pre>
+<h3 id="configuration-management">Configuration Management</h3>
+<p>Snapshot configuration changes:</p>
+<p>Before modifying system configuration:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create config-backup /etc /var/lib/config
+</span><span>
+</span></code></pre>
+<p>Make configuration changes:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">vim</span><span> /etc/myapp/config.conf
+</span><span>
+</span></code></pre>
+<p>Test changes...</p>
+<p>If configuration breaks system, revert:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset revert config-backup
+</span><span>
+</span></code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="naming-conventions">Naming Conventions</h3>
+<p>Use consistent, descriptive naming:</p>
+<p>Good examples:</p>
+<ul>
+<li>pre-kernel-update-6.5.0-snap</li>
+<li>before-database-migration</li>
+<li>dev-checkpoint-feature-x</li>
+</ul>
+<p>Avoid generic names:</p>
+<ul>
+<li>backup</li>
+<li>test</li>
+<li>snapshot1</li>
+</ul>
+<h3 id="size-policy-guidelines">Size Policy Guidelines</h3>
+<ul>
+<li>For system volumes (<code>/</code>, <code>/var</code>): Use <code>100%SIZE</code> for critical systems, <code>200%USED</code> for normal use</li>
+<li>For data volumes (<code>/home</code>): Use <code>100%USED</code> or <code>50%SIZE</code> depending on change frequency</li>
+<li>For database volumes: Use <code>300%USED</code> or <code>100%SIZE</code> for heavy write workloads</li>
+</ul>
+<h3 id="retention-policies">Retention Policies</h3>
+<p>Plan retention based on your needs:</p>
+<ul>
+<li><strong>Hourly</strong>: Keep 6-12 snapshots for short-term recovery</li>
+<li></li>
+</ul>
+<p><strong>Daily</strong>: Keep 3-7 snapshots for medium-term recovery</p>
+<ul>
+<li><strong>Weekly</strong>: Keep 2-4 snapshots for long-term recovery</li>
+<li><strong>Monthly</strong>: Keep 3-6 snapshots for archival purposes</li>
+</ul>
+<h3 id="monitoring-and-maintenance">Monitoring and Maintenance</h3>
+<p>Regular maintenance tasks:</p>
+<p>Check snapshot space usage:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list</span><span style="color:#bf616a;"> -o</span><span> name,size,free
+</span><span>
+</span></code></pre>
+<p>Clean up old snapshots:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset delete old-snapshot-name
+</span><span>
+</span></code></pre>
+<p>Review scheduled snapshots:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule list
+</span><span>
+</span></code></pre>
+<h3 id="access-control">Access Control</h3>
+<p>Snapm requires root privileges for most operations. Consider:</p>
+<ul>
+<li>Using sudo with specific command restrictions</li>
+<li>Creating wrapper scripts for common operations</li>
+<li>Implementing audit logging for snapshot operations</li>
+</ul>
+<h3 id="data-sensitivity">Data Sensitivity</h3>
+<p>Remember that snapshots contain complete copies of data:</p>
+<ul>
+<li>Consider encryption for sensitive data</li>
+<li>Implement proper cleanup procedures for temporary snapshots</li>
+</ul>
+<h3 id="boot-security">Boot Security</h3>
+<p>Bootable snapshots can bypass some security measures:</p>
+<ul>
+<li>
+<p>Bootable snapshot sets use the kernel present at the time of snapshot creation: older kernels may contain security vulnerabilities patched in newer builds.</p>
+</li>
+<li>
+<p>Consider password protecting GRUB and enforcing physical access controls.</p>
+</li>
+</ul>
+<p>Integration Examples</p>
+<h3 id="with-systemd-services">With Systemd Services</h3>
+<p>Create consistent snapshots by ensuring services are in a stable state:</p>
+<p>Stop service before snapshot:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">systemctl</span><span> stop myapp
+</span><span style="color:#bf616a;">snapm</span><span> snapset create myapp-maintenance /var/lib/myapp
+</span><span style="color:#bf616a;">systemctl</span><span> start myapp
+</span><span>
+</span></code></pre>
+<p>Alternatively isolate to rescue mode for system-wide consistency:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">systemctl</span><span> isolate rescue.target
+</span><span style="color:#bf616a;">snapm</span><span> snapset create system-maintenance / /var
+</span><span style="color:#bf616a;">systemctl</span><span> isolate multi-user.target
+</span><span>
+</span></code></pre>
+<h3 id="with-backup-systems">With Backup Systems</h3>
+<p>Integrate with existing backup workflows:</p>
+<p>Create consistent snapshot for backup:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup /home /var/lib/data
+</span><span>
+</span></code></pre>
+<p>Mount individual snapshots for backup tools:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir -p</span><span> /mnt/snapshot-backup/home
+</span><span style="color:#bf616a;">mount</span><span> /dev/fedora/home-snapset_backup_1757533502_-home /mnt/snapshot-backup/home
+</span><span style="color:#bf616a;">...
+</span><span>
+</span></code></pre>
+<p>Run backup tools against mounted snapshot:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">rsync -av</span><span> /mnt/snapshot-backup/home backup-server:/backups/
+</span><span style="color:#bf616a;">...
+</span><span>
+</span></code></pre>
+<p>Clean up:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">umount</span><span> /mnt/snapshot-backup/home
+</span><span style="color:#bf616a;">snapm</span><span> snapset delete backup
+</span><span>
+</span></code></pre>
+<h3 id="with-configuration-management">With Configuration Management</h3>
+<p>Use with Ansible, Puppet, etc.:</p>
+<p>Pre-deployment snapshot:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create pre-deploy-$(</span><span style="color:#bf616a;">date</span><span> +%</span><span style="color:#bf616a;">Y</span><span>%</span><span style="color:#bf616a;">m</span><span>%</span><span style="color:#bf616a;">d</span><span>) /etc /var/www
+</span><span>
+</span></code></pre>
+<p>Run deployment:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ansible-playbook</span><span> deploy.yml
+</span><span>
+</span></code></pre>
+<p>Verify deployment:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl -f</span><span> http://localhost/health ||
+</span><span>{
+</span><span>    </span><span style="color:#96b5b4;">echo </span><span>&quot;</span><span style="color:#a3be8c;">Deployment failed, reverting...</span><span>&quot;
+</span><span>    </span><span style="color:#bf616a;">snapm</span><span> snapset revert pre-deploy-$(</span><span style="color:#bf616a;">date</span><span> +%</span><span style="color:#bf616a;">Y</span><span>%</span><span style="color:#bf616a;">m</span><span>%</span><span style="color:#bf616a;">d</span><span>)
+</span><span>}
+</span><span>
+</span></code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<p><strong>Snapshot creation fails with "No space left"</strong></p>
+<p>Check available space and adjust size policies:</p>
+<p>Check current usage:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">vgs
+</span><span style="color:#bf616a;">stratis</span><span> pool list
+</span><span>
+</span></code></pre>
+<p>Use smaller size policy:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create backup</span><span style="color:#bf616a;"> --size-policy</span><span> 50%</span><span style="color:#bf616a;">USED</span><span> /
+</span><span>
+</span></code></pre>
+<p><strong>Boot entries not appearing</strong></p>
+<p>Ensure boom is properly installed and configured:</p>
+<p>Check boom installation:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">rpm -q</span><span> boom-boot
+</span><span style="color:#bf616a;">boom</span><span> list
+</span><span>
+</span></code></pre>
+<p>Verify boom configuration:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">boom</span><span> profile list
+</span><span>
+</span></code></pre>
+<p><strong>Snapshot activation fails</strong></p>
+<p>Check snapshot status and storage health:</p>
+<p>Check snapshot status:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list
+</span><span>
+</span></code></pre>
+<p>Check LVM and Stratis status:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">lvs
+</span><span style="color:#bf616a;">vgs
+</span><span style="color:#bf616a;">stratis</span><span> pool list
+</span><span>
+</span></code></pre>
+<p>Check for storage errors:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">journalctl --priority</span><span> err
+</span><span style="color:#bf616a;">dmesg </span><span>| </span><span style="color:#bf616a;">grep -i</span><span> err
+</span><span>
+</span></code></pre>
+<p><strong>Snapshot space exhaustion</strong></p>
+<p>When snapshots are close to running out of space:</p>
+<p>Check snapshot usage:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list</span><span style="color:#bf616a;"> -o</span><span> name,size,free
+</span><span>
+</span></code></pre>
+<p>Resize snapshot if possible:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset resize my-snapset /var:500%</span><span style="color:#bf616a;">USED
+</span><span>
+</span></code></pre>
+<p>If necessary resize the LVM2 volume group, thin pool, or Stratis pool to create more space for snapshot storage.</p>
+<p><strong>Permission denied errors</strong></p>
+<p>Ensure snapm is run as the root user:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create before-upgrade / /var
+</span><span style="color:#bf616a;">$</span><span> sudo snapm snapset create before-upgrade / /var
+</span><span>
+</span></code></pre>
+<p><strong>LVM thin pool issues</strong></p>
+<p>For thin provisioning problems:</p>
+<p>Check thin pool status:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> lvs</span><span style="color:#bf616a;"> -a -o</span><span> +data_percent,metadata_percent
+</span><span>
+</span></code></pre>
+<p>Extend thin pool if needed:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> lvextend</span><span style="color:#bf616a;"> -L</span><span>+1G /dev/vg/thin_pool
+</span><span>
+</span></code></pre>
+<p>Check thin pool metadata:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> thin_check /dev/vg/thin_pool_tmeta
+</span><span>
+</span></code></pre>
+<p><strong>Stratis backend issues</strong></p>
+<p>For Stratis-related problems:</p>
+<p>Check Stratis daemon status:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">systemctl</span><span> status stratisd
+</span><span>
+</span></code></pre>
+<p>List Stratis pools and filesystems:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">stratis</span><span> pool list
+</span><span style="color:#bf616a;">stratis</span><span> filesystem list
+</span><span>
+</span></code></pre>
+<p>Check Stratis logs:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">journalctl -u</span><span> stratisd
+</span><span>
+</span></code></pre>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<p><strong>Snapshot Size Planning</strong></p>
+<ul>
+<li>Use <code>100%SIZE</code> for complete protection but higher space usage</li>
+<li>Use <code>200%USED</code> for balance between protection and space efficiency</li>
+<li>Use <code>50%USED</code> or <code>25%SIZE</code> for space-constrained environments</li>
+</ul>
+<p><strong>Storage Performance</strong></p>
+<ul>
+<li>LVM2 thin provisioning generally offers better performance than copy-on-write</li>
+<li>Consider separate storage for snapshot backstores in high-I/O environments</li>
+<li>Monitor snapshot space usage to prevent exhaustion</li>
+</ul>
+<h2 id="debugging">Debugging</h2>
+<h3 id="debug-mode">Debug Mode</h3>
+<p>Enable debug mode with very verbose output:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm -d</span><span> all</span><span style="color:#bf616a;"> -vv</span><span> snapset create debug-test /home
+</span><span>
+</span></code></pre>
+<p>Enable specific debug categories with very verbose output:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm -vv -d</span><span> command,plugin snapset list
+</span><span>
+</span></code></pre>
+<p>Basic verbose output:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm -v</span><span> snapset show my-snapset
+</span><span>
+</span></code></pre>
+<h3 id="log-analysis">Log Analysis</h3>
+<p>Check system logs for snapm timer unit activity:</p>
+<p>Check snapm logs:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">journalctl --boot</span><span> 0 | </span><span style="color:#bf616a;">grep</span><span> -- snapm-
+</span><span>
+</span></code></pre>
+<p>Check for storage-related messages:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">journalctl --boot</span><span> 0 | </span><span style="color:#bf616a;">grep -i</span><span> lvm
+</span><span style="color:#bf616a;">dmesg </span><span>| </span><span style="color:#bf616a;">grep </span><span>&#39;</span><span style="color:#a3be8c;">Buffer I\/O error</span><span>&#39;
+</span><span>
+</span></code></pre>
+<p>Check for filesystem errors:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">journalctl --boot</span><span> 0 | </span><span style="color:#bf616a;">grep -i</span><span> ext4
+</span><span style="color:#bf616a;">journalctl --boot</span><span> 0 | </span><span style="color:#bf616a;">grep -i</span><span> xfs
+</span><span>
+</span></code></pre>
+<h3 id="storage-backend-debugging">Storage Backend Debugging</h3>
+<p><strong>Debugging Provider/Plugin Problems</strong></p>
+<p>When snapshot operations fail, check provider-specific status:</p>
+<p>Check available plugins:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> plugin list
+</span><span>
+</span></code></pre>
+<p>For LVM2 issues, check LVM status:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">lvs -a
+</span><span style="color:#bf616a;">vgs
+</span><span style="color:#bf616a;">pvs
+</span><span>
+</span></code></pre>
+<p>For Stratis issues, check daemon and pools:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">systemctl</span><span> status stratisd
+</span><span style="color:#bf616a;">stratis</span><span> pool list
+</span><span style="color:#bf616a;">stratis</span><span> filesystem list
+</span><span>
+</span></code></pre>
+<h3 id="configuration-validation">Configuration Validation</h3>
+<p>Verify snapm configuration:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm -vv --debug</span><span>=all plugin list
+</span><span>
+</span></code></pre>
+<p>Validate boom integration:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">boom</span><span> list
+</span><span style="color:#bf616a;">boom</span><span> profile list
+</span><span>
+</span></code></pre>
+<h2 id="getting-help">Getting Help</h2>
+<h3 id="command-line-help">Command Line Help</h3>
+<p>Help is available for the <code>snapm</code> command and each subcommand:</p>
+<p>General help:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm --help
+</span><span>
+</span></code></pre>
+<p>Command type help:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset</span><span style="color:#bf616a;"> --help
+</span><span style="color:#bf616a;">snapm</span><span> snapshot</span><span style="color:#bf616a;"> --help
+</span><span style="color:#bf616a;">snapm</span><span> schedule</span><span style="color:#bf616a;"> --help
+</span><span style="color:#bf616a;">snapm</span><span> plugin</span><span style="color:#bf616a;"> --help
+</span><span>
+</span></code></pre>
+<p>Specific command help:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset create</span><span style="color:#bf616a;"> --help
+</span><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> --help
+</span><span>
+</span></code></pre>
+<h3 id="manual-pages">Manual Pages</h3>
+<p>Full command, option, argument, and configuration documentation is available in the manual pages:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">man</span><span> 8 snapm
+</span><span style="color:#bf616a;">man</span><span> 5 snapm.conf
+</span><span style="color:#bf616a;">man</span><span> 5 snapm-plugins.d
+</span><span style="color:#bf616a;">man</span><span> 5 snapm-schedule.d
+</span><span>
+</span></code></pre>
+<h3 id="field-reference">Field Reference</h3>
+<p>Get available fields for reports:</p>
+<p>Snapset fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapset list</span><span style="color:#bf616a;"> -ohelp
+</span><span>
+</span></code></pre>
+<p>Snapshot fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> snapshot list</span><span style="color:#bf616a;"> -ohelp
+</span><span>
+</span></code></pre>
+<p>Schedule fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> schedule list</span><span style="color:#bf616a;"> -ohelp
+</span><span>
+</span></code></pre>
+<p>Plugin fields:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> plugin list</span><span style="color:#bf616a;"> -ohelp
+</span><span>
+</span></code></pre>
+<h3 id="version-information">Version Information</h3>
+<p>Check snapm version and component information:</p>
+<p>Show version:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm --version
+</span><span>
+</span></code></pre>
+<p>Show plugin versions:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">snapm</span><span> plugin list
+</span><span>
+</span></code></pre>
+<h3 id="online-resources">Online Resources</h3>
+<p>Additional help and documentation:</p>
+<ul>
+<li><strong>Project Homepage</strong>: <a href="https://github.com/snapshotmanager/snapm">https://github.com/snapshotmanager/snapm</a></li>
+<li><strong>Documentation</strong>: <a href="https://snapm.readthedocs.io/">https://snapm.readthedocs.io/</a></li>
+<li><strong>Issue Tracker</strong>: <a href="https://github.com/snapshotmanager/snapm/issues">https://github.com/snapshotmanager/snapm/issues</a></li>
+<li><strong>Wiki</strong>: <a href="https://github.com/snapshotmanager/snapm/wiki">https://github.com/snapshotmanager/snapm/wiki</a></li>
+<li><strong>Mailing List</strong>: snapm-users@lists.fedoraproject.org</li>
+</ul>
+<h3 id="community-support">Community Support</h3>
+<p>Get help from the community:</p>
+<ul>
+<li><strong>GitHub Issues</strong>: <a href="https://github.com/snapshotmanager/snapm/issues">https://github.com/snapshotmanager/snapm/issues</a></li>
+</ul>
+<p><strong>Filing Bug Reports</strong></p>
+<p>When reporting issues, include:</p>
+<ul>
+<li>
+<p>Snapm version (<code>snapm --version</code>)</p>
+</li>
+<li>
+<p>Operating system and version</p>
+</li>
+<li>
+<p>Storage backend information</p>
+</li>
+<li>
+<p>Complete error messages</p>
+</li>
+<li>
+<p>Debug output (<code>snapm -vv --debug=all &lt;command&gt;</code>)</p>
+</li>
+<li>
+<p>Steps to reproduce the issue</p>
+</li>
+</ul>
+<p><strong>Example bug report template</strong>:</p>
+<pre data-lang="text" style="background-color:#2b303b;color:#c0c5ce;" class="language-text "><code class="language-text" data-lang="text"><span>**Snapm Version**: 0.4.3
+</span><span>**OS**: Fedora 42 x86_64
+</span><span>**Storage**: LVM2 with thin provisioning
+</span><span>**Error**: Snapshot creation fails with permission denied
+</span><span>
+</span><span>**Steps to reproduce**:
+</span><span>1. sudo snapm snapset create test /home
+</span><span>2. Error appears immediately
+</span><span>
+</span><span>**Debug output**:
+</span><span>snapm -vv -d all snapset create test /home
+</span><span>[debug output here]
+</span><span>
+</span><span>**Additional context**:
+</span><span>- Works with root user
+</span><span>- Sudo configuration appears correct
+</span><span>
+</span></code></pre>
+<h2 id="appendix">Appendix</h2>
+<h3 id="storage-backend-details">Storage Backend Details</h3>
+<p><strong>LVM2 Copy-on-Write</strong></p>
+<ul>
+<li>
+<p>Requires fixed size allocation</p>
+</li>
+<li>
+<p>Good for infrequent snapshots</p>
+</li>
+<li>
+<p>Lower performance impact during normal operation</p>
+</li>
+<li>
+<p>Higher space requirements</p>
+</li>
+</ul>
+<p><strong>LVM2 Thin Provisioning</strong></p>
+<ul>
+<li>Dynamic space allocation</li>
+<li>Better space efficiency</li>
+<li>Good performance characteristics</li>
+<li>Requires thin pool configuration</li>
+</ul>
+<p><strong>Stratis</strong></p>
+<ul>
+<li>Modern storage management</li>
+<li>Automatic thin provisioning</li>
+<li>Integrated with systemd</li>
+<li>Requires Stratis daemon</li>
+</ul>
+<h3 id="exit-codes">Exit Codes</h3>
+<p>Snapm commands return standard exit codes:</p>
+<ul>
+<li><strong>0</strong>: Success</li>
+<li><strong>1</strong>: Runtime error</li>
+<li><strong>2</strong>: Invalid arguments / parse error</li>
+</ul>
+
+  </div>
+  
+
+  <footer class="post-footer">
+      
+
+    
+    
+
+
+<nav class="paginav">
+    
+    
+</nav>
+
+    
+    
+  </footer>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  
+  <span>&copy; 2025 <a href="https:&#x2F;&#x2F;snapshotmanager.github.io"></a></span>
+  
+  <span>
+      Powered by
+      <a href="https://www.getzola.org/" rel="noopener noreferrer" target="_blank">Zola</a> &
+      <a href="https://github.com/edwardzcn-decade/cela" rel="noopener" target="_blank">Cela</a>
+  </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+  </svg>
+</a>
+
+
+<script>
+  let menu = document.getElementById('menu')
+  if (menu) {
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+      menu.onscroll = function () {
+          localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      }
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          var id = this.getAttribute("href").substr(1);
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                  behavior: "smooth"
+              });
+          } else {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+          }
+          if (id === "top") {
+              history.replaceState(null, null, " ");
+          } else {
+              history.pushState(null, null, `#${id}`);
+          }
+      });
+  });
+
+</script>
+
+
+<script>
+  var mybutton = document.getElementById("top-link");
+  window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+          mybutton.style.visibility = "visible";
+          mybutton.style.opacity = "1";
+      } else {
+          mybutton.style.visibility = "hidden";
+          mybutton.style.opacity = "0";
+      }
+  };
+
+</script>
+
+
+
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+      if (document.body.className.includes("dark")) {
+          document.body.classList.remove('dark');
+          localStorage.setItem("pref-theme", 'light');
+      } else {
+          document.body.classList.add('dark');
+          localStorage.setItem("pref-theme", 'dark');
+      }
+  })
+
+</script>
+
+
+<script>
+  document.querySelectorAll('pre > code').forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      const copybutton = document.createElement('button');
+      copybutton.classList.add('copy-code');
+      copybutton.innerText = 'copy';
+      function copyingDone() {
+          copybutton.innerText = 'copied!';
+          setTimeout(() => {
+              copybutton.innerText = 'copy';
+          }, 2000);
+      }
+
+      copybutton.addEventListener('click', (cb) => {
+          if ('clipboard' in navigator) {
+              var content = codeblock.textContent;
+              if(codeblock.firstChild.tagName == 'TABLE') {
+                  content = Array(...codeblock.firstChild.getElementsByTagName('span')).map((span) => { return span.textContent; }).join('');
+              }
+              navigator.clipboard.writeText(content);
+              copyingDone();
+              return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+              document.execCommand('copy');
+              copyingDone();
+          } catch (e) { };
+          selection.removeRange(range);
+      });
+
+      if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+      } else if (container.parentNode.firstChild == container) {
+          // td containing LineNos
+      } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+          // table containing LineNos and code
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+      } else {
+          // code blocks not having highlight as parent class
+          codeblock.parentNode.appendChild(copybutton);
+      }
+  });
+</script>
+
+
+
+
+
+
+
+
+<div id="search-toggle-box" class="hidden">
+  <div class="search-toggle-modal">
+    <input type="text" id="search-toggle-input" placeholder="Type to search..." />
+    <button id="search-toggle-button">Search</button>
+  </div>
+</div>
+
+
+
+<script src="https://snapshotmanager.github.io/js/toggle-sections.js"></script>
+
+
+</body>
+
+</html>

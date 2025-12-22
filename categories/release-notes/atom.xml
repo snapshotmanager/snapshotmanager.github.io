@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Snapshot Manager - release notes</title>
+    <subtitle>Easy to use snapshot management for Linux.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/categories/release-notes/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-12-22T00:00:00+00:00</updated>
+    <id>https://snapshotmanager.github.io/categories/release-notes/atom.xml</id>
+    <entry xml:lang="en">
+        <title>snapm 0.6.0 Release Notes</title>
+        <published>2025-12-22T00:00:00+00:00</published>
+        <updated>2025-12-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/"/>
+        <id>https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/">&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;&#x2F;h1&gt;
+&lt;p&gt;This release introduces significant new features and fixes, including the &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;en&#x2F;latest&#x2F;user_guide.html#difference-engine&quot;&gt;Difference Engine&lt;&#x2F;a&gt; for efficiently computing changes between two snapshot sets, or the system root file system and a snapshot set. Users should upgrade to &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;releases&#x2F;tag&#x2F;v0.6.0&quot;&gt;v0.6.0&lt;&#x2F;a&gt; as soon as possible to take advantage of these enhancements.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The fsdiff API is considered unstable and may be subject to change in a future release.&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;snapset diff&lt;&#x2F;code&gt; &lt;code&gt;--output-format=json&lt;&#x2F;code&gt; JSON schema is also potentially subject to change and will be formalised in a future release.&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;snapset diff&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;snapset diffreport&lt;&#x2F;code&gt; command syntax is stable but output and formatting may change in future releases.&lt;&#x2F;li&gt;
+&lt;li&gt;Future releases may include new content differs for specific file types and more comprehensive file type detection when libmagic is disabled.&lt;&#x2F;li&gt;
+&lt;li&gt;Generating content diffs of large file system trees with many content changes may consume large amounts of memory: &lt;code&gt;snapm&lt;&#x2F;code&gt; will refuse to diff trees if &lt;code&gt;VmRSS&lt;&#x2F;code&gt; exceeds 33% of system memory after walking the filesystem. Caching is disabled if &lt;code&gt;VmRSS&lt;&#x2F;code&gt; exceeds 60% of system memory after computing diffs.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;what-s-changed&quot;&gt;What&#x27;s Changed&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;lvm2: Fix &quot;no device&quot; case for _is_lvm_device() and avoid no provider test if &#x2F;boot is not a mount point by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;589&quot;&gt;#589&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Add mount manager by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;541&quot;&gt;#541&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: fix renaming of snapshot sets with boot entries by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;591&quot;&gt;#591&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;schedule: fix timeline garbage collection by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;596&quot;&gt;#596&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;schedule: fix TIMELINE policy retention indexing when &lt;code&gt;keep_x &amp;gt; len(x)&lt;&#x2F;code&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;607&quot;&gt;#607&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;stratis: re-use initial DBus query for StratisSnapshot cache by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;615&quot;&gt;#615&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;container_tests: fix GcPolicyParamsTimeline.evaluate() tests edge case by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;628&quot;&gt;#628&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Clean up and enhance progress implementation by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;646&quot;&gt;#646&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;doc: add missing snapm.manager._mounts to Sphinx docs by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;661&quot;&gt;#661&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Fix progress message overflow, bar width, and BrokenPipeError handling by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;662&quot;&gt;#662&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: clean up Progress and add Throbber classes by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;675&quot;&gt;#675&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: Fix &lt;code&gt;Throbber&lt;&#x2F;code&gt; &lt;code&gt;no_clear&lt;&#x2F;code&gt; bug and add styles by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;679&quot;&gt;#679&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;mounts: fix incorrect SnapshotSet instead of name in name_map by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;684&quot;&gt;#684&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: add fsdiff snapshot set comparison facility by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;620&quot;&gt;#620&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: cleanups and log integration by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;698&quot;&gt;#698&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: implement snapshot set comparison UI (snapm snapset diff) by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;707&quot;&gt;#707&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: address v0.6.0 feature&#x2F;fix release blockers by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;759&quot;&gt;#759&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: fix &quot;Computing diffs&quot; progress bar flicker and at move detector progress by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;775&quot;&gt;#775&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;doc: add missing links, summary format and clarify defaults for output formats by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;779&quot;&gt;#779&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: catch EOFError on truncated cache file by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;782&quot;&gt;#782&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: move detector may mis-detect identical files as moves by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;784&quot;&gt;#784&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: optimize cache writing and add progress reporting by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;791&quot;&gt;#791&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: implement best-effort file type detection and &quot;always exclude&quot; paths by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;810&quot;&gt;#810&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;known-issues&quot;&gt;Known issues&lt;&#x2F;h2&gt;
+&lt;p&gt;There is one known issue for this release. Please see the wiki pages for more details, status, and workarounds:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;wiki&#x2F;Known-issue:-snapm-snapset-%7Bmount,umount%7D-and-podman-netfs-mounts&quot;&gt;snapm snapset {mount,umount} and podman netfs mounts&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This will be addressed in a future release.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Full Changelog&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;compare&#x2F;v0.5.2...v0.6.0&quot;&gt;v0.5.2...v0.6.0&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,1374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Snapshot Manager</title>
+    <subtitle>Easy to use snapshot management for Linux.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-12-22T00:00:00+00:00</updated>
+    <id>https://snapshotmanager.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>snapm 0.6.0 Release Notes</title>
+        <published>2025-12-22T00:00:00+00:00</published>
+        <updated>2025-12-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/"/>
+        <id>https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/snapm-release-notes-0-6-0/">&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;&#x2F;h1&gt;
+&lt;p&gt;This release introduces significant new features and fixes, including the &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;en&#x2F;latest&#x2F;user_guide.html#difference-engine&quot;&gt;Difference Engine&lt;&#x2F;a&gt; for efficiently computing changes between two snapshot sets, or the system root file system and a snapshot set. Users should upgrade to &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;releases&#x2F;tag&#x2F;v0.6.0&quot;&gt;v0.6.0&lt;&#x2F;a&gt; as soon as possible to take advantage of these enhancements.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The fsdiff API is considered unstable and may be subject to change in a future release.&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;snapset diff&lt;&#x2F;code&gt; &lt;code&gt;--output-format=json&lt;&#x2F;code&gt; JSON schema is also potentially subject to change and will be formalised in a future release.&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;snapset diff&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;snapset diffreport&lt;&#x2F;code&gt; command syntax is stable but output and formatting may change in future releases.&lt;&#x2F;li&gt;
+&lt;li&gt;Future releases may include new content differs for specific file types and more comprehensive file type detection when libmagic is disabled.&lt;&#x2F;li&gt;
+&lt;li&gt;Generating content diffs of large file system trees with many content changes may consume large amounts of memory: &lt;code&gt;snapm&lt;&#x2F;code&gt; will refuse to diff trees if &lt;code&gt;VmRSS&lt;&#x2F;code&gt; exceeds 33% of system memory after walking the filesystem. Caching is disabled if &lt;code&gt;VmRSS&lt;&#x2F;code&gt; exceeds 60% of system memory after computing diffs.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;what-s-changed&quot;&gt;What&#x27;s Changed&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;lvm2: Fix &quot;no device&quot; case for _is_lvm_device() and avoid no provider test if &#x2F;boot is not a mount point by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;589&quot;&gt;#589&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Add mount manager by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;541&quot;&gt;#541&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: fix renaming of snapshot sets with boot entries by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;591&quot;&gt;#591&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;schedule: fix timeline garbage collection by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;596&quot;&gt;#596&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;schedule: fix TIMELINE policy retention indexing when &lt;code&gt;keep_x &amp;gt; len(x)&lt;&#x2F;code&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;607&quot;&gt;#607&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;stratis: re-use initial DBus query for StratisSnapshot cache by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;615&quot;&gt;#615&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;container_tests: fix GcPolicyParamsTimeline.evaluate() tests edge case by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;628&quot;&gt;#628&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Clean up and enhance progress implementation by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;646&quot;&gt;#646&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;doc: add missing snapm.manager._mounts to Sphinx docs by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;661&quot;&gt;#661&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Fix progress message overflow, bar width, and BrokenPipeError handling by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;662&quot;&gt;#662&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: clean up Progress and add Throbber classes by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;675&quot;&gt;#675&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: Fix &lt;code&gt;Throbber&lt;&#x2F;code&gt; &lt;code&gt;no_clear&lt;&#x2F;code&gt; bug and add styles by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;679&quot;&gt;#679&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;mounts: fix incorrect SnapshotSet instead of name in name_map by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;684&quot;&gt;#684&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: add fsdiff snapshot set comparison facility by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;620&quot;&gt;#620&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;progress: cleanups and log integration by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;698&quot;&gt;#698&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: implement snapshot set comparison UI (snapm snapset diff) by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;707&quot;&gt;#707&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: address v0.6.0 feature&#x2F;fix release blockers by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;759&quot;&gt;#759&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: fix &quot;Computing diffs&quot; progress bar flicker and at move detector progress by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;775&quot;&gt;#775&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;doc: add missing links, summary format and clarify defaults for output formats by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;779&quot;&gt;#779&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: catch EOFError on truncated cache file by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;782&quot;&gt;#782&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: move detector may mis-detect identical files as moves by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;784&quot;&gt;#784&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: optimize cache writing and add progress reporting by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;791&quot;&gt;#791&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: implement best-effort file type detection and &quot;always exclude&quot; paths by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;810&quot;&gt;#810&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;known-issues&quot;&gt;Known issues&lt;&#x2F;h2&gt;
+&lt;p&gt;There is one known issue for this release. Please see the wiki pages for more details, status, and workarounds:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;wiki&#x2F;Known-issue:-snapm-snapset-%7Bmount,umount%7D-and-podman-netfs-mounts&quot;&gt;snapm snapset {mount,umount} and podman netfs mounts&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This will be addressed in a future release.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Full Changelog&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;compare&#x2F;v0.5.2...v0.6.0&quot;&gt;v0.5.2...v0.6.0&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Snapshot Manager how-to&#x2F;walkthrough</title>
+        <published>2025-12-22T00:00:00+00:00</published>
+        <updated>2025-12-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/howto/"/>
+        <id>https://snapshotmanager.github.io/howto/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/howto/">&lt;p&gt;User Guide&lt;&#x2F;p&gt;
+&lt;p&gt;This guide provides user documentation for the snapshot manager (snapm) tool.&lt;&#x2F;p&gt;
+&lt;p&gt;Overview&lt;&#x2F;p&gt;
+&lt;p&gt;Snapshot manager (snapm) is a tool for managing coordinated sets of snapshots on Linux systems. The snapm tool allows snapshots of multiple volumes to be captured at the same time, representing the system state at the time the snapshot set was created. The tool has a modular plugin architecture allowing different snapshot backends to be used together. Currently snapshots using LVM2 copy-on-write as well as thinly provisioned snapshots using both LVM2 and Stratis are supported.&lt;&#x2F;p&gt;
+&lt;p&gt;Key Concepts&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;snapshot-sets&quot;&gt;Snapshot Sets&lt;&#x2F;h3&gt;
+&lt;p&gt;Snapshot manager groups snapshots taken at the same moment in time into a named &quot;snapshot set&quot;, or snapset. This allows the snapshots to be managed as a single unit and simplifies the management of snapshots of multiple volumes. Each snapshot set must contain at least one snapshot.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;size-policies&quot;&gt;Size Policies&lt;&#x2F;h3&gt;
+&lt;p&gt;Size policies control the size of fixed-sized snapshots and check for available space when creating a snapshot set. Some snapshot implementations (Lvm2CoW) require a fixed size to be specified for the snapshot backstore when the snapshot is created. The default size allocated by snapshot manager is 2x the current file system usage, allowing the existing content of the volume to be overwritten twice before exhausting the snapshot space. Plugins for snapshot providers that do not require a fixed snapshot size will check that space is available for the requested size policy at snapshot set creation time.&lt;&#x2F;p&gt;
+&lt;p&gt;Available size policies:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;FIXED&lt;&#x2F;strong&gt; - a fixed size given on the command line&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;FREE&lt;&#x2F;strong&gt; - a percentage fraction of the free space available&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;USED&lt;&#x2F;strong&gt; - a percentage fraction of the space currently used on the mount point (may be greater than 100%)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;SIZE&lt;&#x2F;strong&gt; - a percentage fraction of the origin device size from 0 to 100%&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The FIXED size policy accepts optional units of KiB, MiB, GiB, TiB, PiB, EiB and ZiB. Units may be abbreviated to the first character.&lt;&#x2F;p&gt;
+&lt;p&gt;The USED size policy can only be applied to mounted file systems.&lt;&#x2F;p&gt;
+&lt;p&gt;Difference Engine&lt;&#x2F;p&gt;
+&lt;p&gt;The Difference Engine is a core facility in &lt;code&gt;snapm&lt;&#x2F;code&gt; that allows for detailed comparisons between two snapshot sets, or between a snapshot set and the currently running system.&lt;&#x2F;p&gt;
+&lt;p&gt;How it Works&lt;&#x2F;p&gt;
+&lt;p&gt;The engine operates by recursively walking the file system trees of both the source and target. It performs a multi-stage analysis to identify changes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Entry Detection&lt;&#x2F;strong&gt;: Identifies files, directories, and symlinks that have been added, removed, or modified.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Move Detection&lt;&#x2F;strong&gt;: By matching content hashes, the engine can identify files that have been renamed or moved between directories rather than simply being deleted and recreated.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Metadata Analysis&lt;&#x2F;strong&gt;: Detects changes in file permissions (mode), ownership (UID&#x2F;GID), and extended attributes (xattrs).&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Content Comparison&lt;&#x2F;strong&gt;: Performs deep content comparisons for regular files, including generating standard unified diffs for text files.&lt;&#x2F;p&gt;
+&lt;p&gt;Output Formats and Use Cases&lt;&#x2F;p&gt;
+&lt;p&gt;The Difference Engine supports several output formats via the &lt;code&gt;snapset diff&lt;&#x2F;code&gt; &lt;code&gt;--output-format&lt;&#x2F;code&gt; argument, each suited to different tasks:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;paths&lt;&#x2F;strong&gt;: Useful for scripting, allowing you to pipe a list of changed files to other tools like &lt;code&gt;tar&lt;&#x2F;code&gt; or &lt;code&gt;rsync&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;full&lt;&#x2F;strong&gt;: Provides a detailed report including old and new file attributes (permissions, ownership, size, modification time) for every change.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;short&lt;&#x2F;strong&gt;: A concise summary listing the change status code and path for each modified file.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;json&lt;&#x2F;strong&gt;: Outputs the complete difference data as a JSON object, suitable for parsing by external tools and automation scripts.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;diff&lt;&#x2F;strong&gt;: Generates a standard unified diff of content changes for modified files. This format is useful for generating patches or detailed content review.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;summary&lt;&#x2F;strong&gt;: Brief summary of the count of different change types. Change types are colorized using the same coding as &lt;code&gt;tree&lt;&#x2F;code&gt; output.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;tree&lt;&#x2F;strong&gt;: (Default) Displays changes in a hierarchical tree structure, similar to the standard &lt;code&gt;tree&lt;&#x2F;code&gt; command but annotated with change status.&lt;&#x2F;p&gt;
+&lt;p&gt;In addition differences can be reported in a tabular format using the standard &lt;code&gt;snapm&lt;&#x2F;code&gt; reporting mechanism using the &lt;code&gt;snapset diffreport&lt;&#x2F;code&gt; command. The available &lt;code&gt;diffreport&lt;&#x2F;code&gt; report output fields are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;path&lt;&#x2F;strong&gt;: Difference path (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;type&lt;&#x2F;strong&gt;: Difference type (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;size_delta&lt;&#x2F;strong&gt;: Diff size change (size)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;content&lt;&#x2F;strong&gt;: Content changed (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;metadata&lt;&#x2F;strong&gt;: Metadata changed (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;mode_old&lt;&#x2F;strong&gt;: Old path mode (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;mode_new&lt;&#x2F;strong&gt;: New path mode (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;category&lt;&#x2F;strong&gt;: File category (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;movedfrom&lt;&#x2F;strong&gt;: Move source (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;movedto&lt;&#x2F;strong&gt;: Move destination (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;diffsummary&lt;&#x2F;strong&gt;: Summary of content differences (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;hash_old&lt;&#x2F;strong&gt;: Old file content hash (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;hash_new&lt;&#x2F;strong&gt;: New file content hash (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;filetype&lt;&#x2F;strong&gt;: File type (string)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;mtime_old&lt;&#x2F;strong&gt;: Old modification time (time)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;mtime_new&lt;&#x2F;strong&gt;: New modification time (time)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;comparison-modes&quot;&gt;Comparison Modes&lt;&#x2F;h3&gt;
+&lt;p&gt;You can fine-tune the comparison using various flags:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Content-Only&lt;&#x2F;strong&gt; (&lt;code&gt;-c&lt;&#x2F;code&gt;): Ignores all metadata changes and only reports files where the actual data has changed.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Ignore Options&lt;&#x2F;strong&gt;: Use &lt;code&gt;--ignore-timestamps&lt;&#x2F;code&gt;, &lt;code&gt;--ignore-permissions&lt;&#x2F;code&gt;, or &lt;code&gt;--ignore-ownership&lt;&#x2F;code&gt; to filter out &quot;noise&quot; during comparisons.&lt;&#x2F;p&gt;
+&lt;p&gt;Performance and the Diff Cache&lt;&#x2F;p&gt;
+&lt;p&gt;Walking large file systems and computing content hashes can be resource-intensive. To improve performance, &lt;code&gt;snapm&lt;&#x2F;code&gt; implements a &lt;strong&gt;diffcache&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;How it works&lt;&#x2F;strong&gt;: When a comparison is performed, the results are compressed and stored in &lt;code&gt;&#x2F;var&#x2F;cache&#x2F;snapm&#x2F;diffcache&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Cache Reuse&lt;&#x2F;strong&gt;: Subsequent &lt;code&gt;diff&lt;&#x2F;code&gt; or &lt;code&gt;diffreport&lt;&#x2F;code&gt; commands between the same two sets will load the results from the cache instead of re-scanning the file systems.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Expiry&lt;&#x2F;strong&gt;: By default, cache entries expire after &lt;strong&gt;15 minutes&lt;&#x2F;strong&gt;. This ensures that results remain fresh if the running system (&lt;code&gt;.&lt;&#x2F;code&gt;) is one of the comparison targets. Use &lt;code&gt;--cache-expires=EXPIRES_SECS&lt;&#x2F;code&gt; to override the default value (900s).&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Manual Control&lt;&#x2F;strong&gt;: You can override the expiry or disable the cache entirely using the &lt;code&gt;--cache-mode={auto,never,always}&lt;&#x2F;code&gt; and &lt;code&gt;--cache-expires=EXPIRES_SECS&lt;&#x2F;code&gt; options. These options are mutually exclusive.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;command-reference&quot;&gt;Command Reference&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;the-snapm-command&quot;&gt;The &lt;code&gt;snapm&lt;&#x2F;code&gt; Command&lt;&#x2F;h3&gt;
+&lt;p&gt;The &lt;code&gt;snapm&lt;&#x2F;code&gt; command provides the CLI interface to the snapshot manager. It is able to create, delete, and display snapshots and snapshot sets and provides reports listing the snapshots, snapshot sets, and schedules available on the system. Each snapm command operates on a particular object type: a snapshot set, an individual snapshot, or a schedule.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset &amp;lt;command&amp;gt; &amp;lt;options&amp;gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# snapset command
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot &amp;lt;command&amp;gt; &amp;lt;options&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# snapshot command
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;snapset-commands&quot;&gt;Snapset Commands&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;code&gt;snapset&lt;&#x2F;code&gt; subcommand is used to create, delete, rename, activate, deactivate, list and display snapshot sets.&lt;&#x2F;p&gt;
+&lt;p&gt;snapset create&lt;&#x2F;p&gt;
+&lt;p&gt;Create a new snapshot set with the provided name and list of sources (mount point or block device paths):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;-b|--bootable&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-r|--revert&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--size-policy policy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name&amp;gt; &amp;lt;source&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;source&amp;gt; ...&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Per-source path size policies are specified by adding a &#x27;:&#x27; and the required policy to the corresponding mount point path, for example:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup &#x2F;:2G &#x2F;var:1G &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup &#x2F;:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;FREE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;var:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;FREE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup &#x2F;:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;var:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup &#x2F;:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;var:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If no size policy is specified the default is &lt;code&gt;200%USED&lt;&#x2F;code&gt; for mounted file systems and 25%SIZE for unmounted block devices. To ensure a volume can be completely overwritten specify &lt;code&gt;100%SIZE&lt;&#x2F;code&gt;. This requires more storage capacity but avoids the possibility of the snapshot running out of space. A default size policy for all source paths that do not specify an explicit per-path policy can be set with the &lt;code&gt;--size-policy&lt;&#x2F;code&gt; argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F; &#x2F;home &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;On success the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command displays the newly created snapshot set on stdout:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -br --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED&lt;&#x2F;span&gt;&lt;span&gt; backup &#x2F; &#x2F;home &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;      backup
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Sources:&lt;&#x2F;span&gt;&lt;span&gt;          &#x2F;, &#x2F;home, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NrSnapshots:&lt;&#x2F;span&gt;&lt;span&gt;      3
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;             2024-12-05 19:10:44
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;             d3f5e3cd-a383-5dba-b597-9134a2c426e9
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;           Active
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt;     yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Bootable:&lt;&#x2F;span&gt;&lt;span&gt;         yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BootEntries:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapshotEntry:&lt;&#x2F;span&gt;&lt;span&gt;  f574a20
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RevertEntry:&lt;&#x2F;span&gt;&lt;span&gt;    f428f9f
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;autoindex-for-recurring-snapshot-sets&quot;&gt;Autoindex for recurring snapshot sets&lt;&#x2F;h4&gt;
+&lt;p&gt;The &lt;code&gt;--autoindex&lt;&#x2F;code&gt; argument allows creating a recurring snapshot set with a common basename and unique index (a non-negative integer).  This can be used to take regular snapshots with a common name:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create hourly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --autoindex&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;var:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;      hourly.3
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Sources:&lt;&#x2F;span&gt;&lt;span&gt;          &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NrSnapshots:&lt;&#x2F;span&gt;&lt;span&gt;      2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;             2025-03-26 14:17:18
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;             ae082452-7995-5316-ac65-388eadd9879c
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;           Active
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt;     yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Bootable:&lt;&#x2F;span&gt;&lt;span&gt;         no
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The basename and index values are available via the &lt;code&gt;snapset list&lt;&#x2F;code&gt; report:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -o&lt;&#x2F;span&gt;&lt;span&gt;+basename,index
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Time                 NrSnapshots Status  Sources  Basename     Index
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       2025-03-25 18:12:54            2 Invalid &#x2F;, &#x2F;var  backup           -
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hourly.0&lt;&#x2F;span&gt;&lt;span&gt;     2025-03-25 19:40:39            2 Invalid &#x2F;, &#x2F;var  hourly           0
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hourly.1&lt;&#x2F;span&gt;&lt;span&gt;     2025-03-26 14:17:11            2 Active  &#x2F;, &#x2F;var  hourly           1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hourly.2&lt;&#x2F;span&gt;&lt;span&gt;     2025-03-26 14:17:15            2 Active  &#x2F;, &#x2F;var  hourly           2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hourly.3&lt;&#x2F;span&gt;&lt;span&gt;     2025-03-26 14:17:18            2 Active  &#x2F;, &#x2F;var  hourly           3
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset delete&lt;&#x2F;p&gt;
+&lt;p&gt;Delete an existing snapset by name or uuid.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset delete &amp;lt;name|&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uuid&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset diff&lt;&#x2F;p&gt;
+&lt;p&gt;Compare two snapshot sets, or a snapshot set and the running system.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diff &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;from&amp;gt; &amp;lt;to&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;from&lt;&#x2F;code&gt; and &lt;code&gt;to&lt;&#x2F;code&gt; arguments specify the snapshot sets to compare. The special value &lt;code&gt;.&lt;&#x2F;code&gt; may be used to refer to the running system (the root file system).  The command detects added, removed, and modified files. File content comparisons can be performed to generate standard unified diffs.&lt;&#x2F;p&gt;
+&lt;p&gt;Supported output formats (&lt;code&gt;-o&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;--output-format&lt;&#x2F;code&gt;) include:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;paths&lt;&#x2F;strong&gt; - A simple list of changed paths&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;full&lt;&#x2F;strong&gt; - Detailed change information&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;short&lt;&#x2F;strong&gt; - Abbreviated change summary&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;json&lt;&#x2F;strong&gt; - JSON formatted change data&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;diff&lt;&#x2F;strong&gt; - Standard unified diff of file content&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;summary&lt;&#x2F;strong&gt; - Brief summary of the count of different change types&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;tree&lt;&#x2F;strong&gt; - A hierarchical tree view of changes (default)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The &lt;code&gt;-o&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;--output-format&lt;&#x2F;code&gt; option may be given multiple times to request different output formats for the same run. The &lt;code&gt;diff&lt;&#x2F;code&gt; and &lt;code&gt;summary&lt;&#x2F;code&gt; formats also accept an optional &lt;code&gt;--stat&lt;&#x2F;code&gt; option to enable &lt;code&gt;diffstat&lt;&#x2F;code&gt; style change summaries. The &lt;code&gt;json&lt;&#x2F;code&gt; output format supports &lt;code&gt;--pretty&lt;&#x2F;code&gt; to enable pretty-printing the JSON output.&lt;&#x2F;p&gt;
+&lt;p&gt;Compare the snapshot set &quot;backup&quot; to the running system using a tree view:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diff&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --output-format&lt;&#x2F;span&gt;&lt;span&gt; tree backup .
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Generate a unified diff of content changes between two snapshot sets, ignoring file modification times to focus only on content:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diff&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --output-format&lt;&#x2F;span&gt;&lt;span&gt; diff&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --ignore-timestamps&lt;&#x2F;span&gt;&lt;span&gt; weekly.0 weekly.1
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Options are available to control the comparison:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--content-only&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;-c&lt;&#x2F;code&gt;: Only check for file content changes&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;--ignore-timestamps&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;-t&lt;&#x2F;code&gt;: Ignore modification times&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;--ignore-permissions&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;-p&lt;&#x2F;code&gt;: Ignore permission changes&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;--ignore-ownership&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;-w&lt;&#x2F;code&gt;: Ignore ownership changes&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;--include-pattern&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;--exclude-pattern&lt;&#x2F;code&gt;: Filter paths using glob patterns&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;output-formats&quot;&gt;Output Formats&lt;&#x2F;h4&gt;
+&lt;p&gt;The &lt;code&gt;--output-format&lt;&#x2F;code&gt; argument controls the presentation of differences. Available formats are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;paths&lt;&#x2F;strong&gt;: Lists modified paths, one per line. Useful for piping to other tools or scripts.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;full&lt;&#x2F;strong&gt;: Provides a detailed report including old and new file attributes (permissions, ownership, size, modification time) for every change.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;short&lt;&#x2F;strong&gt;: A concise summary listing the change status code and path for each modified file.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;json&lt;&#x2F;strong&gt;: Outputs the complete difference data as a JSON object, suitable for parsing by external tools and automation scripts.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;diff&lt;&#x2F;strong&gt;: Generates a standard unified diff of content changes for modified files. This format is useful for generating patches or detailed content review.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;summary&lt;&#x2F;strong&gt;: Brief summary of the count of different change types. Change types are colorized using the same coding as &lt;code&gt;tree&lt;&#x2F;code&gt; output.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;tree&lt;&#x2F;strong&gt;: (Default) Displays changes in a hierarchical tree structure, similar to the standard &lt;code&gt;tree&lt;&#x2F;code&gt; command but annotated with change status. The default if no &lt;code&gt;--output-format&lt;&#x2F;code&gt; option is given is &lt;code&gt;tree&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;tree-output-legend&quot;&gt;Tree Output Legend&lt;&#x2F;h4&gt;
+&lt;p&gt;The &lt;strong&gt;tree&lt;&#x2F;strong&gt; output format uses specific prefixes and colors (if enabled) to indicate the type of change:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[+]&lt;&#x2F;code&gt; &lt;strong&gt;Path added&lt;&#x2F;strong&gt; (green): The file or directory is present in the target but not the source.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[-]&lt;&#x2F;code&gt; &lt;strong&gt;Path removed&lt;&#x2F;strong&gt; (red): The file or directory is present in the source but not the target.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[*]&lt;&#x2F;code&gt; &lt;strong&gt;Path modified&lt;&#x2F;strong&gt; (yellow): The file content or attributes have changed.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[&amp;lt;]&lt;&#x2F;code&gt; &lt;strong&gt;Path moved from&lt;&#x2F;strong&gt; (cyan): The source path of a renamed or moved file.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[&amp;gt;]&lt;&#x2F;code&gt; &lt;strong&gt;Path moved to&lt;&#x2F;strong&gt; (cyan): The destination path of a renamed or moved file.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[!]&lt;&#x2F;code&gt; &lt;strong&gt;Path file type changed&lt;&#x2F;strong&gt; (blue): The file type (regular file, symlink, directory, etc.) has changed between source and target.&lt;&#x2F;p&gt;
+&lt;p&gt;snapset diffreport&lt;&#x2F;p&gt;
+&lt;p&gt;Generate a tabular report of differences between snapshot sets.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diffreport &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;options&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;from&amp;gt; &amp;lt;to&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This command performs the same comparison logic as &lt;code&gt;snapset diff&lt;&#x2F;code&gt; but formats the output as a column-based report. It accepts standard reporting arguments including &lt;code&gt;--options&lt;&#x2F;code&gt;, &lt;code&gt;--sort&lt;&#x2F;code&gt;, &lt;code&gt;--noheadings&lt;&#x2F;code&gt;, and &lt;code&gt;--json&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diffreport&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --json&lt;&#x2F;span&gt;&lt;span&gt; backup current
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To list specific fields describing the changes:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset diffreport&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -opath&lt;&#x2F;span&gt;&lt;span&gt;,state,size_diff old_snap new_snap
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset rename&lt;&#x2F;p&gt;
+&lt;p&gt;Rename an existing snapset.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset rename &amp;lt;old_name&amp;gt; &amp;lt;new_name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset revert&lt;&#x2F;p&gt;
+&lt;p&gt;Revert an existing snapset, re-setting the content of the origin volumes to the state they were in at the time the snapset was created. The snapset to be reverted may be specified either by its name or uuid.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert &amp;lt;name|&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uuid&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If the origins of the snapshot set are in use at the time of the revert the operation is deferred until the next time the snapshot set is activated (for example during a reboot). If a revert boot entry was created for the snapshot set the &lt;code&gt;revert&lt;&#x2F;code&gt; command will suggest booting into it to continue:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;WARNING&lt;&#x2F;span&gt;&lt;span&gt; - Snapshot set upgrade origin is in use: reboot required to complete revert
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Boot&lt;&#x2F;span&gt;&lt;span&gt; into &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Revert upgrade 2024-06-10 15:25:15 (6.8.9-300.fc40.x86_64)&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; to continue
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset resize&lt;&#x2F;p&gt;
+&lt;p&gt;Resize the members in an existing snapset, applying a new size policy to specified sources or applying a new default size policy to all snapshots within a snapset.&lt;&#x2F;p&gt;
+&lt;p&gt;Resize the &lt;code&gt;&#x2F;var&lt;&#x2F;code&gt; member of the snapshot set named upgrade to 100%SIZE:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset resize upgrade &#x2F;var:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Resize each member of the snapshot set named backup to the 200%USED size policy:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset resize backup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 200%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset split&lt;&#x2F;p&gt;
+&lt;p&gt;Split snapshots from an existing snapshot set into a new snapshot set. Split the snapshot set named &#x27;name&#x27; into a new snapshot set named &#x27;new_name&#x27;. Each listed source from &#x27;name&#x27; is split into the new snapshot set. Sources that are not listed on the command line remain part of the original snapshot set. It is an error to split all sources from a snapshot set: in this case use &#x27;snapm snapset rename&#x27; instead.&lt;&#x2F;p&gt;
+&lt;p&gt;To split the source &quot;&#x2F;home&quot; from the existing snapshot set &quot;upgrade&quot; into a new snapshot set named &quot;noupgrade&quot;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset split upgrade noupgrade &#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;      noupgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Sources:&lt;&#x2F;span&gt;&lt;span&gt;          &#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NrSnapshots:&lt;&#x2F;span&gt;&lt;span&gt;      1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;             2025-03-31 20:21:29
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;             30e69b86-5c48-5e5d-be1a-bf3d63aef8f7
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;           Inactive
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt;     no
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Bootable:&lt;&#x2F;span&gt;&lt;span&gt;         no
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset activate&lt;&#x2F;p&gt;
+&lt;p&gt;Activate the members of an existing snapset, or all snapsets if no name or uuid argument is given.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset activate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset deactivate&lt;&#x2F;p&gt;
+&lt;p&gt;Deactivate the members of an existing snapset, or all snapsets if no name or uuid argument is given.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset deactivate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset autoactivate&lt;&#x2F;p&gt;
+&lt;p&gt;Enable or disable autoactivation for the snapshots in a snapshot set.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset autoactivate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;--yes|--no&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapset list&lt;&#x2F;p&gt;
+&lt;p&gt;List available snapsets matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;By default the information is presented as a tabular report with column headings indicating the meaning of each value. The default column selection includes the SnapsetName, Time, NrSnapshots, Status, and Sources fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Time                 NrSnapshots Status  Sources
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       2024-12-05 19:14:03            3 Active  &#x2F;, &#x2F;home, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      2024-12-05 19:14:09            2 Active  &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Custom field specifications may be given with the &lt;code&gt;-o&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;--options&lt;&#x2F;code&gt; argument. To obtain a list of available fields run &lt;code&gt;snapm snapset list -ohelp&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Snapshot&lt;&#x2F;span&gt;&lt;span&gt; set Fields
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-------------------
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uuid&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set UUID &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;uuid&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timestamp&lt;&#x2F;span&gt;&lt;span&gt;    - Snapshot set creation time as a UNIX epoch value &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;time&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set creation time &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;time&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt; - Number of snapshots &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sources&lt;&#x2F;span&gt;&lt;span&gt;      - Snapshot set sources &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mountpoints&lt;&#x2F;span&gt;&lt;span&gt;  - Snapshot set mount points &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;devices&lt;&#x2F;span&gt;&lt;span&gt;      - Snapshot set devices &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;status&lt;&#x2F;span&gt;&lt;span&gt;       - Snapshot set status &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;autoactivate&lt;&#x2F;span&gt;&lt;span&gt; - Autoactivation status &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bootable&lt;&#x2F;span&gt;&lt;span&gt;     - Configured for snapshot boot &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bootentry&lt;&#x2F;span&gt;&lt;span&gt;    - Snapshot set boot entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;sha&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;revertentry&lt;&#x2F;span&gt;&lt;span&gt;  - Snapshot set revert boot entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;sha&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To specify custom fields pass a comma separated list to &lt;code&gt;-o&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -oname&lt;&#x2F;span&gt;&lt;span&gt;,time
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Time
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       2024-12-05 19:14:03
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      2024-12-05 19:14:09
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To add fields to the default field set prefix the list of fields with the &lt;code&gt;+&lt;&#x2F;code&gt; character:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -o&lt;&#x2F;span&gt;&lt;span&gt;+bootentry,revertentry
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Time                 NrSnapshots Status  Sources        SnapshotEntry RevertEntry
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       2024-12-05 19:14:03            3 Active  &#x2F;, &#x2F;home, &#x2F;var 41573a414f9d5 1cc5bc59c9b90
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      2024-12-05 19:14:09            2 Active  &#x2F;, &#x2F;var        a60dab4d3fb36 4ce6b27f16f30
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The report can also be produced in JSON notation, suitable for parsing by other tools using the &lt;code&gt;--json&lt;&#x2F;code&gt; argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --json
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Snapsets&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;        {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_name&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2024-12-05 19:14:03&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 3,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Active&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;home&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;        },
+&lt;&#x2F;span&gt;&lt;span&gt;        {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_name&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2024-12-05 19:14:09&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Active&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;JSON reports use the full report field name (including the &lt;code&gt;snapset_&lt;&#x2F;code&gt;, &lt;code&gt;snapshot_&lt;&#x2F;code&gt;, &lt;code&gt;schedule_&lt;&#x2F;code&gt;, or &lt;code&gt;plugin_&lt;&#x2F;code&gt; prefix). Fields and sort order are specified with &lt;code&gt;--options&lt;&#x2F;code&gt; and &lt;code&gt;--sort&lt;&#x2F;code&gt; as usual. For further report formatting options refer to the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page.&lt;&#x2F;p&gt;
+&lt;p&gt;snapset show&lt;&#x2F;p&gt;
+&lt;p&gt;Display available snapsets matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset show &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;By default the output is formatted in the same way as the output of the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset show upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;      upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Sources:&lt;&#x2F;span&gt;&lt;span&gt;          &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NrSnapshots:&lt;&#x2F;span&gt;&lt;span&gt;      2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;             2024-12-05 19:14:09
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;             87c6df8f-bd8c-5c9d-b081-4f6d6068cc07
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;           Active
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt;     yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Bootable:&lt;&#x2F;span&gt;&lt;span&gt;         yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BootEntries:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapshotEntry:&lt;&#x2F;span&gt;&lt;span&gt;  a60dab4
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RevertEntry:&lt;&#x2F;span&gt;&lt;span&gt;    4ce6b27
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The individual snapshots making up each set are also displayed if &lt;code&gt;--members&lt;&#x2F;code&gt; is used:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset show&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --members
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;      upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Sources:&lt;&#x2F;span&gt;&lt;span&gt;          &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;NrSnapshots:&lt;&#x2F;span&gt;&lt;span&gt;      2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;             2024-12-05 19:19:30
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;             f0a46cde-9eed-5335-b239-66ed53e5b503
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;           Active
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt;     yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Bootable:&lt;&#x2F;span&gt;&lt;span&gt;         yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;BootEntries:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapshotEntry:&lt;&#x2F;span&gt;&lt;span&gt;  dfce8d8
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;RevertEntry:&lt;&#x2F;span&gt;&lt;span&gt;    fc414b0
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Snapshots:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Name:&lt;&#x2F;span&gt;&lt;span&gt;         fedora&#x2F;root-snapset_upgrade_1733426370_-
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;  upgrade
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Origin:&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;dev&#x2F;fedora&#x2F;root
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;         2024-12-05 19:19:30
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Source:&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MountPoint:&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Provider:&lt;&#x2F;span&gt;&lt;span&gt;     lvm2-cow
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;         7566dde3-96f4-5288-8b15-18be7c520327
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;       Active
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Size:&lt;&#x2F;span&gt;&lt;span&gt;         8.8GiB
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Free:&lt;&#x2F;span&gt;&lt;span&gt;         8.8GiB
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DevicePath:&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;dev&#x2F;fedora&#x2F;root-snapset_upgrade_1733426370_-
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;VolumeGroup:&lt;&#x2F;span&gt;&lt;span&gt;  fedora
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;LogicalVolume:&lt;&#x2F;span&gt;&lt;span&gt; root-snapset_upgrade_1733426370_-
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Name:&lt;&#x2F;span&gt;&lt;span&gt;         fedora&#x2F;var-snapset_upgrade_1733426370_-var
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName:&lt;&#x2F;span&gt;&lt;span&gt;  upgrade
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Origin:&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;dev&#x2F;fedora&#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;span&gt;         2024-12-05 19:19:30
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Source:&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;MountPoint:&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Provider:&lt;&#x2F;span&gt;&lt;span&gt;     lvm2-cow
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;UUID:&lt;&#x2F;span&gt;&lt;span&gt;         22674f3e-f5c4-5632-9add-2df51985679e
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Status:&lt;&#x2F;span&gt;&lt;span&gt;       Active
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Size:&lt;&#x2F;span&gt;&lt;span&gt;         6.4GiB
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Free:&lt;&#x2F;span&gt;&lt;span&gt;         6.4GiB
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Autoactivate:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DevicePath:&lt;&#x2F;span&gt;&lt;span&gt;   &#x2F;dev&#x2F;fedora&#x2F;var-snapset_upgrade_1733426370_-var
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;VolumeGroup:&lt;&#x2F;span&gt;&lt;span&gt;  fedora
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;LogicalVolume:&lt;&#x2F;span&gt;&lt;span&gt; var-snapset_upgrade_1733426370_-var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The output is also available in JSON notation using the &lt;code&gt;--json&lt;&#x2F;code&gt; argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset show&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --json&lt;&#x2F;span&gt;&lt;span&gt; before-upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[
+&lt;&#x2F;span&gt;&lt;span&gt;    {
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;before-upgrade&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;],
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;MountPoints&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;],
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Devices&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[]&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;NrSnapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Timestamp&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 1756555124,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2025-08-30 12:58:44&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;UUID&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;87e31113-75a5-5eb6-b016-762639a2c7ed&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Active&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Autoactivate&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; true,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Bootable&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; true,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;BootEntries&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;SnapshotEntry&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;7c56dc0&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;RevertEntry&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;457f733&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;show --json&lt;&#x2F;code&gt; command uses the normal &lt;code&gt;show&lt;&#x2F;code&gt; output property names as the JSON keys. A &lt;code&gt;BootEntries&lt;&#x2F;code&gt; object will be added if either boot or revert entries are configured for the snapshot set.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;snapshot-commands&quot;&gt;Snapshot Commands&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;code&gt;snapshot&lt;&#x2F;code&gt; command is used to manipulate, list, and display snapshots.&lt;&#x2F;p&gt;
+&lt;p&gt;snapshot activate&lt;&#x2F;p&gt;
+&lt;p&gt;Activate individual snapshots matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot activate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;-N name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-U uuid&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapshot deactivate&lt;&#x2F;p&gt;
+&lt;p&gt;Deactivate individual snapshots matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot deactivate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;-N name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-U uuid&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapshot autoactivate&lt;&#x2F;p&gt;
+&lt;p&gt;Enable or disable autoactivation for individual snapshots matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot autoactivate &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;--yes|--no&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-N name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-U uuid&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;snapshot list&lt;&#x2F;p&gt;
+&lt;p&gt;List available snapshots matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;By default the information is presented as a tabular report with column headings indicating the meaning of each value. The default column selection includes the SnapsetName, Name, Origin, Source, Status, Size, Free, Autoactivate, and Provider fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Name                                         Origin           Source  Status  Size   Free   Autoactivate Provider
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      fedora&#x2F;root-snapset_upgrade_1733426499_-     &#x2F;dev&#x2F;fedora&#x2F;root &#x2F;       Active  8.8GiB 8.8GiB yes          lvm2-cow
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      fedora&#x2F;var-snapset_upgrade_1733426499_-var   &#x2F;dev&#x2F;fedora&#x2F;var  &#x2F;var    Active  6.4GiB 6.4GiB yes          lvm2-cow
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;upgrade&lt;&#x2F;span&gt;&lt;span&gt;      fedora&#x2F;home-snapset_upgrade_1733426499_-home &#x2F;dev&#x2F;fedora&#x2F;home &#x2F;home   Active  1.0GiB 1.9GiB yes          lvm2-thin
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;&#x2F;strong&gt;
+For thin‑provisioned snapshots (lvm2‑thin, Stratis), “Free” reflects thin‑pool free space and may exceed “Size”.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;snapshot show&lt;&#x2F;p&gt;
+&lt;p&gt;Display available snapshots matching selection criteria.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot show &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;name|uuid&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;plugin-commands&quot;&gt;Plugin Commands&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;code&gt;plugin&lt;&#x2F;code&gt; command is used to display information on the available snapshot provider plugins.&lt;&#x2F;p&gt;
+&lt;p&gt;plugin list&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;plugin list&lt;&#x2F;code&gt; command lists the available plugins:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; plugin list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;PluginName&lt;&#x2F;span&gt;&lt;span&gt; PluginVersion PluginType
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lvm2-cow&lt;&#x2F;span&gt;&lt;span&gt;   0.1.0         Lvm2CowSnapshot
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lvm2-thin&lt;&#x2F;span&gt;&lt;span&gt;  0.1.0         Lvm2ThinSnapshot
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt;    0.1.0         StratisSnapshot
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;schedule-commands&quot;&gt;Schedule Commands&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;code&gt;schedule&lt;&#x2F;code&gt; command is used to create, display and manage schedules for automatic snapshot set creation.&lt;&#x2F;p&gt;
+&lt;p&gt;schedule create&lt;&#x2F;p&gt;
+&lt;p&gt;Create a new schedule with the provided name and list of sources (mount point or block device paths):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule create &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;-b|--bootable&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-r|--revert&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--size-policy policy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-p|--policy-type policy_type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-count count&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-years years&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-months months&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-weeks weeks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-days days&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-yearly yearly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-quarterly quarterly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-monthly monthly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-weekly weekly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-daily daily&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-hourly hourly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; calendarspec &amp;lt;name&amp;gt; source...
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --policy-type&lt;&#x2F;span&gt;&lt;span&gt; count&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --keep-count&lt;&#x2F;span&gt;&lt;span&gt; 2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --bootable --revert --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; hourly hourly &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Name:&lt;&#x2F;span&gt;&lt;span&gt; hourly
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SourceSpecs:&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DefaultSizePolicy:&lt;&#x2F;span&gt;&lt;span&gt; 25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Calendarspec:&lt;&#x2F;span&gt;&lt;span&gt; hourly
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Boot:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Revert:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GcPolicy:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Name:&lt;&#x2F;span&gt;&lt;span&gt; hourly
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Type:&lt;&#x2F;span&gt;&lt;span&gt; Count
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Params:&lt;&#x2F;span&gt;&lt;span&gt; keep_count=2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Enabled:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Running:&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-delete&quot;&gt;schedule delete&lt;&#x2F;h3&gt;
+&lt;p&gt;Delete an existing schedule by name:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule delete &amp;lt;name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-edit&quot;&gt;schedule edit&lt;&#x2F;h3&gt;
+&lt;p&gt;Modify an existing schedule by name:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule edit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;-b|--bootable&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-r|--revert&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--size-policy policy&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;-p|--policy-type policy_type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-count count&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-years years&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-months months&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-weeks weeks&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-days days&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-yearly yearly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-quarterly quarterly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-monthly monthly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-weekly weekly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-daily daily&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--keep-hourly hourly&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; calendarspec &amp;lt;name&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;source...&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;schedule enable&lt;&#x2F;p&gt;
+&lt;p&gt;Enable an existing schedule by name:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule enable &amp;lt;name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-disable&quot;&gt;schedule disable&lt;&#x2F;h3&gt;
+&lt;p&gt;Disable an existing schedule by name:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule disable &amp;lt;name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-list&quot;&gt;schedule list&lt;&#x2F;h3&gt;
+&lt;p&gt;List configured schedules:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule list &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;--nameprefixes&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--noheadings&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--options fields&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--sort fields&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--rows|--json&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;] [&lt;&#x2F;span&gt;&lt;span&gt;--separator separator&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ScheduleName&lt;&#x2F;span&gt;&lt;span&gt; ScheduleSources         SizePolicy OnCalendar     Enabled
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;custom&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;, &#x2F;home:100%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt;, &#x2F;var 50%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE    &lt;&#x2F;span&gt;&lt;span&gt;*-*-1 01:00:00 yes
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;monthly&lt;&#x2F;span&gt;&lt;span&gt;      &#x2F;:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt;, &#x2F;var:25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt; monthly    no
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;hourly&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;, &#x2F;var                 25%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE&lt;&#x2F;span&gt;&lt;span&gt;    hourly         yes
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-show&quot;&gt;schedule show&lt;&#x2F;h3&gt;
+&lt;p&gt;Display configured schedule:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule show &amp;lt;name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;schedule-gc&quot;&gt;schedule gc&lt;&#x2F;h3&gt;
+&lt;p&gt;Run configured garbage collection policy for schedule:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule gc &amp;lt;name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;reporting-commands&quot;&gt;Reporting Commands&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;code&gt;snapm snapset list&lt;&#x2F;code&gt;, &lt;code&gt;snapm snapshot list&lt;&#x2F;code&gt;, &lt;code&gt;snapm plugin list&lt;&#x2F;code&gt;, and &lt;code&gt;snapm schedule list&lt;&#x2F;code&gt; commands generate a tabular report as output.  To control the list of displayed fields use the &lt;code&gt;-o&lt;&#x2F;code&gt;&#x2F;&lt;code&gt;--options FIELDS&lt;&#x2F;code&gt; argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -oname&lt;&#x2F;span&gt;&lt;span&gt;,sources
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Sources
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       &#x2F;, &#x2F;home, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;userdata&lt;&#x2F;span&gt;&lt;span&gt;     &#x2F;data, &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To add extra fields to the default selection, prefix the field list with the &lt;code&gt;+&lt;&#x2F;code&gt; character:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -o&lt;&#x2F;span&gt;&lt;span&gt;+uuid
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;  Time                 NrSnapshots Status   Sources          UUID
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;       2024-12-05 19:26:28            3 Active   &#x2F;, &#x2F;home, &#x2F;var   53514020-e88d-5f53-bf09-42c6ab6e325d
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;userdata&lt;&#x2F;span&gt;&lt;span&gt;     2024-12-05 19:26:45            2 Inactive &#x2F;data, &#x2F;home     e8d58051-7a94-5802-8328-54661ab1a70f
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To display the available fields for either report use the field name &lt;code&gt;help&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Snapshot&lt;&#x2F;span&gt;&lt;span&gt; set Fields
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;-------------------
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;uuid&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set UUID &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;uuid&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;basename&lt;&#x2F;span&gt;&lt;span&gt;     - Snapshot set basename &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;index&lt;&#x2F;span&gt;&lt;span&gt;        - Snapshot set index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;idx&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timestamp&lt;&#x2F;span&gt;&lt;span&gt;    - Snapshot set creation time as a UNIX epoch value &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;time&lt;&#x2F;span&gt;&lt;span&gt;         - Snapshot set creation time &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;time&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt; - Number of snapshots &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;num&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sources&lt;&#x2F;span&gt;&lt;span&gt;      - Snapshot set sources &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mountpoints&lt;&#x2F;span&gt;&lt;span&gt;  - Snapshot set mount points &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;devices&lt;&#x2F;span&gt;&lt;span&gt;      - Snapshot set devices &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;strlist&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;status&lt;&#x2F;span&gt;&lt;span&gt;       - Snapshot set status &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;autoactivate&lt;&#x2F;span&gt;&lt;span&gt; - Autoactivation status &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bootable&lt;&#x2F;span&gt;&lt;span&gt;     - Configured for snapshot boot &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bootentry&lt;&#x2F;span&gt;&lt;span&gt;    - Snapshot set boot entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;sha&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;revertentry&lt;&#x2F;span&gt;&lt;span&gt;  - Snapshot set revert boot entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;sha&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;json-output&quot;&gt;JSON Output&lt;&#x2F;h3&gt;
+&lt;p&gt;All reports can optionally be formatted as JSON for parsing by other tools using the &lt;code&gt;--json&lt;&#x2F;code&gt; argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --json
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Snapsets&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;        {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_name&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;backup&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2025-09-09 17:12:21&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 3,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Inactive&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;home&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;        },
+&lt;&#x2F;span&gt;&lt;span&gt;        {
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_name&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;before-upgrade&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2025-09-08 18:43:57&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_nr_snapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Active&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;snapset_sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;create&lt;&#x2F;code&gt; and &lt;code&gt;show&lt;&#x2F;code&gt; commands also support optional JSON output using the &lt;code&gt;--json&lt;&#x2F;code&gt; argument.  In this case the JSON schema maps the normal &lt;code&gt;show&lt;&#x2F;code&gt; output property names to JSON keys:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset show&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --json&lt;&#x2F;span&gt;&lt;span&gt; before-upgrade
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;[
+&lt;&#x2F;span&gt;&lt;span&gt;    {
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;SnapsetName&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;before-upgrade&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Sources&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;],
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;MountPoints&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; [
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;var&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;],
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Devices&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;[]&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;NrSnapshots&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 2,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Timestamp&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; 1757353437,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Time&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;2025-09-08 18:43:57&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;UUID&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;6330328b-a9d0-5b41-ac96-53b371449965&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Status&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Active&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Autoactivate&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; true,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Bootable&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; true,
+&lt;&#x2F;span&gt;&lt;span&gt;        &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;BootEntries&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;SnapshotEntry&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;66dc7ad&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;RevertEntry&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;6832c11&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;common-use-cases&quot;&gt;Common Use Cases&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;system-updates-and-rollback&quot;&gt;System Updates and Rollback&lt;&#x2F;h3&gt;
+&lt;p&gt;Before performing system updates, create a bootable snapshot:&lt;&#x2F;p&gt;
+&lt;p&gt;Create snapshot set before update:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --bootable --revert&lt;&#x2F;span&gt;&lt;span&gt; pre-update &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Perform system update:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dnf&lt;&#x2F;span&gt;&lt;span&gt; update
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If update causes issues, revert:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert pre-update
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Or boot into snapshot from boot menu (select: &quot;Snapshot pre-update YYYY-MM-DD HH:MM:SS (version)&quot;):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;reboot
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Clean up when satisfied with update:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset delete pre-update
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;development-and-testing&quot;&gt;Development and Testing&lt;&#x2F;h3&gt;
+&lt;p&gt;Create development checkpoints for experimental work:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create checkpoint before major changes:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create dev-checkpoint &#x2F;home &#x2F;var&#x2F;lib&#x2F;myapp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Make experimental changes&lt;&#x2F;li&gt;
+&lt;li&gt;If changes don&#x27;t work out, revert:&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert dev-checkpoint
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;data-protection&quot;&gt;Data Protection&lt;&#x2F;h3&gt;
+&lt;p&gt;Regular data snapshots for important directories allow backups to be captured from snapshots, lowering production impact by reducing backup downtime.&lt;&#x2F;p&gt;
+&lt;p&gt;Daily backup of user data:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create daily-backup &#x2F;home &#x2F;var&#x2F;lib&#x2F;database
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Weekly system snapshots:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create weekly-system &#x2F; &#x2F;var&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 50%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;SIZE
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;automated-scheduling&quot;&gt;Automated Scheduling&lt;&#x2F;h3&gt;
+&lt;p&gt;Set up automated snapshot schedules:&lt;&#x2F;p&gt;
+&lt;p&gt;Hourly snapshots, keep 24:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --autoindex &lt;&#x2F;span&gt;&lt;span&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --policy-type&lt;&#x2F;span&gt;&lt;span&gt; count \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --keep-count&lt;&#x2F;span&gt;&lt;span&gt; 24 \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; hourly \
+&lt;&#x2F;span&gt;&lt;span&gt;    hourly &#x2F; &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Daily snapshots, keep 7 days:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --autoindex &lt;&#x2F;span&gt;&lt;span&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --policy-type&lt;&#x2F;span&gt;&lt;span&gt; age \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --keep-days&lt;&#x2F;span&gt;&lt;span&gt; 7 \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; daily \
+&lt;&#x2F;span&gt;&lt;span&gt;    daily &#x2F; &#x2F;home &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Monthly bootable snapshots, keep 12:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --autoindex &lt;&#x2F;span&gt;&lt;span&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --bootable --revert &lt;&#x2F;span&gt;&lt;span&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --policy-type&lt;&#x2F;span&gt;&lt;span&gt; timeline \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --keep-monthly&lt;&#x2F;span&gt;&lt;span&gt; 12 \
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;    --calendarspec&lt;&#x2F;span&gt;&lt;span&gt; monthly \
+&lt;&#x2F;span&gt;&lt;span&gt;    monthly &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;configuration-management&quot;&gt;Configuration Management&lt;&#x2F;h3&gt;
+&lt;p&gt;Snapshot configuration changes:&lt;&#x2F;p&gt;
+&lt;p&gt;Before modifying system configuration:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create config-backup &#x2F;etc &#x2F;var&#x2F;lib&#x2F;config
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Make configuration changes:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vim&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;etc&#x2F;myapp&#x2F;config.conf
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Test changes...&lt;&#x2F;p&gt;
+&lt;p&gt;If configuration breaks system, revert:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert config-backup
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;best-practices&quot;&gt;Best Practices&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;naming-conventions&quot;&gt;Naming Conventions&lt;&#x2F;h3&gt;
+&lt;p&gt;Use consistent, descriptive naming:&lt;&#x2F;p&gt;
+&lt;p&gt;Good examples:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;pre-kernel-update-6.5.0-snap&lt;&#x2F;li&gt;
+&lt;li&gt;before-database-migration&lt;&#x2F;li&gt;
+&lt;li&gt;dev-checkpoint-feature-x&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Avoid generic names:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;backup&lt;&#x2F;li&gt;
+&lt;li&gt;test&lt;&#x2F;li&gt;
+&lt;li&gt;snapshot1&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;size-policy-guidelines&quot;&gt;Size Policy Guidelines&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;For system volumes (&lt;code&gt;&#x2F;&lt;&#x2F;code&gt;, &lt;code&gt;&#x2F;var&lt;&#x2F;code&gt;): Use &lt;code&gt;100%SIZE&lt;&#x2F;code&gt; for critical systems, &lt;code&gt;200%USED&lt;&#x2F;code&gt; for normal use&lt;&#x2F;li&gt;
+&lt;li&gt;For data volumes (&lt;code&gt;&#x2F;home&lt;&#x2F;code&gt;): Use &lt;code&gt;100%USED&lt;&#x2F;code&gt; or &lt;code&gt;50%SIZE&lt;&#x2F;code&gt; depending on change frequency&lt;&#x2F;li&gt;
+&lt;li&gt;For database volumes: Use &lt;code&gt;300%USED&lt;&#x2F;code&gt; or &lt;code&gt;100%SIZE&lt;&#x2F;code&gt; for heavy write workloads&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;retention-policies&quot;&gt;Retention Policies&lt;&#x2F;h3&gt;
+&lt;p&gt;Plan retention based on your needs:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Hourly&lt;&#x2F;strong&gt;: Keep 6-12 snapshots for short-term recovery&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Daily&lt;&#x2F;strong&gt;: Keep 3-7 snapshots for medium-term recovery&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Weekly&lt;&#x2F;strong&gt;: Keep 2-4 snapshots for long-term recovery&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Monthly&lt;&#x2F;strong&gt;: Keep 3-6 snapshots for archival purposes&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;monitoring-and-maintenance&quot;&gt;Monitoring and Maintenance&lt;&#x2F;h3&gt;
+&lt;p&gt;Regular maintenance tasks:&lt;&#x2F;p&gt;
+&lt;p&gt;Check snapshot space usage:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -o&lt;&#x2F;span&gt;&lt;span&gt; name,size,free
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Clean up old snapshots:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset delete old-snapshot-name
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Review scheduled snapshots:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;access-control&quot;&gt;Access Control&lt;&#x2F;h3&gt;
+&lt;p&gt;Snapm requires root privileges for most operations. Consider:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Using sudo with specific command restrictions&lt;&#x2F;li&gt;
+&lt;li&gt;Creating wrapper scripts for common operations&lt;&#x2F;li&gt;
+&lt;li&gt;Implementing audit logging for snapshot operations&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;data-sensitivity&quot;&gt;Data Sensitivity&lt;&#x2F;h3&gt;
+&lt;p&gt;Remember that snapshots contain complete copies of data:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Consider encryption for sensitive data&lt;&#x2F;li&gt;
+&lt;li&gt;Implement proper cleanup procedures for temporary snapshots&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;boot-security&quot;&gt;Boot Security&lt;&#x2F;h3&gt;
+&lt;p&gt;Bootable snapshots can bypass some security measures:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Bootable snapshot sets use the kernel present at the time of snapshot creation: older kernels may contain security vulnerabilities patched in newer builds.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Consider password protecting GRUB and enforcing physical access controls.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Integration Examples&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;with-systemd-services&quot;&gt;With Systemd Services&lt;&#x2F;h3&gt;
+&lt;p&gt;Create consistent snapshots by ensuring services are in a stable state:&lt;&#x2F;p&gt;
+&lt;p&gt;Stop service before snapshot:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; stop myapp
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create myapp-maintenance &#x2F;var&#x2F;lib&#x2F;myapp
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; start myapp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Alternatively isolate to rescue mode for system-wide consistency:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; isolate rescue.target
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create system-maintenance &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; isolate multi-user.target
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;with-backup-systems&quot;&gt;With Backup Systems&lt;&#x2F;h3&gt;
+&lt;p&gt;Integrate with existing backup workflows:&lt;&#x2F;p&gt;
+&lt;p&gt;Create consistent snapshot for backup:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup &#x2F;home &#x2F;var&#x2F;lib&#x2F;data
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Mount individual snapshots for backup tools:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mkdir -p&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;mnt&#x2F;snapshot-backup&#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mount&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;dev&#x2F;fedora&#x2F;home-snapset_backup_1757533502_-home &#x2F;mnt&#x2F;snapshot-backup&#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;...
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Run backup tools against mounted snapshot:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;rsync -av&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;mnt&#x2F;snapshot-backup&#x2F;home backup-server:&#x2F;backups&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;...
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Clean up:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;umount&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;mnt&#x2F;snapshot-backup&#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset delete backup
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;with-configuration-management&quot;&gt;With Configuration Management&lt;&#x2F;h3&gt;
+&lt;p&gt;Use with Ansible, Puppet, etc.:&lt;&#x2F;p&gt;
+&lt;p&gt;Pre-deployment snapshot:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create pre-deploy-$(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;date&lt;&#x2F;span&gt;&lt;span&gt; +%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Y&lt;&#x2F;span&gt;&lt;span&gt;%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;d&lt;&#x2F;span&gt;&lt;span&gt;) &#x2F;etc &#x2F;var&#x2F;www
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Run deployment:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ansible-playbook&lt;&#x2F;span&gt;&lt;span&gt; deploy.yml
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Verify deployment:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;curl -f&lt;&#x2F;span&gt;&lt;span&gt; http:&#x2F;&#x2F;localhost&#x2F;health ||
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;echo &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Deployment failed, reverting...&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset revert pre-deploy-$(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;date&lt;&#x2F;span&gt;&lt;span&gt; +%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Y&lt;&#x2F;span&gt;&lt;span&gt;%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;d&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;common-issues&quot;&gt;Common Issues&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Snapshot creation fails with &quot;No space left&quot;&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Check available space and adjust size policies:&lt;&#x2F;p&gt;
+&lt;p&gt;Check current usage:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vgs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; pool list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Use smaller size policy:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create backup&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --size-policy&lt;&#x2F;span&gt;&lt;span&gt; 50%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;Boot entries not appearing&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Ensure boom is properly installed and configured:&lt;&#x2F;p&gt;
+&lt;p&gt;Check boom installation:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;rpm -q&lt;&#x2F;span&gt;&lt;span&gt; boom-boot
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;boom&lt;&#x2F;span&gt;&lt;span&gt; list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Verify boom configuration:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;boom&lt;&#x2F;span&gt;&lt;span&gt; profile list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;Snapshot activation fails&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Check snapshot status and storage health:&lt;&#x2F;p&gt;
+&lt;p&gt;Check snapshot status:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check LVM and Stratis status:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lvs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vgs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; pool list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check for storage errors:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl --priority&lt;&#x2F;span&gt;&lt;span&gt; err
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dmesg &lt;&#x2F;span&gt;&lt;span&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep -i&lt;&#x2F;span&gt;&lt;span&gt; err
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;Snapshot space exhaustion&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;When snapshots are close to running out of space:&lt;&#x2F;p&gt;
+&lt;p&gt;Check snapshot usage:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -o&lt;&#x2F;span&gt;&lt;span&gt; name,size,free
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Resize snapshot if possible:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset resize my-snapset &#x2F;var:500%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;USED
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If necessary resize the LVM2 volume group, thin pool, or Stratis pool to create more space for snapshot storage.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Permission denied errors&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Ensure snapm is run as the root user:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create before-upgrade &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo snapm snapset create before-upgrade &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;LVM thin pool issues&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For thin provisioning problems:&lt;&#x2F;p&gt;
+&lt;p&gt;Check thin pool status:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; lvs&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -a -o&lt;&#x2F;span&gt;&lt;span&gt; +data_percent,metadata_percent
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Extend thin pool if needed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; lvextend&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -L&lt;&#x2F;span&gt;&lt;span&gt;+1G &#x2F;dev&#x2F;vg&#x2F;thin_pool
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check thin pool metadata:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; thin_check &#x2F;dev&#x2F;vg&#x2F;thin_pool_tmeta
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;Stratis backend issues&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For Stratis-related problems:&lt;&#x2F;p&gt;
+&lt;p&gt;Check Stratis daemon status:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; status stratisd
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;List Stratis pools and filesystems:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; pool list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; filesystem list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check Stratis logs:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl -u&lt;&#x2F;span&gt;&lt;span&gt; stratisd
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;performance-considerations&quot;&gt;Performance Considerations&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Snapshot Size Planning&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;100%SIZE&lt;&#x2F;code&gt; for complete protection but higher space usage&lt;&#x2F;li&gt;
+&lt;li&gt;Use &lt;code&gt;200%USED&lt;&#x2F;code&gt; for balance between protection and space efficiency&lt;&#x2F;li&gt;
+&lt;li&gt;Use &lt;code&gt;50%USED&lt;&#x2F;code&gt; or &lt;code&gt;25%SIZE&lt;&#x2F;code&gt; for space-constrained environments&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Storage Performance&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;LVM2 thin provisioning generally offers better performance than copy-on-write&lt;&#x2F;li&gt;
+&lt;li&gt;Consider separate storage for snapshot backstores in high-I&#x2F;O environments&lt;&#x2F;li&gt;
+&lt;li&gt;Monitor snapshot space usage to prevent exhaustion&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;debugging&quot;&gt;Debugging&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;debug-mode&quot;&gt;Debug Mode&lt;&#x2F;h3&gt;
+&lt;p&gt;Enable debug mode with very verbose output:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm -d&lt;&#x2F;span&gt;&lt;span&gt; all&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -vv&lt;&#x2F;span&gt;&lt;span&gt; snapset create debug-test &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Enable specific debug categories with very verbose output:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm -vv -d&lt;&#x2F;span&gt;&lt;span&gt; command,plugin snapset list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Basic verbose output:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm -v&lt;&#x2F;span&gt;&lt;span&gt; snapset show my-snapset
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;log-analysis&quot;&gt;Log Analysis&lt;&#x2F;h3&gt;
+&lt;p&gt;Check system logs for snapm timer unit activity:&lt;&#x2F;p&gt;
+&lt;p&gt;Check snapm logs:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl --boot&lt;&#x2F;span&gt;&lt;span&gt; 0 | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep&lt;&#x2F;span&gt;&lt;span&gt; -- snapm-
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check for storage-related messages:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl --boot&lt;&#x2F;span&gt;&lt;span&gt; 0 | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep -i&lt;&#x2F;span&gt;&lt;span&gt; lvm
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dmesg &lt;&#x2F;span&gt;&lt;span&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Buffer I\&#x2F;O error&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Check for filesystem errors:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl --boot&lt;&#x2F;span&gt;&lt;span&gt; 0 | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep -i&lt;&#x2F;span&gt;&lt;span&gt; ext4
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;journalctl --boot&lt;&#x2F;span&gt;&lt;span&gt; 0 | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;grep -i&lt;&#x2F;span&gt;&lt;span&gt; xfs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;storage-backend-debugging&quot;&gt;Storage Backend Debugging&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Debugging Provider&#x2F;Plugin Problems&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;When snapshot operations fail, check provider-specific status:&lt;&#x2F;p&gt;
+&lt;p&gt;Check available plugins:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; plugin list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For LVM2 issues, check LVM status:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lvs -a
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vgs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pvs
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For Stratis issues, check daemon and pools:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;systemctl&lt;&#x2F;span&gt;&lt;span&gt; status stratisd
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; pool list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stratis&lt;&#x2F;span&gt;&lt;span&gt; filesystem list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;configuration-validation&quot;&gt;Configuration Validation&lt;&#x2F;h3&gt;
+&lt;p&gt;Verify snapm configuration:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm -vv --debug&lt;&#x2F;span&gt;&lt;span&gt;=all plugin list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Validate boom integration:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;boom&lt;&#x2F;span&gt;&lt;span&gt; list
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;boom&lt;&#x2F;span&gt;&lt;span&gt; profile list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;getting-help&quot;&gt;Getting Help&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;command-line-help&quot;&gt;Command Line Help&lt;&#x2F;h3&gt;
+&lt;p&gt;Help is available for the &lt;code&gt;snapm&lt;&#x2F;code&gt; command and each subcommand:&lt;&#x2F;p&gt;
+&lt;p&gt;General help:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm --help
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Command type help:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; plugin&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Specific command help:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset create&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --help
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;manual-pages&quot;&gt;Manual Pages&lt;&#x2F;h3&gt;
+&lt;p&gt;Full command, option, argument, and configuration documentation is available in the manual pages:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;man&lt;&#x2F;span&gt;&lt;span&gt; 8 snapm
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;man&lt;&#x2F;span&gt;&lt;span&gt; 5 snapm.conf
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;man&lt;&#x2F;span&gt;&lt;span&gt; 5 snapm-plugins.d
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;man&lt;&#x2F;span&gt;&lt;span&gt; 5 snapm-schedule.d
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;field-reference&quot;&gt;Field Reference&lt;&#x2F;h3&gt;
+&lt;p&gt;Get available fields for reports:&lt;&#x2F;p&gt;
+&lt;p&gt;Snapset fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapset list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Snapshot fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; snapshot list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Schedule fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; schedule list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Plugin fields:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; plugin list&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -ohelp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;version-information&quot;&gt;Version Information&lt;&#x2F;h3&gt;
+&lt;p&gt;Check snapm version and component information:&lt;&#x2F;p&gt;
+&lt;p&gt;Show version:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm --version
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Show plugin versions:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;snapm&lt;&#x2F;span&gt;&lt;span&gt; plugin list
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;online-resources&quot;&gt;Online Resources&lt;&#x2F;h3&gt;
+&lt;p&gt;Additional help and documentation:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Project Homepage&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Documentation&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;&quot;&gt;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Issue Tracker&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Wiki&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;wiki&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;wiki&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Mailing List&lt;&#x2F;strong&gt;: snapm-users@lists.fedoraproject.org&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;community-support&quot;&gt;Community Support&lt;&#x2F;h3&gt;
+&lt;p&gt;Get help from the community:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GitHub Issues&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Filing Bug Reports&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;When reporting issues, include:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Snapm version (&lt;code&gt;snapm --version&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Operating system and version&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Storage backend information&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Complete error messages&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Debug output (&lt;code&gt;snapm -vv --debug=all &amp;lt;command&amp;gt;&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Steps to reproduce the issue&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Example bug report template&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;text&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-text &quot;&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;**Snapm Version**: 0.4.3
+&lt;&#x2F;span&gt;&lt;span&gt;**OS**: Fedora 42 x86_64
+&lt;&#x2F;span&gt;&lt;span&gt;**Storage**: LVM2 with thin provisioning
+&lt;&#x2F;span&gt;&lt;span&gt;**Error**: Snapshot creation fails with permission denied
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;**Steps to reproduce**:
+&lt;&#x2F;span&gt;&lt;span&gt;1. sudo snapm snapset create test &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;2. Error appears immediately
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;**Debug output**:
+&lt;&#x2F;span&gt;&lt;span&gt;snapm -vv -d all snapset create test &#x2F;home
+&lt;&#x2F;span&gt;&lt;span&gt;[debug output here]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;**Additional context**:
+&lt;&#x2F;span&gt;&lt;span&gt;- Works with root user
+&lt;&#x2F;span&gt;&lt;span&gt;- Sudo configuration appears correct
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;appendix&quot;&gt;Appendix&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;storage-backend-details&quot;&gt;Storage Backend Details&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;LVM2 Copy-on-Write&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Requires fixed size allocation&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Good for infrequent snapshots&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Lower performance impact during normal operation&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Higher space requirements&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;LVM2 Thin Provisioning&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dynamic space allocation&lt;&#x2F;li&gt;
+&lt;li&gt;Better space efficiency&lt;&#x2F;li&gt;
+&lt;li&gt;Good performance characteristics&lt;&#x2F;li&gt;
+&lt;li&gt;Requires thin pool configuration&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Stratis&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Modern storage management&lt;&#x2F;li&gt;
+&lt;li&gt;Automatic thin provisioning&lt;&#x2F;li&gt;
+&lt;li&gt;Integrated with systemd&lt;&#x2F;li&gt;
+&lt;li&gt;Requires Stratis daemon&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;exit-codes&quot;&gt;Exit Codes&lt;&#x2F;h3&gt;
+&lt;p&gt;Snapm commands return standard exit codes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;0&lt;&#x2F;strong&gt;: Success&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;1&lt;&#x2F;strong&gt;: Runtime error&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;2&lt;&#x2F;strong&gt;: Invalid arguments &#x2F; parse error&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Stratis Clients and Supported Operating Systems</title>
+        <published>2021-12-23T00:00:00+00:00</published>
+        <updated>2021-12-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/users/"/>
+        <id>https://snapshotmanager.github.io/users/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/users/">&lt;p&gt;Stratis is supported on a number of operating systems and by a number of client
+frameworks, itemized below. Please file a GitHub &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;stratis-storage&#x2F;stratis-docs&#x2F;issues&quot;&gt;issue&lt;&#x2F;a&gt; or &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;stratis-storage&#x2F;stratis-docs&#x2F;pulls&quot;&gt;pull request&lt;&#x2F;a&gt; if
+you would like any others to be added to the list.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;supported-operating-systems&quot;&gt;Supported Operating Systems&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Arch Linux: &lt;a href=&quot;https:&#x2F;&#x2F;archlinux.org&#x2F;packages&#x2F;extra&#x2F;x86_64&#x2F;stratisd&#x2F;&quot;&gt;https:&#x2F;&#x2F;archlinux.org&#x2F;packages&#x2F;extra&#x2F;x86_64&#x2F;stratisd&#x2F;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;archlinux.org&#x2F;packages&#x2F;extra&#x2F;any&#x2F;stratis-cli&#x2F;&quot;&gt;https:&#x2F;&#x2F;archlinux.org&#x2F;packages&#x2F;extra&#x2F;any&#x2F;stratis-cli&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Fedora: &lt;a href=&quot;https:&#x2F;&#x2F;src.fedoraproject.org&#x2F;rpms&#x2F;stratisd&#x2F;&quot;&gt;https:&#x2F;&#x2F;src.fedoraproject.org&#x2F;rpms&#x2F;stratisd&#x2F;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;src.fedoraproject.org&#x2F;rpms&#x2F;stratis-cli&quot;&gt;https:&#x2F;&#x2F;src.fedoraproject.org&#x2F;rpms&#x2F;stratis-cli&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;clients&quot;&gt;Clients&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Cockpit: &lt;a href=&quot;https:&#x2F;&#x2F;cockpit-project.org&#x2F;blog&#x2F;cockpit-256.html&quot;&gt;https:&#x2F;&#x2F;cockpit-project.org&#x2F;blog&#x2F;cockpit-256.html&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Blivet: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storaged-project&#x2F;blivet&#x2F;pull&#x2F;952&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;storaged-project&#x2F;blivet&#x2F;pull&#x2F;952&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storaged-project&#x2F;blivet-gui&#x2F;pull&#x2F;277&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;storaged-project&#x2F;blivet-gui&#x2F;pull&#x2F;277&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;BOOM: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;boom&#x2F;blob&#x2F;8d377444b1f3a3efb636270cc0963f420ee1fdb9&#x2F;boom&#x2F;stratis.py&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;boom&#x2F;blob&#x2F;8d377444b1f3a3efb636270cc0963f420ee1fdb9&#x2F;boom&#x2F;stratis.py&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Munin: &lt;a href=&quot;https:&#x2F;&#x2F;gallery.munin-monitoring.org&#x2F;plugins&#x2F;munin-contrib&#x2F;stratis&#x2F;&quot;&gt;https:&#x2F;&#x2F;gallery.munin-monitoring.org&#x2F;plugins&#x2F;munin-contrib&#x2F;stratis&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+</feed>
