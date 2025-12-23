@@ -26,7 +26,8 @@
 
 
 
-  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;news&#x2F;">
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;search&#x2F;">
 
 
 <link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
@@ -232,59 +233,39 @@ class="list" id="top">
 <main class="main">
   
 
-  <!-- taxonomy header (mostly used in single template) just below the nav bar -->
-<header class="page-header">
-  <div class="breadcrumbs">
+
+
+
+
+
+
+
+
+
+
+<section class="post-single search-page">
+  <header class="post-header">
+    <div class="breadcrumbs">
       <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io/tags">Tags
-        
-          🏷️ 
-        
-          
-        
-        
-      </a>&nbsp;»&nbsp;
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;news&#x2F;">news</a>
-  </div>
-  <h1>News
-    
-    <a href="https://snapshotmanager.github.io/tags/news/atom.xml" title="RSS" aria-label="RSS">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23">
-        <path d="M4 11a9 9 0 0 1 9 9"></path>
-        <path d="M4 4a16 16 0 0 1 16 16"></path>
-        <circle cx="5" cy="19" r="1"></circle>
-      </svg>
-    </a>
-    
-</h1>
-</header>
-
-<article class="post-entry">
-  <header class="entry-header">
-      <h2>Welcome!</h2>
+      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;search&#x2F;">Search</a>
+    </div>
+    <h1 class="post-title">Search</h1>
+    <p class="post-description">Find posts by title or body content</p>
   </header>
-  
-  <footer class="entry-footer">
-      
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<span title="2025-12-21 00:00:00 +0000">2025-12-21</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;34 words&nbsp;·&nbsp;
-  </footer>
-  <a class="entry-link" aria-label="post link to Welcome!" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;"></a>
-</article>
-
+  <article class="search-entry">
+    <div class="search-box">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Type to search..."
+        aria-label="Search posts"
+        autocomplete="off"
+      />
+    </div>
+    <ul id="searchResults" class="search-results" style="display:none;"></ul>
+  </article>
+</section>
 
 </main>
 
@@ -421,6 +402,8 @@ class="list" id="top">
 
 
 
+
+<script src="https://snapshotmanager.github.io/js/search.js"></script>
 
 
 
