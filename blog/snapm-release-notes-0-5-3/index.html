@@ -6,12 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Snapshot Manager</title>
+<title>snapm 0.5.3 Release Notes</title>
 
 
 
 
-<meta name="keywords" content="Snapshot, Snapshot Manager, Snapshots, Linux">
+
+<meta name="keywords" content="release">
 
 
 
@@ -27,7 +28,7 @@
 
 
   
-  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;">
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;snapm-release-notes-0-5-3&#x2F;">
 
 
 <link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
@@ -89,8 +90,7 @@
 </head>
 
 <body
-class="list" id="top">
-  
+class="" id="top">
   <script>
     const preft = localStorage.getItem("pref-theme");
     if (preft === "dark") {
@@ -111,7 +111,10 @@ class="list" id="top">
         accesskey="h"
         title="Snapshot Manager (Alt + H)"
       >
-        
+	<img
+	  src="https://snapshotmanager.github.io/svg/snapm-logo-vector-small.svg"
+	  alt="SnapshotManager logo"
+	/>
         
       </a>
       <div class="logo-switches">
@@ -155,7 +158,7 @@ class="list" id="top">
         </button>
         <ul class="lang-switch">
           <li>en</li>
-          <li>zh-cn</li>
+          <li>zh</li>
         </ul>
       </div>
     </div>
@@ -228,32 +231,127 @@ class="list" id="top">
   </nav>
 </header>
 
-
 <main class="main">
   
-  <header class="page-header">
-  <div class="breadcrumbs">
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-5-3&#x2F;">snapm 0.5.3 Release Notes</a>
+      </div>
+      <h1 class="post-title">snapm 0.5.3 Release Notes</h1>
+      
+      
+      <div class="post-meta">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span title="2026-01-05 00:00:00 +0000">2026-01-05</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;120 words&nbsp;·&nbsp;
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;snapm-release-notes-0.5.3.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+      
+      </div>
+      
+  </header>
+
+  
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#overview" aria-label="Overview">Overview</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#what-s-changed" aria-label="What&#x27;s Changed">What&#x27;s Changed</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>This is a maintenance release for <a href="https://github.com/snapshotmanager/snapm/tree/snapm-0.5-stable">snapm-0.5-stable</a> that includes two bug fixes.</p>
+<p>Users of snapm-0.5.x who are unable to upgrade to a later y-stream release
+should update to
+<a href="https://github.com/snapshotmanager/snapm/releases/tag/v0.5.3">v0.5.3</a> as soon
+as possible to take advantage of these fixes.</p>
+<h2 id="what-s-changed">What's Changed</h2>
+<ul>
+<li>Timeline index fix for v0.5.2 by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in
+<a href="https://github.com/snapshotmanager/snapm/pull/609">#609</a></li>
+<li>boot: hex escape literal ':' in values passed to systemd.{mount,swap}-extra
+by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/894">#894</a></li>
+</ul>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/snapshotmanager/snapm/compare/v0.5.2...v0.5.3">v0.5.2..v0.5.3</a></p>
+
   </div>
-  <h1>
+  
+
+  <footer class="post-footer">
+      
+      <ul class="post-tags">
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;release&#x2F;">release</a></li>
+          
+      </ul>
+      
+
     
-    <a href="https://snapshotmanager.github.io/atom.xml" title="RSS" aria-label="RSS">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23">
-        <path d="M4 11a9 9 0 0 1 9 9"></path>
-        <path d="M4 4a16 16 0 0 1 16 16"></path>
-        <circle cx="5" cy="19" r="1"></circle>
-      </svg>
+    
+
+
+<nav class="paginav">
+    
+    <a class="prev" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-6-0&#x2F;">
+        <span class="title">« Prev</span>
+        <br>
+        <span>snapm 0.6.0 Release Notes</span>
     </a>
     
-</h1>
-</header>
+    
+</nav>
 
-<!-- no paginator_by in _index.mnd -->
-no paginator
+    
+    
+  </footer>
 
-
-
-
+</article>
 
 </main>
 
