@@ -6,12 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Snapshot Manager</title>
+<title>snapm 0.7.0 Release Notes</title>
 
 
 
 
-<meta name="keywords" content="Snapshot, Snapshot Manager, Snapshots, Linux">
+
+<meta name="keywords" content="release">
 
 
 
@@ -26,7 +27,8 @@
 
 
 
-  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories&#x2F;release-notes&#x2F;">
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;snapm-release-notes-0-7-0&#x2F;">
 
 
 <link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
@@ -88,7 +90,7 @@
 </head>
 
 <body
-class="list" id="top">
+class="" id="top">
   <script>
     const preft = localStorage.getItem("pref-theme");
     if (preft === "dark") {
@@ -231,40 +233,17 @@ class="list" id="top">
 
 <main class="main">
   
-
-  <!-- taxonomy header (mostly used in single template) just below the nav bar -->
-<header class="page-header">
-  <div class="breadcrumbs">
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io/categories">Categories
-        
-          
-        
-          📂
-        
-        
-      </a>&nbsp;»&nbsp;
-      <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories&#x2F;release-notes&#x2F;">release notes</a>
-  </div>
-  <h1>Release Notes
-    
-    <a href="https://snapshotmanager.github.io/categories/release-notes/atom.xml" title="RSS" aria-label="RSS">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23">
-        <path d="M4 11a9 9 0 0 1 9 9"></path>
-        <path d="M4 4a16 16 0 0 1 16 16"></path>
-        <circle cx="5" cy="19" r="1"></circle>
-      </svg>
-    </a>
-    
-</h1>
-</header>
-
-<article class="post-entry">
-  <header class="entry-header">
-      <h2>snapm 0.7.0 Release Notes</h2>
-  </header>
-  
-  <footer class="entry-footer">
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-7-0&#x2F;">snapm 0.7.0 Release Notes</a>
+      </div>
+      <h1 class="post-title">snapm 0.7.0 Release Notes</h1>
+      
+      
+      <div class="post-meta">
       
 
 
@@ -281,62 +260,126 @@ class="list" id="top">
 
 
 <span title="2026-01-06 00:00:00 +0000">2026-01-06</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;910 words&nbsp;·&nbsp;
-  </footer>
-  <a class="entry-link" aria-label="post link to snapm 0.7.0 Release Notes" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-7-0&#x2F;"></a>
-</article>
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;snapm-release-notes-0.7.0.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
 
-<article class="post-entry">
-  <header class="entry-header">
-      <h2>snapm 0.5.3 Release Notes</h2>
+      
+      </div>
+      
   </header>
+
   
-  <footer class="entry-footer">
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#overview" aria-label="Overview">Overview</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#notes" aria-label="Notes">Notes</a>
+              
+            </li>
+            
+            <li>
+              <a href="#what-s-changed" aria-label="What&#x27;s Changed">What&#x27;s Changed</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <h1 id="overview">Overview</h1>
+<p>This release introduces significant new features, fixes, and quality of life improvements. These include enhancements to the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html#difference-engine">Difference Engine</a>: support for multiple <code>-s|--start-path</code> arguments, cache fixes, better file type detection when not using <code>--file-types</code>, and improved move detection behaviour when multiple destinations exist, as well as support for plugin priorities in <code>Manager</code> and the in-tree plugins (for example, allowing the administrator to choose between <code>lvm2-thin</code>, and <code>lvm2-cow</code> snapshot providers where both can snapshot the same volume), better documentation for the Mount Manager in the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html"><em>User Guide</em></a>, and a new, user-visible timeline categorization ("yearly", "monthly", "weekly", "daily", etc.) that is available for all snapshot sets. This release also includes a fix for the <code>snapm</code> / <code>podman</code> netns mount issue <a href="https://github.com/snapshotmanager/snapm/wiki/Known-issue:-snapm-snapset-%7Bmount,umount%7D-and-podman-netfs-mounts">documented</a> in earlier releases (<a href="https://github.com/snapshotmanager/snapm/issues/586">#586</a>) and stronger validation for <code>schedule create</code> name arguments (<a href="https://github.com/snapshotmanager/snapm/issues/906">#906</a>).</p>
+<p>Users should upgrade to <a href="https://github.com/snapshotmanager/snapm/releases/tag/v0.7.0">v0.7.0</a> as soon as possible to take advantage of these enhancements.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>It is now possible to specify the <code>-s|--start</code> path multiple times when invoking the <code>snapset diff</code> and <code>snapset diffreport</code> commands. This allows the user to compare multiple independent subtrees in a single <code>diff</code> operation.</li>
+<li>The path based file type detection has been improved to support more common file extensions, text and binary path locations, and categorisations.</li>
+<li>A new <code>BINARY_LOG</code> file type categorisation has been added to describe files such as <code>wtmp</code>, SAR logs, and the journal.</li>
+<li>Plugins now support a <code>PluginPriority</code> configuration that specifies a positive integer priority level. The plugin with the greatest priority is chosen when multiple plugins can snapshot the same device. This allows the user to prefer <code>lvm2-cow</code> snapshots over <code>lvm2-thin</code> where both are possible and will in future allow support for file system level snapshots (for example, Btrfs). Refer to <code>snapm(8)</code>, and <code>snapm-plugins.d(5)</code> for further information on configuring plugin priorities.</li>
+<li>The Mount Manager is now described in the on-line and in-package <a href="https://snapm.readthedocs.io/en/latest/user_guide.html"><em>User Guide</em></a>.</li>
+<li>The Mount Manager now handles unmounting of duplicate <code>/run/netns</code> mounts via a targeted workaround.</li>
+<li>The timeline classification algorithm used by the <code>Timeline</code> garbage collection policy has been generalised and is now available for all snapshot sets via the "Categories" snapshot set property and "categories" report field.</li>
+<li>The static file type classifier now uses a broader set of rules for classifying likely text or binary content types.</li>
+<li>The <code>tree</code> output format of the <code>snapset diff</code> command now displays separate nodes for paths that have both been moved and modified (for example, a file that was backed up and then changed in-place).</li>
+</ul>
+<h2 id="what-s-changed">What's Changed</h2>
+<ul>
+<li>doc: add new snapm logo to README.md by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/823">#823</a></li>
+<li>doc: update <code>README.md</code> and <code>user_guide.rst</code> with mount manager and difference engine  by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/830">#830</a></li>
+<li>snapm: btrfs plugin pre-requisite features and fixes by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/843">#843</a></li>
+<li>Fixes for progress log interleaving and text-like best-guess file type detection by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/851">#851</a></li>
+<li>fsdiff: add <code>BINARY_LOG</code> file type category and fix <code>TEXT_FILE_PATHS</code> prefixing by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/855">#855</a></li>
+<li>fsdiff: ctrl char glitches when diff -o tree --color=always | less -R by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/857">#857</a></li>
+<li>fsdiff: tolerate missing <code>python-file-magic</code> and work around <code>Magic.close()</code> bug by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/859">#859</a></li>
+<li>fsdiff: make <code>include_system_dirs</code> more robust and disable in next release by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/871">#871</a></li>
+<li>fsdiff: implement cheap sibbling proximity heuristic for moves by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/874">#874</a></li>
+<li>fsdiff: support <code>DiffOptions.from_path</code> as list by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/875">#875</a>)</li>
+<li>plugins: bump plugin versions for prio support by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/876">#876</a></li>
+<li>tests: improve <code>snapm.fsdiff</code> coverage by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in [#991](https://github.com/snapshotmanager/snapm/pull/881</li>
+<li>snapm: lift timeline classification logic up to <code>SnapshotSet</code> by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/885">#885</a></li>
+<li>snapm: don't alpha sort categories in reports by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/892">#892</a></li>
+<li>mounts: container mount workarounds by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/900">#900</a></li>
+<li>snapm: schedule name checks by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/910">#910</a></li>
+<li>fsdiff: add <code>DiffOptions.no_mem_check</code> / <code>--no-mem-check</code> option by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/912">#912</a></li>
+<li>snapm: broaden file type heuristics for suffix paths and support multiple change records in tree rendering by <a href="https://github.com/bmr-cymru/">@bmr-cymru</a> in <a href="https://github.com/snapshotmanager/snapm/pull/913">#913</a></li>
+</ul>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/snapshotmanager/snapm/compare/v0.6.0...v0.7.0">v0.6.0..v0.7.0</a></p>
+
+  </div>
+  
+
+  <footer class="post-footer">
+      
+      <ul class="post-tags">
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;release&#x2F;">release</a></li>
+          
+      </ul>
       
 
+    
+    
 
 
+<nav class="paginav">
+    
+    
+    <a class="next" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;">
+        <span class="title">Next »</span>
+        <br>
+        <span>Welcome!</span>
+    </a>
+    
+</nav>
 
-
-
-
-
-
-
-
-
-
-
-<span title="2026-01-05 00:00:00 +0000">2026-01-05</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;120 words&nbsp;·&nbsp;
+    
+    
   </footer>
-  <a class="entry-link" aria-label="post link to snapm 0.5.3 Release Notes" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-5-3&#x2F;"></a>
+
 </article>
-
-<article class="post-entry">
-  <header class="entry-header">
-      <h2>snapm 0.6.0 Release Notes</h2>
-  </header>
-  
-  <footer class="entry-footer">
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<span title="2025-12-22 00:00:00 +0000">2025-12-22</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;881 words&nbsp;·&nbsp;
-  </footer>
-  <a class="entry-link" aria-label="post link to snapm 0.6.0 Release Notes" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-6-0&#x2F;"></a>
-</article>
-
 
 </main>
 

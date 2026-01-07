@@ -5,8 +5,64 @@
     <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/tags/release/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2026-01-05T00:00:00+00:00</updated>
+    <updated>2026-01-06T00:00:00+00:00</updated>
     <id>https://snapshotmanager.github.io/tags/release/atom.xml</id>
+    <entry xml:lang="en">
+        <title>snapm 0.7.0 Release Notes</title>
+        <published>2026-01-06T00:00:00+00:00</published>
+        <updated>2026-01-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/snapm-release-notes-0-7-0/"/>
+        <id>https://snapshotmanager.github.io/blog/snapm-release-notes-0-7-0/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/snapm-release-notes-0-7-0/">&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;&#x2F;h1&gt;
+&lt;p&gt;This release introduces significant new features, fixes, and quality of life improvements. These include enhancements to the &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;en&#x2F;latest&#x2F;user_guide.html#difference-engine&quot;&gt;Difference Engine&lt;&#x2F;a&gt;: support for multiple &lt;code&gt;-s|--start-path&lt;&#x2F;code&gt; arguments, cache fixes, better file type detection when not using &lt;code&gt;--file-types&lt;&#x2F;code&gt;, and improved move detection behaviour when multiple destinations exist, as well as support for plugin priorities in &lt;code&gt;Manager&lt;&#x2F;code&gt; and the in-tree plugins (for example, allowing the administrator to choose between &lt;code&gt;lvm2-thin&lt;&#x2F;code&gt;, and &lt;code&gt;lvm2-cow&lt;&#x2F;code&gt; snapshot providers where both can snapshot the same volume), better documentation for the Mount Manager in the &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;en&#x2F;latest&#x2F;user_guide.html&quot;&gt;&lt;em&gt;User Guide&lt;&#x2F;em&gt;&lt;&#x2F;a&gt;, and a new, user-visible timeline categorization (&quot;yearly&quot;, &quot;monthly&quot;, &quot;weekly&quot;, &quot;daily&quot;, etc.) that is available for all snapshot sets. This release also includes a fix for the &lt;code&gt;snapm&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;podman&lt;&#x2F;code&gt; netns mount issue &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;wiki&#x2F;Known-issue:-snapm-snapset-%7Bmount,umount%7D-and-podman-netfs-mounts&quot;&gt;documented&lt;&#x2F;a&gt; in earlier releases (&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&#x2F;586&quot;&gt;#586&lt;&#x2F;a&gt;) and stronger validation for &lt;code&gt;schedule create&lt;&#x2F;code&gt; name arguments (&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&#x2F;906&quot;&gt;#906&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;Users should upgrade to &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;releases&#x2F;tag&#x2F;v0.7.0&quot;&gt;v0.7.0&lt;&#x2F;a&gt; as soon as possible to take advantage of these enhancements.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;It is now possible to specify the &lt;code&gt;-s|--start&lt;&#x2F;code&gt; path multiple times when invoking the &lt;code&gt;snapset diff&lt;&#x2F;code&gt; and &lt;code&gt;snapset diffreport&lt;&#x2F;code&gt; commands. This allows the user to compare multiple independent subtrees in a single &lt;code&gt;diff&lt;&#x2F;code&gt; operation.&lt;&#x2F;li&gt;
+&lt;li&gt;The path based file type detection has been improved to support more common file extensions, text and binary path locations, and categorisations.&lt;&#x2F;li&gt;
+&lt;li&gt;A new &lt;code&gt;BINARY_LOG&lt;&#x2F;code&gt; file type categorisation has been added to describe files such as &lt;code&gt;wtmp&lt;&#x2F;code&gt;, SAR logs, and the journal.&lt;&#x2F;li&gt;
+&lt;li&gt;Plugins now support a &lt;code&gt;PluginPriority&lt;&#x2F;code&gt; configuration that specifies a positive integer priority level. The plugin with the greatest priority is chosen when multiple plugins can snapshot the same device. This allows the user to prefer &lt;code&gt;lvm2-cow&lt;&#x2F;code&gt; snapshots over &lt;code&gt;lvm2-thin&lt;&#x2F;code&gt; where both are possible and will in future allow support for file system level snapshots (for example, Btrfs). Refer to &lt;code&gt;snapm(8)&lt;&#x2F;code&gt;, and &lt;code&gt;snapm-plugins.d(5)&lt;&#x2F;code&gt; for further information on configuring plugin priorities.&lt;&#x2F;li&gt;
+&lt;li&gt;The Mount Manager is now described in the on-line and in-package &lt;a href=&quot;https:&#x2F;&#x2F;snapm.readthedocs.io&#x2F;en&#x2F;latest&#x2F;user_guide.html&quot;&gt;&lt;em&gt;User Guide&lt;&#x2F;em&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;The Mount Manager now handles unmounting of duplicate &lt;code&gt;&#x2F;run&#x2F;netns&lt;&#x2F;code&gt; mounts via a targeted workaround.&lt;&#x2F;li&gt;
+&lt;li&gt;The timeline classification algorithm used by the &lt;code&gt;Timeline&lt;&#x2F;code&gt; garbage collection policy has been generalised and is now available for all snapshot sets via the &quot;Categories&quot; snapshot set property and &quot;categories&quot; report field.&lt;&#x2F;li&gt;
+&lt;li&gt;The static file type classifier now uses a broader set of rules for classifying likely text or binary content types.&lt;&#x2F;li&gt;
+&lt;li&gt;The &lt;code&gt;tree&lt;&#x2F;code&gt; output format of the &lt;code&gt;snapset diff&lt;&#x2F;code&gt; command now displays separate nodes for paths that have both been moved and modified (for example, a file that was backed up and then changed in-place).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;what-s-changed&quot;&gt;What&#x27;s Changed&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;doc: add new snapm logo to README.md by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;823&quot;&gt;#823&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;doc: update &lt;code&gt;README.md&lt;&#x2F;code&gt; and &lt;code&gt;user_guide.rst&lt;&#x2F;code&gt; with mount manager and difference engine  by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;830&quot;&gt;#830&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: btrfs plugin pre-requisite features and fixes by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;843&quot;&gt;#843&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Fixes for progress log interleaving and text-like best-guess file type detection by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;851&quot;&gt;#851&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: add &lt;code&gt;BINARY_LOG&lt;&#x2F;code&gt; file type category and fix &lt;code&gt;TEXT_FILE_PATHS&lt;&#x2F;code&gt; prefixing by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;855&quot;&gt;#855&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: ctrl char glitches when diff -o tree --color=always | less -R by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;857&quot;&gt;#857&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: tolerate missing &lt;code&gt;python-file-magic&lt;&#x2F;code&gt; and work around &lt;code&gt;Magic.close()&lt;&#x2F;code&gt; bug by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;859&quot;&gt;#859&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: make &lt;code&gt;include_system_dirs&lt;&#x2F;code&gt; more robust and disable in next release by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;871&quot;&gt;#871&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: implement cheap sibbling proximity heuristic for moves by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;874&quot;&gt;#874&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: support &lt;code&gt;DiffOptions.from_path&lt;&#x2F;code&gt; as list by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;875&quot;&gt;#875&lt;&#x2F;a&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;plugins: bump plugin versions for prio support by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;876&quot;&gt;#876&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;tests: improve &lt;code&gt;snapm.fsdiff&lt;&#x2F;code&gt; coverage by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in [#991](https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;881&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: lift timeline classification logic up to &lt;code&gt;SnapshotSet&lt;&#x2F;code&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;885&quot;&gt;#885&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: don&#x27;t alpha sort categories in reports by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;892&quot;&gt;#892&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;mounts: container mount workarounds by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;900&quot;&gt;#900&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: schedule name checks by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;910&quot;&gt;#910&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;fsdiff: add &lt;code&gt;DiffOptions.no_mem_check&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;--no-mem-check&lt;&#x2F;code&gt; option by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;912&quot;&gt;#912&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;snapm: broaden file type heuristics for suffix paths and support multiple change records in tree rendering by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bmr-cymru&#x2F;&quot;&gt;@bmr-cymru&lt;&#x2F;a&gt; in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;pull&#x2F;913&quot;&gt;#913&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Full Changelog&lt;&#x2F;strong&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;compare&#x2F;v0.6.0...v0.7.0&quot;&gt;v0.6.0..v0.7.0&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>snapm 0.5.3 Release Notes</title>
         <published>2026-01-05T00:00:00+00:00</published>
