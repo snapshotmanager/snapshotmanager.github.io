@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title>Snapshot Manager - blog posts</title>
+    <title>Snapshot Manager - tech tips</title>
     <subtitle>Easy to use snapshot management for Linux.</subtitle>
-    <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/categories/blog-posts/atom.xml"/>
+    <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/categories/tech-tips/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2026-01-13T00:00:00+00:00</updated>
-    <id>https://snapshotmanager.github.io/categories/blog-posts/atom.xml</id>
+    <id>https://snapshotmanager.github.io/categories/tech-tips/atom.xml</id>
     <entry xml:lang="en">
         <title>Getting snapm</title>
         <published>2026-01-13T00:00:00+00:00</published>
@@ -201,29 +201,6 @@
 &lt;p&gt;Or by visiting &lt;a href=&quot;file:&#x2F;&#x2F;&#x2F;usr&#x2F;share&#x2F;doc&#x2F;python3-snapm-doc&#x2F;doc&#x2F;html&#x2F;index.html&quot;&gt;this URL&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;5-3-pypi-packages&quot;&gt;5.3 PyPi Packages&lt;&#x2F;h3&gt;
 &lt;p&gt;The PyPi (pip) packages include only the executable code that makes up Snapshot Manager. You will need to configure the program yourself and install any documentation you wish to use, following the directions in section &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3.&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
-</content>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>Welcome!</title>
-        <published>2025-12-21T00:00:00+00:00</published>
-        <updated>2025-12-21T00:00:00+00:00</updated>
-        
-        <author>
-          <name>
-            
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/welcome/"/>
-        <id>https://snapshotmanager.github.io/blog/welcome/</id>
-        
-        <content type="html" xml:base="https://snapshotmanager.github.io/blog/welcome/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome!&lt;&#x2F;h1&gt;
-&lt;p&gt;Welcome to the &lt;em&gt;Snapshot Manager&lt;&#x2F;em&gt; blog! We&#x27;ll be sharing news, release
-announcements, future plans and updates, technical tips and more.&lt;&#x2F;p&gt;
-&lt;p&gt;Come back soon or subscribe to our feed to be notified of updates.&lt;&#x2F;p&gt;
 </content>
         
     </entry>

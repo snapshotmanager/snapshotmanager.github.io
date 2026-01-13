@@ -39,6 +39,9 @@
         <loc>https://snapshotmanager.github.io/categories/release-notes/</loc>
     </url>
     <url>
+        <loc>https://snapshotmanager.github.io/categories/tech-tips/</loc>
+    </url>
+    <url>
         <loc>https://snapshotmanager.github.io/howto/</loc>
         <lastmod>2025-12-22</lastmod>
     </url>
@@ -49,10 +52,16 @@
         <loc>https://snapshotmanager.github.io/tags/</loc>
     </url>
     <url>
+        <loc>https://snapshotmanager.github.io/tags/getting-started/</loc>
+    </url>
+    <url>
         <loc>https://snapshotmanager.github.io/tags/news/</loc>
     </url>
     <url>
         <loc>https://snapshotmanager.github.io/tags/release/</loc>
+    </url>
+    <url>
+        <loc>https://snapshotmanager.github.io/tags/tips/</loc>
     </url>
     <url>
         <loc>https://snapshotmanager.github.io/tags/welcome/</loc>
