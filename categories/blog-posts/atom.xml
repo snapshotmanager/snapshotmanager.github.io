@@ -181,7 +181,7 @@
 &lt;h2 id=&quot;5-what-s-in-the-box&quot;&gt;5. What&#x27;s in the Box?&lt;&#x2F;h2&gt;
 &lt;p&gt;Depending on how &lt;code&gt;snapm&lt;&#x2F;code&gt; was installed the package will include some or all of the components needed to run and learn about the tool. This varies according to the packaging format (or lack thereof, in the case of source installations).&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;5-1-source-distribution&quot;&gt;5.1 Source Distribution&lt;&#x2F;h3&gt;
-&lt;p&gt;The source distribution (a git checkout or a tarball) includes all the source and in tree documentation for Snapshot Manager but you are responsible for installing it and making it usable on your system. Refer to the previous chapter for instructions ([sec:Installing-or-Running]).&lt;&#x2F;p&gt;
+&lt;p&gt;The source distribution (a git checkout or a tarball) includes all the source and in tree documentation for Snapshot Manager but you are responsible for installing it and making it usable on your system. Refer to the &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3.&lt;&#x2F;a&gt; for instructions.&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;5-2-rpm-packages&quot;&gt;5.2 RPM Packages&lt;&#x2F;h3&gt;
 &lt;p&gt;The &lt;code&gt;snapm&lt;&#x2F;code&gt; project is packaged for RPM based distributions as three subpackages that all build from the same source RPM:&lt;&#x2F;p&gt;
 &lt;ul&gt;
