@@ -5,8 +5,205 @@
     <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2026-01-06T00:00:00+00:00</updated>
+    <updated>2026-01-13T00:00:00+00:00</updated>
     <id>https://snapshotmanager.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Getting snapm</title>
+        <published>2026-01-13T00:00:00+00:00</published>
+        <updated>2026-01-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/getting-snapm/"/>
+        <id>https://snapshotmanager.github.io/blog/getting-snapm/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/getting-snapm/">&lt;h1 id=&quot;getting-snapm&quot;&gt;Getting &lt;code&gt;snapm&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Snapshot Manager is a Python application. It is simple to install whether you are working from distribution provided packages, or installing the latest source from git. For most users we recommend using distribution packages where available - you&#x27;ll be able to take advantage of automatic updates and simplified configuration, but read on to discover how to install &lt;code&gt;snapm&lt;&#x2F;code&gt; using various methods, and where to obtain the Python packages and source code if required.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-installing-distribution-packages-with-dnf-recommended-for-most-users&quot;&gt;1. Installing distribution packages with &lt;code&gt;dnf&lt;&#x2F;code&gt; (recommended for most users).&lt;&#x2F;h2&gt;
+&lt;p&gt;What you&#x27;ll need:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A Linux system installed with a recent edition of &lt;a href=&quot;https:&#x2F;&#x2F;fedoraproject.org&quot;&gt;Fedora&lt;&#x2F;a&gt; (F42+), &lt;a href=&quot;https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F;&quot;&gt;CentOS Stream&lt;&#x2F;a&gt; (c9s+), or &lt;a href=&quot;https:&#x2F;&#x2F;developers.redhat.com&#x2F;products&#x2F;rhel&#x2F;download&quot;&gt;Red Hat Enterprise Linux&lt;&#x2F;a&gt; (RHEL9.6 onward).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Administrative privileges (or membership of the wheel group).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A working internet connection.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Using the native dnf package management tool, open a terminal and either switch to the root account by running &lt;code&gt;su -&lt;&#x2F;code&gt; (if you have a root account password configured), or prefix the &lt;code&gt;dnf install&lt;&#x2F;code&gt; command with &lt;code&gt;sudo&lt;&#x2F;code&gt;, give the appropriate password when prompted, and &lt;code&gt;dnf&lt;&#x2F;code&gt; will do its thing, pull the packages down and get them installed:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ su -
+&lt;&#x2F;span&gt;&lt;span&gt;Password:
+&lt;&#x2F;span&gt;&lt;span&gt;# dnf -y install snapm
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Or:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ sudo dnf -y install snapm
+&lt;&#x2F;span&gt;&lt;span&gt;[sudo] password for bmr: 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For example, on Fedora 42 with &lt;code&gt;snapm-0.7.0-1.fc42&lt;&#x2F;code&gt; the installation will look something like this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# dnf -y install snapm
+&lt;&#x2F;span&gt;&lt;span&gt;Updating and loading repositories:
+&lt;&#x2F;span&gt;&lt;span&gt;Repositories loaded.
+&lt;&#x2F;span&gt;&lt;span&gt;Package                  Arch    Version                  Repository        Size
+&lt;&#x2F;span&gt;&lt;span&gt;Installing:
+&lt;&#x2F;span&gt;&lt;span&gt; snapm                   noarch  0.7.0-1.fc42             updates       38.0 KiB
+&lt;&#x2F;span&gt;&lt;span&gt;Installing dependencies:
+&lt;&#x2F;span&gt;&lt;span&gt; python3-snapm           noarch  0.7.0-1.fc42             updates        1.6 MiB
+&lt;&#x2F;span&gt;&lt;span&gt;Installing weak dependencies:
+&lt;&#x2F;span&gt;&lt;span&gt; boom-boot               noarch  1.6.8-2.fc42             updates       30.3 KiB
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Transaction Summary:
+&lt;&#x2F;span&gt;&lt;span&gt; Installing:         3 packages
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Total size of inbound packages is 475 KiB. Need to download 475 KiB.
+&lt;&#x2F;span&gt;&lt;span&gt;After this operation, 2 MiB extra will be used (install 2 MiB, remove 0 B).
+&lt;&#x2F;span&gt;&lt;span&gt;[1&#x2F;3] snapm-0:0.7.0-1.fc42.noarch       100% | 395.7 KiB&#x2F;s |  36.8 KiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[2&#x2F;3] boom-boot-0:1.6.8-2.fc42.noarch   100% | 245.4 KiB&#x2F;s |  29.5 KiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[3&#x2F;3] python3-snapm-0:0.7.0-1.fc42.noar 100% |   2.0 MiB&#x2F;s | 408.8 KiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;--------------------------------------------------------------------------------
+&lt;&#x2F;span&gt;&lt;span&gt;[3&#x2F;3] Total                             100% |   1.3 MiB&#x2F;s | 475.0 KiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;Running transaction
+&lt;&#x2F;span&gt;&lt;span&gt;[1&#x2F;5] Verify package files              100% | 250.0   B&#x2F;s |   3.0   B |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[2&#x2F;5] Prepare transaction               100% |  21.0   B&#x2F;s |   3.0   B |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[3&#x2F;5] Installing python3-snapm-0:0.7.0- 100% |  20.7 MiB&#x2F;s |   1.7 MiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[4&#x2F;5] Installing snapm-0:0.7.0-1.fc42.n 100% | 542.2 KiB&#x2F;s |  41.2 KiB |  00m00s
+&lt;&#x2F;span&gt;&lt;span&gt;[5&#x2F;5] Installing boom-boot-0:1.6.8-2.fc 100% |  33.1 KiB&#x2F;s |  31.4 KiB |  00m01s
+&lt;&#x2F;span&gt;&lt;span&gt;Complete!
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note that the &lt;code&gt;boom-boot&lt;&#x2F;code&gt; package (containing the boom boot manager CLI) is a weak dependency of &lt;code&gt;snapm&lt;&#x2F;code&gt; - that is to say, it is recommended but not required (the &lt;code&gt;python3-snapm&lt;&#x2F;code&gt; package separately depends on the &lt;code&gt;python3-boom&lt;&#x2F;code&gt; package that provides the procedural API that &lt;code&gt;snapm&lt;&#x2F;code&gt; uses). If you&#x27;re installing &lt;code&gt;snapm&lt;&#x2F;code&gt; for manual use (rather than automation using the API or Ansible roles) you probably want to have &lt;code&gt;boom&lt;&#x2F;code&gt; installed too - it is the easiest way to get deeper insight into your snapshot boot entries.&lt;&#x2F;p&gt;
+&lt;p&gt;If you would like to also have the HTML documentation available to browse locally add the &lt;code&gt;python3-snapm-doc&lt;&#x2F;code&gt; package name to your &lt;code&gt;dnf install&lt;&#x2F;code&gt; invocation.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-installing-copr-builds-from-github-early-access-to-new-features-fixes&quot;&gt;2. Installing copr builds from GitHub (early access to new features &amp;amp; fixes)&lt;&#x2F;h2&gt;
+&lt;p&gt;What you&#x27;ll need:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The URL or PR# of the pull request that you want to install a build from.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A Linux system installed with a recent edition of &lt;a href=&quot;https:&#x2F;&#x2F;fedoraproject.org&quot;&gt;Fedora&lt;&#x2F;a&gt; (F42+), &lt;a href=&quot;https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F;&quot;&gt;CentOS Stream&lt;&#x2F;a&gt; (c9s+), or &lt;a href=&quot;https:&#x2F;&#x2F;developers.redhat.com&#x2F;products&#x2F;rhel&#x2F;download&quot;&gt;Red Hat Enterprise Linux&lt;&#x2F;a&gt; (RHEL9.6 onward).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;The package &lt;code&gt;python3-dnf-plugins-core&lt;&#x2F;code&gt; installed for the DNF copr plugin.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Administrative privileges (or membership of the wheel group).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A working internet connection.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In this scenario, we&#x27;ll be using the DNF support for copr repositories in the core plug-ins package to enable a pull request repository and install the packages.&lt;&#x2F;p&gt;
+&lt;p&gt;Either open the pull request web page, locate the comment from the Packit build system, and copy the provided &lt;code&gt;dnf&lt;&#x2F;code&gt; command for your distribution, or construct the repository argument for the dnf copr enable command as follows: ‘packit&#x2F;snapshotmanager-snapm-PR#’, where PR# is the pull request number assigned by GitHub in the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;&quot;&gt;snapshotmanager&#x2F;snapm&lt;&#x2F;a&gt; repository.&lt;&#x2F;p&gt;
+&lt;p&gt;The command will end up looking like this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# dnf copr enable packit&#x2F;snapshotmanager-snapm-830
+&lt;&#x2F;span&gt;&lt;span&gt;https:&#x2F;&#x2F;copr.fedorainfracloud.org&#x2F;api_ 100% | 696.0 B&#x2F;s | 485.0 B | 00m01s
+&lt;&#x2F;span&gt;&lt;span&gt;Enabling a Copr repository. Please note that this repository is not part
+&lt;&#x2F;span&gt;&lt;span&gt;of the main distribution, and quality may vary.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;The Fedora Project does not exercise any power over the contents of
+&lt;&#x2F;span&gt;&lt;span&gt;this repository beyond the rules outlined in the Copr FAQ at
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;https:&#x2F;&#x2F;docs.pagure.org&#x2F;copr.copr&#x2F;user_documentation.html#what-i-can-build-in-copr&amp;gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;and packages are not held to any quality or security level.
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Please do not file bug reports about these packages in Fedora
+&lt;&#x2F;span&gt;&lt;span&gt;Bugzilla. In case of problems, contact the owner of this repository.
+&lt;&#x2F;span&gt;&lt;span&gt;Is this ok [y&#x2F;N]: y
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Enter ‘y’ when prompted to confirm enabling the repository then follow the instructions from &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#1-installing-distribution-packages-with-dnf-recommended-for-most-users&quot;&gt;1.&lt;&#x2F;a&gt; to install the packages. When first installing packages from a new copr repository, you will be prompted to accept the Open PGP key used for signing packages in that repository: decide whether you trust the publisher of the builds, and enter ‘y’ to accept if so.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A Linux system installed with a recent edition of &lt;a href=&quot;https:&#x2F;&#x2F;fedoraproject.org&quot;&gt;Fedora&lt;&#x2F;a&gt; (F42+), &lt;a href=&quot;https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F;&quot;&gt;CentOS Stream&lt;&#x2F;a&gt; (c9s+), or &lt;a href=&quot;https:&#x2F;&#x2F;developers.redhat.com&#x2F;products&#x2F;rhel&#x2F;download&quot;&gt;Red Hat Enterprise Linux&lt;&#x2F;a&gt; (RHEL9.6 onward).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;The package &lt;code&gt;python3-pip&lt;&#x2F;code&gt; installed for the pip program.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Administrative privileges (or membership of the wheel group).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A working internet connection.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;New releases of &lt;code&gt;snapm&lt;&#x2F;code&gt; are pushed to the public PyPi repository at &lt;a href=&quot;https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;snapm&#x2F;&quot;&gt;snapm&lt;&#x2F;a&gt;. Often these will be available before updates to distribution packages are published (particularly for &lt;a href=&quot;https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F;&quot;&gt;CentOS Stream&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;developers.redhat.com&#x2F;products&#x2F;rhel&#x2F;download&quot;&gt;Red Hat Enterprise Linux&lt;&#x2F;a&gt;). These are mostly provided for users wanting to consume bleeding-edge releases in CI environments and are not typically recommended for end-users. You can install the latest code from PyPi using the &lt;code&gt;pip&lt;&#x2F;code&gt; command, including in a Python virtual environment.&lt;&#x2F;p&gt;
+&lt;p&gt;To install the latest package available (after activating any &lt;code&gt;venv&lt;&#x2F;code&gt;, if you wish to use one):&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ [sudo] pip install snapm
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can install &lt;code&gt;snapm&lt;&#x2F;code&gt; as a regular user or system wide, but be aware of the consequences of running pip as the root user if opting for the latter: consult your distribution&#x27;s Python packaging documentation for further information. The &lt;code&gt;snapm&lt;&#x2F;code&gt; command requires administrative privileges for all snapshot management operations (but you can view the builtin help text as any user).&lt;&#x2F;p&gt;
+&lt;p&gt;Just bear in mind: the Python packages do not currently include the configuration, systemd units, or manual pages that are included in the source and RPM distributions. This is a result of changes in the Python packaging ecosystem and the deprecation of &lt;code&gt;data_files&lt;&#x2F;code&gt; support in Python &lt;code&gt;setuptools&lt;&#x2F;code&gt;. You can reuse previously installed configuration files and resources to some extent but these may be out-of-date compared to the installation you are getting from PyPi. You will need to make any corrections or adjustments yourself. The easiest way to get these missing pieces is to clone the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;&quot;&gt;source repository&lt;&#x2F;a&gt; and copy the files to their proper locations with the following commands:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ sudo mkdir -p &#x2F;etc&#x2F;snapm&#x2F;plugins.d &#x2F;etc&#x2F;snapm&#x2F;schedule.d
+&lt;&#x2F;span&gt;&lt;span&gt;$ sudo cp systemd&#x2F;*.timer &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system
+&lt;&#x2F;span&gt;&lt;span&gt;$ sudo cp systemd&#x2F;*.service &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system
+&lt;&#x2F;span&gt;&lt;span&gt;$ sudo cp systemd&#x2F;tmpfiles.d&#x2F;snapm.conf &#x2F;usr&#x2F;lib&#x2F;tmpfiles.d
+&lt;&#x2F;span&gt;&lt;span&gt;$ sudo systemd-tmpfiles –create &#x2F;usr&#x2F;lib&#x2F;tmpfiles.d&#x2F;snapm.conf
+&lt;&#x2F;span&gt;&lt;span&gt;$ sudo systemctl daemon-reload
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you would also like to install the latest manual pages, copy them from the man&#x2F; directory in the source tree into the appropriate location for your distribution (normally &lt;code&gt;&#x2F;usr&#x2F;share&#x2F;man&#x2F;man{5,8}&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-installing-or-running-from-source-for-experts-contributors&quot;&gt;4. Installing or Running From Source (For Experts &amp;amp; Contributors)&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A Linux system installed with a recent edition of &lt;a href=&quot;https:&#x2F;&#x2F;fedoraproject.org&quot;&gt;Fedora&lt;&#x2F;a&gt; (F42+), &lt;a href=&quot;https:&#x2F;&#x2F;www.centos.org&#x2F;download&#x2F;&quot;&gt;CentOS Stream&lt;&#x2F;a&gt; (c9s+), or &lt;a href=&quot;https:&#x2F;&#x2F;developers.redhat.com&#x2F;products&#x2F;rhel&#x2F;download&quot;&gt;Red Hat Enterprise Linux&lt;&#x2F;a&gt; (RHEL9.6 onward).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A working installation of the &lt;code&gt;git&lt;&#x2F;code&gt; version control system.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;(Optionally) the package &lt;code&gt;python3-pip&lt;&#x2F;code&gt; installed for the pip program.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Administrative privileges (or membership of the wheel group).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;A working internet connection.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;First clone the &lt;code&gt;snapm&lt;&#x2F;code&gt; repository from GitHub with the command:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ git clone https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Optionally, also clone the boom-boot repository into the same parent directory (this is useful if you want to test or work on features or fixes that span both &lt;code&gt;snapm&lt;&#x2F;code&gt; and boom):&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ git clone https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;boom-boot
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To run &lt;code&gt;snapm&lt;&#x2F;code&gt; from the source tree, gain root privileges, change to the directory where you cloned the source (normally &lt;code&gt;snapm&#x2F;&lt;&#x2F;code&gt;, relative to the directory where git-clone ran), and run the command:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# . scripts&#x2F;setpaths.sh
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This will set the &lt;code&gt;PATH&lt;&#x2F;code&gt; and &lt;code&gt;PYTHONPATH&lt;&#x2F;code&gt; environment variables appropriately for you to run &lt;code&gt;snapm&lt;&#x2F;code&gt; from the checked-out sources. It will also enable support for using the checked out copy of &lt;code&gt;boom-boot&lt;&#x2F;code&gt; if you also cloned that (assuming it is found at the path &lt;code&gt;..&#x2F;boom-boot&lt;&#x2F;code&gt; relative to the &lt;code&gt;snapm&#x2F;&lt;&#x2F;code&gt; directory).&lt;&#x2F;p&gt;
+&lt;p&gt;You can now run the &lt;code&gt;snapm&lt;&#x2F;code&gt; and boom commands using the latest source from &lt;code&gt;git&lt;&#x2F;code&gt;. Every time you pull or checkout a new revision subsequent invocations will use that copy of the code.&lt;&#x2F;p&gt;
+&lt;p&gt;To install the current revision in a git clone, run:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ sudo pip install .
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Just remember that all the caveats from &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3.&lt;&#x2F;a&gt; apply to git clones too: you are responsible for ensuring all configuration files are in place, and for keeping them up-to-date with any code changes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-what-s-in-the-box&quot;&gt;5. What&#x27;s in the Box?&lt;&#x2F;h2&gt;
+&lt;p&gt;Depending on how &lt;code&gt;snapm&lt;&#x2F;code&gt; was installed the package will include some or all of the components needed to run and learn about the tool. This varies according to the packaging format (or lack thereof, in the case of source installations).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-1-source-distribution&quot;&gt;5.1 Source Distribution&lt;&#x2F;h3&gt;
+&lt;p&gt;The source distribution (a git checkout or a tarball) includes all the source and in tree documentation for Snapshot Manager but you are responsible for installing it and making it usable on your system. Refer to the previous chapter for instructions ([sec:Installing-or-Running]).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-2-rpm-packages&quot;&gt;5.2 RPM Packages&lt;&#x2F;h3&gt;
+&lt;p&gt;The &lt;code&gt;snapm&lt;&#x2F;code&gt; project is packaged for RPM based distributions as three subpackages that all build from the same source RPM:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;snapm&lt;&#x2F;code&gt; — The &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; program, its manual pages, configuration files, systemd units, tmpfiles.d configuration, and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;blob&#x2F;main&#x2F;README.md&quot;&gt;&lt;code&gt;README.md&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;python3-snapm&lt;&#x2F;code&gt; — The Python API comprising the &lt;code&gt;snapm&lt;&#x2F;code&gt; Python package.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;python3-snapm-doc&lt;&#x2F;code&gt; — HTML user and API documentation, normally found in &lt;code&gt;&#x2F;usr&#x2F;share&#x2F;doc&#x2F;python3-snapm-doc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can browse the documentation installed on your system by running the following command (assuming you have a working web browser in a reasonably modern desktop environment):&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;$ xdg-open &#x2F;usr&#x2F;share&#x2F;doc&#x2F;python3-snapm-doc&#x2F;doc&#x2F;html&#x2F;index.html
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Or by visiting &lt;a href=&quot;file:&#x2F;&#x2F;&#x2F;usr&#x2F;share&#x2F;doc&#x2F;python3-snapm-doc&#x2F;doc&#x2F;html&#x2F;index.html&quot;&gt;this URL&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-3-pypi-packages&quot;&gt;5.3 PyPi Packages&lt;&#x2F;h3&gt;
+&lt;p&gt;The PyPi (pip) packages include only the executable code that makes up Snapshot Manager. You will need to configure the program yourself and install any documentation you wish to use, following the directions in section &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3.&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>snapm 0.7.0 Release Notes</title>
         <published>2026-01-06T00:00:00+00:00</published>

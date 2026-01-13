@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" dir="i18n_dir">
+
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Getting snapm</title>
+
+
+
+
+<meta name="keywords" content="Snapshot, Snapshot Manager, Snapshots, Linux">
+
+
+
+
+<meta name="description" content="Easy to use snapshot management for Linux.">
+
+
+
+
+
+
+
+
+
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;getting-snapm&#x2F;">
+
+
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-base.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-common.css">
+<link rel="icon" href="https://snapshotmanager.github.io/snapm-favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://snapshotmanager.github.io/snapm-favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://snapshotmanager.github.io/snapm-favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://snapshotmanager.github.io/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+
+
+
+<link rel="alternate" type="application/atom+xml" title="RSS" href="https://snapshotmanager.github.io/atom.xml">
+
+
+
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+    
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(30, 32, 48);           /* macchiato-mantle */
+                --entry: rgb(36, 39, 58);           /* macchiato-base  */
+                --primary: rgb(202, 211, 245);      /* macchiato-text */
+                --secondary: rgb(184,192, 224);     /* macchiato-subtext1 */
+                --tertiary: rgb(54, 58, 79);        /* macchiato-surface0 */
+                --content: rgb(165, 173, 203);      /* macchiato-subtext0 */
+                --hljs-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --code-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --border: rgb(30, 32, 48);          /* macchiato-mantle */
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+    
+</noscript>
+
+
+</head>
+
+<body
+class="" id="top">
+  <script>
+    const preft = localStorage.getItem("pref-theme");
+    if (preft === "dark") {
+      document.body.classList.add("dark");
+    } else if (preft === "light") {
+      document.body.classList.remove("dark");
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  </script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a
+        href="https:&#x2F;&#x2F;snapshotmanager.github.io"
+        accesskey="h"
+        title="Snapshot Manager (Alt + H)"
+      >
+	<img
+	  src="https://snapshotmanager.github.io/svg/snapm-logo-vector-small.svg"
+	  alt="SnapshotManager logo"
+	/>
+        
+      </a>
+      <div class="logo-switches">
+        <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+          <svg
+            id="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg
+            id="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <ul class="lang-switch">
+          <li>en</li>
+          <li>zh</li>
+        </ul>
+      </div>
+    </div>
+    
+    <ul id="menu">
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;" title="Archive">
+          <span>Archive</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags" title="Tags">
+          <span>Tags</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories" title="Categories">
+          <span>Categories</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io#" title="Search"data-search-toggle="true">
+          <span>Search</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;getzola.org&#x2F;" title="Zola">
+          <span>Zola</span>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  stroke-width="2"·
+  stroke-linecap="round" stroke-linejoin="round" height=12 width=12>
+  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+  <path d="M15 3h6v6"></path>
+  <path d="M10 14L21 3"></path>
+</svg>
+
+
+</a>
+      </li>
+      
+    </ul>
+    
+  </nav>
+</header>
+
+<main class="main">
+  
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;">Getting snapm</a>
+      </div>
+      <h1 class="post-title">Getting snapm</h1>
+      
+      
+      <div class="post-meta">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span title="2026-01-13 00:00:00 +0000">2026-01-13</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1485 words&nbsp;·&nbsp;
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;getting-snapm.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+      
+      </div>
+      
+  </header>
+
+  
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#getting-snapm" aria-label="Getting snapm">Getting snapm</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#1-installing-distribution-packages-with-dnf-recommended-for-most-users" aria-label="1. Installing distribution packages with dnf (recommended for most users).">1. Installing distribution packages with dnf (recommended for most users).</a>
+              
+            </li>
+            
+            <li>
+              <a href="#2-installing-copr-builds-from-github-early-access-to-new-features-fixes" aria-label="2. Installing copr builds from GitHub (early access to new features &amp; fixes)">2. Installing copr builds from GitHub (early access to new features &amp; fixes)</a>
+              
+            </li>
+            
+            <li>
+              <a href="#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required" aria-label="3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)">3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)</a>
+              
+            </li>
+            
+            <li>
+              <a href="#4-installing-or-running-from-source-for-experts-contributors" aria-label="4. Installing or Running From Source (For Experts &amp; Contributors)">4. Installing or Running From Source (For Experts &amp; Contributors)</a>
+              
+            </li>
+            
+            <li>
+              <a href="#5-what-s-in-the-box" aria-label="5. What&#x27;s in the Box?">5. What&#x27;s in the Box?</a>
+              
+              <ul>
+                
+                <li><a href="#5-1-source-distribution" aria-label="5.1 Source Distribution">5.1 Source Distribution</a></li>
+                
+                <li><a href="#5-2-rpm-packages" aria-label="5.2 RPM Packages">5.2 RPM Packages</a></li>
+                
+                <li><a href="#5-3-pypi-packages" aria-label="5.3 PyPi Packages">5.3 PyPi Packages</a></li>
+                
+              </ul>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <h1 id="getting-snapm">Getting <code>snapm</code></h1>
+<p>Snapshot Manager is a Python application. It is simple to install whether you are working from distribution provided packages, or installing the latest source from git. For most users we recommend using distribution packages where available - you'll be able to take advantage of automatic updates and simplified configuration, but read on to discover how to install <code>snapm</code> using various methods, and where to obtain the Python packages and source code if required.</p>
+<h2 id="1-installing-distribution-packages-with-dnf-recommended-for-most-users">1. Installing distribution packages with <code>dnf</code> (recommended for most users).</h2>
+<p>What you'll need:</p>
+<ul>
+<li>
+<p>A Linux system installed with a recent edition of <a href="https://fedoraproject.org">Fedora</a> (F42+), <a href="https://www.centos.org/download/">CentOS Stream</a> (c9s+), or <a href="https://developers.redhat.com/products/rhel/download">Red Hat Enterprise Linux</a> (RHEL9.6 onward).</p>
+</li>
+<li>
+<p>Administrative privileges (or membership of the wheel group).</p>
+</li>
+<li>
+<p>A working internet connection.</p>
+</li>
+</ul>
+<p>Using the native dnf package management tool, open a terminal and either switch to the root account by running <code>su -</code> (if you have a root account password configured), or prefix the <code>dnf install</code> command with <code>sudo</code>, give the appropriate password when prompted, and <code>dnf</code> will do its thing, pull the packages down and get them installed:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ su -
+</span><span>Password:
+</span><span># dnf -y install snapm
+</span></code></pre>
+<p>Or:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo dnf -y install snapm
+</span><span>[sudo] password for bmr: 
+</span></code></pre>
+<p>For example, on Fedora 42 with <code>snapm-0.7.0-1.fc42</code> the installation will look something like this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># dnf -y install snapm
+</span><span>Updating and loading repositories:
+</span><span>Repositories loaded.
+</span><span>Package                  Arch    Version                  Repository        Size
+</span><span>Installing:
+</span><span> snapm                   noarch  0.7.0-1.fc42             updates       38.0 KiB
+</span><span>Installing dependencies:
+</span><span> python3-snapm           noarch  0.7.0-1.fc42             updates        1.6 MiB
+</span><span>Installing weak dependencies:
+</span><span> boom-boot               noarch  1.6.8-2.fc42             updates       30.3 KiB
+</span><span>
+</span><span>Transaction Summary:
+</span><span> Installing:         3 packages
+</span><span>
+</span><span>Total size of inbound packages is 475 KiB. Need to download 475 KiB.
+</span><span>After this operation, 2 MiB extra will be used (install 2 MiB, remove 0 B).
+</span><span>[1/3] snapm-0:0.7.0-1.fc42.noarch       100% | 395.7 KiB/s |  36.8 KiB |  00m00s
+</span><span>[2/3] boom-boot-0:1.6.8-2.fc42.noarch   100% | 245.4 KiB/s |  29.5 KiB |  00m00s
+</span><span>[3/3] python3-snapm-0:0.7.0-1.fc42.noar 100% |   2.0 MiB/s | 408.8 KiB |  00m00s
+</span><span>--------------------------------------------------------------------------------
+</span><span>[3/3] Total                             100% |   1.3 MiB/s | 475.0 KiB |  00m00s
+</span><span>Running transaction
+</span><span>[1/5] Verify package files              100% | 250.0   B/s |   3.0   B |  00m00s
+</span><span>[2/5] Prepare transaction               100% |  21.0   B/s |   3.0   B |  00m00s
+</span><span>[3/5] Installing python3-snapm-0:0.7.0- 100% |  20.7 MiB/s |   1.7 MiB |  00m00s
+</span><span>[4/5] Installing snapm-0:0.7.0-1.fc42.n 100% | 542.2 KiB/s |  41.2 KiB |  00m00s
+</span><span>[5/5] Installing boom-boot-0:1.6.8-2.fc 100% |  33.1 KiB/s |  31.4 KiB |  00m01s
+</span><span>Complete!
+</span></code></pre>
+<p>Note that the <code>boom-boot</code> package (containing the boom boot manager CLI) is a weak dependency of <code>snapm</code> - that is to say, it is recommended but not required (the <code>python3-snapm</code> package separately depends on the <code>python3-boom</code> package that provides the procedural API that <code>snapm</code> uses). If you're installing <code>snapm</code> for manual use (rather than automation using the API or Ansible roles) you probably want to have <code>boom</code> installed too - it is the easiest way to get deeper insight into your snapshot boot entries.</p>
+<p>If you would like to also have the HTML documentation available to browse locally add the <code>python3-snapm-doc</code> package name to your <code>dnf install</code> invocation.</p>
+<h2 id="2-installing-copr-builds-from-github-early-access-to-new-features-fixes">2. Installing copr builds from GitHub (early access to new features &amp; fixes)</h2>
+<p>What you'll need:</p>
+<ul>
+<li>
+<p>The URL or PR# of the pull request that you want to install a build from.</p>
+</li>
+<li>
+<p>A Linux system installed with a recent edition of <a href="https://fedoraproject.org">Fedora</a> (F42+), <a href="https://www.centos.org/download/">CentOS Stream</a> (c9s+), or <a href="https://developers.redhat.com/products/rhel/download">Red Hat Enterprise Linux</a> (RHEL9.6 onward).</p>
+</li>
+<li>
+<p>The package <code>python3-dnf-plugins-core</code> installed for the DNF copr plugin.</p>
+</li>
+<li>
+<p>Administrative privileges (or membership of the wheel group).</p>
+</li>
+<li>
+<p>A working internet connection.</p>
+</li>
+</ul>
+<p>In this scenario, we'll be using the DNF support for copr repositories in the core plug-ins package to enable a pull request repository and install the packages.</p>
+<p>Either open the pull request web page, locate the comment from the Packit build system, and copy the provided <code>dnf</code> command for your distribution, or construct the repository argument for the dnf copr enable command as follows: ‘packit/snapshotmanager-snapm-PR#’, where PR# is the pull request number assigned by GitHub in the <a href="https://github.com/snapshotmanager/snapm/">snapshotmanager/snapm</a> repository.</p>
+<p>The command will end up looking like this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># dnf copr enable packit/snapshotmanager-snapm-830
+</span><span>https://copr.fedorainfracloud.org/api_ 100% | 696.0 B/s | 485.0 B | 00m01s
+</span><span>Enabling a Copr repository. Please note that this repository is not part
+</span><span>of the main distribution, and quality may vary.
+</span><span>
+</span><span>The Fedora Project does not exercise any power over the contents of
+</span><span>this repository beyond the rules outlined in the Copr FAQ at
+</span><span>&lt;https://docs.pagure.org/copr.copr/user_documentation.html#what-i-can-build-in-copr&gt;,
+</span><span>and packages are not held to any quality or security level.
+</span><span>
+</span><span>Please do not file bug reports about these packages in Fedora
+</span><span>Bugzilla. In case of problems, contact the owner of this repository.
+</span><span>Is this ok [y/N]: y
+</span></code></pre>
+<p>Enter ‘y’ when prompted to confirm enabling the repository then follow the instructions from <a href="https://snapshotmanager.github.io/blog/getting-snapm/#1-installing-distribution-packages-with-dnf-recommended-for-most-users">1.</a> to install the packages. When first installing packages from a new copr repository, you will be prompted to accept the Open PGP key used for signing packages in that repository: decide whether you trust the publisher of the builds, and enter ‘y’ to accept if so.</p>
+<h2 id="3-installing-from-pypi-bleeding-edge-releases-some-assembly-required">3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)</h2>
+<ul>
+<li>
+<p>A Linux system installed with a recent edition of <a href="https://fedoraproject.org">Fedora</a> (F42+), <a href="https://www.centos.org/download/">CentOS Stream</a> (c9s+), or <a href="https://developers.redhat.com/products/rhel/download">Red Hat Enterprise Linux</a> (RHEL9.6 onward).</p>
+</li>
+<li>
+<p>The package <code>python3-pip</code> installed for the pip program.</p>
+</li>
+<li>
+<p>Administrative privileges (or membership of the wheel group).</p>
+</li>
+<li>
+<p>A working internet connection.</p>
+</li>
+</ul>
+<p>New releases of <code>snapm</code> are pushed to the public PyPi repository at <a href="https://pypi.org/project/snapm/">snapm</a>. Often these will be available before updates to distribution packages are published (particularly for <a href="https://www.centos.org/download/">CentOS Stream</a> and <a href="https://developers.redhat.com/products/rhel/download">Red Hat Enterprise Linux</a>). These are mostly provided for users wanting to consume bleeding-edge releases in CI environments and are not typically recommended for end-users. You can install the latest code from PyPi using the <code>pip</code> command, including in a Python virtual environment.</p>
+<p>To install the latest package available (after activating any <code>venv</code>, if you wish to use one):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ [sudo] pip install snapm
+</span></code></pre>
+<p>You can install <code>snapm</code> as a regular user or system wide, but be aware of the consequences of running pip as the root user if opting for the latter: consult your distribution's Python packaging documentation for further information. The <code>snapm</code> command requires administrative privileges for all snapshot management operations (but you can view the builtin help text as any user).</p>
+<p>Just bear in mind: the Python packages do not currently include the configuration, systemd units, or manual pages that are included in the source and RPM distributions. This is a result of changes in the Python packaging ecosystem and the deprecation of <code>data_files</code> support in Python <code>setuptools</code>. You can reuse previously installed configuration files and resources to some extent but these may be out-of-date compared to the installation you are getting from PyPi. You will need to make any corrections or adjustments yourself. The easiest way to get these missing pieces is to clone the <a href="https://github.com/snapshotmanager/snapm/">source repository</a> and copy the files to their proper locations with the following commands:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo mkdir -p /etc/snapm/plugins.d /etc/snapm/schedule.d
+</span><span>$ sudo cp systemd/*.timer /usr/lib/systemd/system
+</span><span>$ sudo cp systemd/*.service /usr/lib/systemd/system
+</span><span>$ sudo cp systemd/tmpfiles.d/snapm.conf /usr/lib/tmpfiles.d
+</span><span>$ sudo systemd-tmpfiles –create /usr/lib/tmpfiles.d/snapm.conf
+</span><span>$ sudo systemctl daemon-reload
+</span></code></pre>
+<p>If you would also like to install the latest manual pages, copy them from the man/ directory in the source tree into the appropriate location for your distribution (normally <code>/usr/share/man/man{5,8}</code>).</p>
+<h2 id="4-installing-or-running-from-source-for-experts-contributors">4. Installing or Running From Source (For Experts &amp; Contributors)</h2>
+<ul>
+<li>
+<p>A Linux system installed with a recent edition of <a href="https://fedoraproject.org">Fedora</a> (F42+), <a href="https://www.centos.org/download/">CentOS Stream</a> (c9s+), or <a href="https://developers.redhat.com/products/rhel/download">Red Hat Enterprise Linux</a> (RHEL9.6 onward).</p>
+</li>
+<li>
+<p>A working installation of the <code>git</code> version control system.</p>
+</li>
+<li>
+<p>(Optionally) the package <code>python3-pip</code> installed for the pip program.</p>
+</li>
+<li>
+<p>Administrative privileges (or membership of the wheel group).</p>
+</li>
+<li>
+<p>A working internet connection.</p>
+</li>
+</ul>
+<p>First clone the <code>snapm</code> repository from GitHub with the command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ git clone https://github.com/snapshotmanager/snapm
+</span></code></pre>
+<p>Optionally, also clone the boom-boot repository into the same parent directory (this is useful if you want to test or work on features or fixes that span both <code>snapm</code> and boom):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ git clone https://github.com/snapshotmanager/boom-boot
+</span></code></pre>
+<p>To run <code>snapm</code> from the source tree, gain root privileges, change to the directory where you cloned the source (normally <code>snapm/</code>, relative to the directory where git-clone ran), and run the command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># . scripts/setpaths.sh
+</span></code></pre>
+<p>This will set the <code>PATH</code> and <code>PYTHONPATH</code> environment variables appropriately for you to run <code>snapm</code> from the checked-out sources. It will also enable support for using the checked out copy of <code>boom-boot</code> if you also cloned that (assuming it is found at the path <code>../boom-boot</code> relative to the <code>snapm/</code> directory).</p>
+<p>You can now run the <code>snapm</code> and boom commands using the latest source from <code>git</code>. Every time you pull or checkout a new revision subsequent invocations will use that copy of the code.</p>
+<p>To install the current revision in a git clone, run:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo pip install .
+</span></code></pre>
+<p>Just remember that all the caveats from <a href="https://snapshotmanager.github.io/blog/getting-snapm/#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required">3.</a> apply to git clones too: you are responsible for ensuring all configuration files are in place, and for keeping them up-to-date with any code changes.</p>
+<h2 id="5-what-s-in-the-box">5. What's in the Box?</h2>
+<p>Depending on how <code>snapm</code> was installed the package will include some or all of the components needed to run and learn about the tool. This varies according to the packaging format (or lack thereof, in the case of source installations).</p>
+<h3 id="5-1-source-distribution">5.1 Source Distribution</h3>
+<p>The source distribution (a git checkout or a tarball) includes all the source and in tree documentation for Snapshot Manager but you are responsible for installing it and making it usable on your system. Refer to the previous chapter for instructions ([sec:Installing-or-Running]).</p>
+<h3 id="5-2-rpm-packages">5.2 RPM Packages</h3>
+<p>The <code>snapm</code> project is packaged for RPM based distributions as three subpackages that all build from the same source RPM:</p>
+<ul>
+<li>
+<p><code>snapm</code> — The <code>snapm(8)</code> program, its manual pages, configuration files, systemd units, tmpfiles.d configuration, and <a href="https://github.com/snapshotmanager/snapm/blob/main/README.md"><code>README.md</code></a>.</p>
+</li>
+<li>
+<p><code>python3-snapm</code> — The Python API comprising the <code>snapm</code> Python package.</p>
+</li>
+<li>
+<p><code>python3-snapm-doc</code> — HTML user and API documentation, normally found in <code>/usr/share/doc/python3-snapm-doc</code>.</p>
+</li>
+</ul>
+<p>You can browse the documentation installed on your system by running the following command (assuming you have a working web browser in a reasonably modern desktop environment):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ xdg-open /usr/share/doc/python3-snapm-doc/doc/html/index.html
+</span></code></pre>
+<p>Or by visiting <a href="file:///usr/share/doc/python3-snapm-doc/doc/html/index.html">this URL</a>.</p>
+<h3 id="5-3-pypi-packages">5.3 PyPi Packages</h3>
+<p>The PyPi (pip) packages include only the executable code that makes up Snapshot Manager. You will need to configure the program yourself and install any documentation you wish to use, following the directions in section <a href="https://snapshotmanager.github.io/blog/getting-snapm/#3-installing-from-pypi-bleeding-edge-releases-some-assembly-required">3.</a>.</p>
+
+  </div>
+  
+
+  <footer class="post-footer">
+      
+
+    
+    
+
+
+<nav class="paginav">
+    
+    <a class="prev" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-7-0&#x2F;">
+        <span class="title">« Prev</span>
+        <br>
+        <span>snapm 0.7.0 Release Notes</span>
+    </a>
+    
+    
+    <a class="next" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;">
+        <span class="title">Next »</span>
+        <br>
+        <span>Welcome!</span>
+    </a>
+    
+</nav>
+
+    
+    
+  </footer>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  
+  <span>&copy; 2026 <a href="https:&#x2F;&#x2F;snapshotmanager.github.io"></a></span>
+  
+  <span>
+      Powered by
+      <a href="https://www.getzola.org/" rel="noopener noreferrer" target="_blank">Zola</a> &
+      <a href="https://github.com/edwardzcn-decade/cela" rel="noopener" target="_blank">Cela</a>
+  </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+  </svg>
+</a>
+
+
+<script>
+  let menu = document.getElementById('menu')
+  if (menu) {
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+      menu.onscroll = function () {
+          localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      }
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          var id = this.getAttribute("href").substr(1);
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                  behavior: "smooth"
+              });
+          } else {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+          }
+          if (id === "top") {
+              history.replaceState(null, null, " ");
+          } else {
+              history.pushState(null, null, `#${id}`);
+          }
+      });
+  });
+
+</script>
+
+
+<script>
+  var mybutton = document.getElementById("top-link");
+  window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+          mybutton.style.visibility = "visible";
+          mybutton.style.opacity = "1";
+      } else {
+          mybutton.style.visibility = "hidden";
+          mybutton.style.opacity = "0";
+      }
+  };
+
+</script>
+
+
+
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+      if (document.body.className.includes("dark")) {
+          document.body.classList.remove('dark');
+          localStorage.setItem("pref-theme", 'light');
+      } else {
+          document.body.classList.add('dark');
+          localStorage.setItem("pref-theme", 'dark');
+      }
+  })
+
+</script>
+
+
+<script>
+  document.querySelectorAll('pre > code').forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      const copybutton = document.createElement('button');
+      copybutton.classList.add('copy-code');
+      copybutton.innerText = 'copy';
+      function copyingDone() {
+          copybutton.innerText = 'copied!';
+          setTimeout(() => {
+              copybutton.innerText = 'copy';
+          }, 2000);
+      }
+
+      copybutton.addEventListener('click', (cb) => {
+          if ('clipboard' in navigator) {
+              var content = codeblock.textContent;
+              if(codeblock.firstChild.tagName == 'TABLE') {
+                  content = Array(...codeblock.firstChild.getElementsByTagName('span')).map((span) => { return span.textContent; }).join('');
+              }
+              navigator.clipboard.writeText(content);
+              copyingDone();
+              return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+              document.execCommand('copy');
+              copyingDone();
+          } catch (e) { };
+          selection.removeRange(range);
+      });
+
+      if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+      } else if (container.parentNode.firstChild == container) {
+          // td containing LineNos
+      } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+          // table containing LineNos and code
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+      } else {
+          // code blocks not having highlight as parent class
+          codeblock.parentNode.appendChild(copybutton);
+      }
+  });
+</script>
+
+
+
+
+
+
+
+
+<div id="search-toggle-box" class="hidden">
+  <div class="search-toggle-modal">
+    <input type="text" id="search-toggle-input" placeholder="Type to search..." />
+    <button id="search-toggle-button">Search</button>
+  </div>
+</div>
+
+
+
+<script src="https://snapshotmanager.github.io/js/toggle-sections.js"></script>
+
+
+</body>
+
+</html>
