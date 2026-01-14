@@ -259,7 +259,7 @@ class="" id="top">
 
 
 
-<span title="2026-01-13 00:00:00 +0000">2026-01-13</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1490 words&nbsp;·&nbsp;
+<span title="2026-01-13 00:00:00 +0000">2026-01-13</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1543 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;getting-snapm.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -427,6 +427,7 @@ class="" id="top">
 </span><span>Is this ok [y/N]: y
 </span></code></pre>
 <p>Enter ‘y’ when prompted to confirm enabling the repository then follow the instructions from <a href="https://snapshotmanager.github.io/blog/getting-snapm/#1-installing-distribution-packages-with-dnf-recommended-for-most-users">1.</a> to install the packages. When first installing packages from a new copr repository, you will be prompted to accept the Open PGP key used for signing packages in that repository: decide whether you trust the publisher of the builds, and enter ‘y’ to accept if so.</p>
+<p>Note that the <code>copr</code> builds produced by the Packit build system are transient: they are retained for 60 days, after which the package repositories are permanently deleted. This should not be a problem in most cases as the builds are intended to be used for short term testing and feedback on active development.</p>
 <h2 id="3-installing-from-pypi-bleeding-edge-releases-some-assembly-required">3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)</h2>
 <ul>
 <li>

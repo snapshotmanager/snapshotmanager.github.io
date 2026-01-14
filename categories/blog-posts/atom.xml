@@ -116,6 +116,7 @@
 &lt;&#x2F;span&gt;&lt;span&gt;Is this ok [y&#x2F;N]: y
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;Enter ‘y’ when prompted to confirm enabling the repository then follow the instructions from &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;#1-installing-distribution-packages-with-dnf-recommended-for-most-users&quot;&gt;1.&lt;&#x2F;a&gt; to install the packages. When first installing packages from a new copr repository, you will be prompted to accept the Open PGP key used for signing packages in that repository: decide whether you trust the publisher of the builds, and enter ‘y’ to accept if so.&lt;&#x2F;p&gt;
+&lt;p&gt;Note that the &lt;code&gt;copr&lt;&#x2F;code&gt; builds produced by the Packit build system are transient: they are retained for 60 days, after which the package repositories are permanently deleted. This should not be a problem in most cases as the builds are intended to be used for short term testing and feedback on active development.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;3-installing-from-pypi-bleeding-edge-releases-some-assembly-required&quot;&gt;3. Installing from PyPi (Bleeding Edge Releases: Some Assembly Required)&lt;&#x2F;h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
