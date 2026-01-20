@@ -25,7 +25,7 @@
         
         <content type="html" xml:base="https://snapshotmanager.github.io/blog/your-first-snapshot-set/">&lt;h1 id=&quot;your-first-snapshot-set&quot;&gt;Your First Snapshot Set&lt;&#x2F;h1&gt;
 &lt;p&gt;A snapshot set is a collection of snapshots, bound together with a name, and created at a common moment in time&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-1-1&quot;&gt;&lt;a href=&quot;#fn-1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;. At a bare minimum, to create one, you just need a name and a list of sources (&lt;em&gt;mount points&lt;&#x2F;em&gt; or &lt;em&gt;block devices&lt;&#x2F;em&gt;) that you would like to include in the set. More advanced options exist to give additional control over the creation process and the resulting snapshot set: we will cover these in detail in future blog posts.&lt;&#x2F;p&gt;
-&lt;h2 id=&quot;choosing-sources-first-things-to-know&quot;&gt;Choosing Sources: First Things to know.&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;choosing-sources-first-things-to-know&quot;&gt;Choosing Sources: First Things to know&lt;&#x2F;h2&gt;
 &lt;p&gt;Before you can create your first snapshot set you&#x27;ll need to ensure that you have everything necessary in place:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -121,7 +121,7 @@
 &lt;p&gt;• &lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of ‘&#x2F;’ (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
 &lt;p&gt;• &lt;code&gt;&#x2F;:100%SIZE &#x2F;home:50%SIZE&lt;&#x2F;code&gt; — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes&lt;&#x2F;p&gt;
 &lt;p&gt;• &lt;code&gt;--size-policy=100%SIZE&lt;&#x2F;code&gt; — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size&lt;&#x2F;p&gt;
-&lt;h1 id=&quot;snapm-snapset-create&quot;&gt;snapm snapset create&lt;&#x2F;h1&gt;
+&lt;h1 id=&quot;snapm-snapset-create&quot;&gt;&lt;code&gt;snapm snapset create&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
 &lt;p&gt;With the basics explained it&#x27;s time to actually create a snapshot set with the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:&lt;&#x2F;p&gt;
 &lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# snapm snapset create my-first-set &#x2F; &#x2F;var
 &lt;&#x2F;span&gt;&lt;span&gt;SnapsetName: my-first-setSources: &#x2F;, &#x2F;var
@@ -191,13 +191,20 @@
 &lt;p&gt;Change the size policy to create a smaller snapshot&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;If you receive some other error refer to the manual page and the &lt;a href=&quot;https:&#x2F;&#x2F;todo&quot;&gt;FAQ&lt;&#x2F;a&gt;: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution&#x27;s support channels or the developers for assistance (see section [sec:Filing-Issues] for advice on filing issues in the snapm project).&lt;&#x2F;p&gt;
-&lt;p&gt;10.5 Care and Feeding of Your Snapshot Set&lt;&#x2F;p&gt;
-&lt;p&gt;Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in chapter [chap:Storage-Back-ends]. Refer to that chapter for a detailed discussion of the issues and how they apply to the different provider plugins that snapm supports.&lt;&#x2F;p&gt;
+&lt;p&gt;If you receive some other error refer to the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page and the &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;faq&#x2F;&quot;&gt;FAQ&lt;&#x2F;a&gt;: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution&#x27;s support channels or the developers for assistance&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-4-1&quot;&gt;&lt;a href=&quot;#fn-4&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;care-and-feeding-of-your-snapshot-set&quot;&gt;Care and Feeding of Your Snapshot Set&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in the &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;faq&#x2F;#performance-safety&quot;&gt;Performance &amp;amp; Safety section of the Snapshot Manager FAQ&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program&#x27;s -o&#x2F;--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:&lt;&#x2F;p&gt;
-&lt;h1 id=&quot;lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19&quot;&gt;lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19&lt;&#x2F;h1&gt;
-&lt;p&gt;Note the 0.19% value in the ‘Data%’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it&#x27;s a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.&lt;&#x2F;p&gt;
-&lt;p&gt;We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is lvs(8) for LVM2 volumes, or stratis for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, lvresize(8) for LVM2), or you can use the snapm snapset resize command to apply new size policies to an already created snapshot set.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# lvs -o lv_name,lv_size,data_percent
+&lt;&#x2F;span&gt;&lt;span&gt;LV                                           LSize Data% 
+&lt;&#x2F;span&gt;&lt;span&gt;root                                        10.00g 
+&lt;&#x2F;span&gt;&lt;span&gt;root-snapset_my-first-set_1768308252_-       1.00g  0.19 
+&lt;&#x2F;span&gt;&lt;span&gt;swap                                       512.00m 
+&lt;&#x2F;span&gt;&lt;span&gt;var                                         12.00g 
+&lt;&#x2F;span&gt;&lt;span&gt;var-snapset_my-first-set_1768308252_-var     1.20g  0.19 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note the 0.19% value in the ‘&lt;code&gt;Data%&lt;&#x2F;code&gt;’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it&#x27;s a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.&lt;&#x2F;p&gt;
+&lt;p&gt;We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvs.8.html&quot;&gt;&lt;code&gt;lvs(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; for LVM2 volumes, or the &lt;code&gt;stratis&lt;&#x2F;code&gt; command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvresize.8.html&quot;&gt;&lt;code&gt;lvresize(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; for LVM2), or you can use the &lt;code&gt;snapm snapset resize&lt;&#x2F;code&gt; command to apply new size policies to an already created snapshot set.&lt;&#x2F;p&gt;
 &lt;section class=&quot;footnotes&quot;&gt;
 &lt;ol class=&quot;footnotes-list&quot;&gt;
 &lt;li id=&quot;fn-1&quot;&gt;
@@ -208,6 +215,9 @@
 &lt;&#x2F;li&gt;
 &lt;li id=&quot;fn-3&quot;&gt;
 &lt;p&gt;Unless creating bootable snapshot sets, in which case autoactivate is always enabled and the set will start out in the &lt;code&gt;Active&lt;&#x2F;code&gt; state (We will cover bootable snapshot sets in detail in a future post). &lt;a href=&quot;#fr-3-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-4&quot;&gt;
+&lt;p&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&#x2F; &lt;a href=&quot;#fr-4-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
 &lt;&#x2F;section&gt;

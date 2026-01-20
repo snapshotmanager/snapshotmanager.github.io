@@ -259,7 +259,7 @@ class="" id="top">
 
 
 
-<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2172 words&nbsp;·&nbsp;
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2153 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;your-first-snapshot-set.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -287,7 +287,7 @@ class="" id="top">
           <ul>
             
             <li>
-              <a href="#choosing-sources-first-things-to-know" aria-label="Choosing Sources: First Things to know.">Choosing Sources: First Things to know.</a>
+              <a href="#choosing-sources-first-things-to-know" aria-label="Choosing Sources: First Things to know">Choosing Sources: First Things to know</a>
               
             </li>
             
@@ -308,10 +308,14 @@ class="" id="top">
         <li>
           <a href="#snapm-snapset-create" aria-label="snapm snapset create">snapm snapset create</a>
           
-        </li>
-        
-        <li>
-          <a href="#lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19" aria-label="lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19">lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19</a>
+          <ul>
+            
+            <li>
+              <a href="#care-and-feeding-of-your-snapshot-set" aria-label="Care and Feeding of Your Snapshot Set">Care and Feeding of Your Snapshot Set</a>
+              
+            </li>
+            
+          </ul>
           
         </li>
         
@@ -326,7 +330,7 @@ class="" id="top">
   <div class="post-content">
       <h1 id="your-first-snapshot-set">Your First Snapshot Set</h1>
 <p>A snapshot set is a collection of snapshots, bound together with a name, and created at a common moment in time<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup>. At a bare minimum, to create one, you just need a name and a list of sources (<em>mount points</em> or <em>block devices</em>) that you would like to include in the set. More advanced options exist to give additional control over the creation process and the resulting snapshot set: we will cover these in detail in future blog posts.</p>
-<h2 id="choosing-sources-first-things-to-know">Choosing Sources: First Things to know.</h2>
+<h2 id="choosing-sources-first-things-to-know">Choosing Sources: First Things to know</h2>
 <p>Before you can create your first snapshot set you'll need to ensure that you have everything necessary in place:</p>
 <ul>
 <li>
@@ -422,7 +426,7 @@ class="" id="top">
 <p>• <code>/:2GiB</code> — specify a source of ‘/’ (the root file system) with a fixed 2GiB size policy</p>
 <p>• <code>/:100%SIZE /home:50%SIZE</code> — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes</p>
 <p>• <code>--size-policy=100%SIZE</code> — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size</p>
-<h1 id="snapm-snapset-create">snapm snapset create</h1>
+<h1 id="snapm-snapset-create"><code>snapm snapset create</code></h1>
 <p>With the basics explained it's time to actually create a snapshot set with the <code>snapm snapset create</code> command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
 </span><span>SnapsetName: my-first-setSources: /, /var
@@ -492,13 +496,20 @@ class="" id="top">
 <p>Change the size policy to create a smaller snapshot</p>
 </li>
 </ul>
-<p>If you receive some other error refer to the manual page and the <a href="https://todo">FAQ</a>: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution's support channels or the developers for assistance (see section [sec:Filing-Issues] for advice on filing issues in the snapm project).</p>
-<p>10.5 Care and Feeding of Your Snapshot Set</p>
-<p>Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in chapter [chap:Storage-Back-ends]. Refer to that chapter for a detailed discussion of the issues and how they apply to the different provider plugins that snapm supports.</p>
+<p>If you receive some other error refer to the <code>snapm(8)</code> manual page and the <a href="https://snapshotmanager.github.io/blog/faq/">FAQ</a>: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution's support channels or the developers for assistance<sup class="footnote-reference" id="fr-4-1"><a href="#fn-4">4</a></sup>.</p>
+<h2 id="care-and-feeding-of-your-snapshot-set">Care and Feeding of Your Snapshot Set</h2>
+<p>Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in the <a href="https://snapshotmanager.github.io/blog/faq/#performance-safety">Performance &amp; Safety section of the Snapshot Manager FAQ</a>.</p>
 <p>As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program's -o/--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:</p>
-<h1 id="lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19">lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19</h1>
-<p>Note the 0.19% value in the ‘Data%’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.</p>
-<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is lvs(8) for LVM2 volumes, or stratis for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, lvresize(8) for LVM2), or you can use the snapm snapset resize command to apply new size policies to an already created snapshot set.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># lvs -o lv_name,lv_size,data_percent
+</span><span>LV                                           LSize Data% 
+</span><span>root                                        10.00g 
+</span><span>root-snapset_my-first-set_1768308252_-       1.00g  0.19 
+</span><span>swap                                       512.00m 
+</span><span>var                                         12.00g 
+</span><span>var-snapset_my-first-set_1768308252_-var     1.20g  0.19 
+</span></code></pre>
+<p>Note the 0.19% value in the ‘<code>Data%</code>’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.</p>
+<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> for LVM2 volumes, or the <code>stratis</code> command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> for LVM2), or you can use the <code>snapm snapset resize</code> command to apply new size policies to an already created snapshot set.</p>
 <section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn-1">
@@ -509,6 +520,9 @@ class="" id="top">
 </li>
 <li id="fn-3">
 <p>Unless creating bootable snapshot sets, in which case autoactivate is always enabled and the set will start out in the <code>Active</code> state (We will cover bootable snapshot sets in detail in a future post). <a href="#fr-3-1">↩</a></p>
+</li>
+<li id="fn-4">
+<p>https://github.com/snapshotmanager/snapm/issues/ <a href="#fr-4-1">↩</a></p>
 </li>
 </ol>
 </section>
