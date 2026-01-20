@@ -5,8 +5,215 @@
     <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/tags/getting-started/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2026-01-13T00:00:00+00:00</updated>
+    <updated>2026-01-20T00:00:00+00:00</updated>
     <id>https://snapshotmanager.github.io/tags/getting-started/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Your First Snapshot Set</title>
+        <published>2026-01-20T00:00:00+00:00</published>
+        <updated>2026-01-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/your-first-snapshot-set/"/>
+        <id>https://snapshotmanager.github.io/blog/your-first-snapshot-set/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/your-first-snapshot-set/">&lt;h1 id=&quot;your-first-snapshot-set&quot;&gt;Your First Snapshot Set&lt;&#x2F;h1&gt;
+&lt;p&gt;A snapshot set is a collection of snapshots, bound together with a name, and created at a common moment in time&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-1-1&quot;&gt;&lt;a href=&quot;#fn-1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;. At a bare minimum, to create one, you just need a name and a list of sources (&lt;em&gt;mount points&lt;&#x2F;em&gt; or &lt;em&gt;block devices&lt;&#x2F;em&gt;) that you would like to include in the set. More advanced options exist to give additional control over the creation process and the resulting snapshot set: we will cover these in detail in future blog posts.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;choosing-sources-first-things-to-know&quot;&gt;Choosing Sources: First Things to know.&lt;&#x2F;h2&gt;
+&lt;p&gt;Before you can create your first snapshot set you&#x27;ll need to ensure that you have everything necessary in place:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You need snapshot capable storage: LVM2 regular or thin provisioned volumes, or Stratis file systems.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;You need free space for your snapshots to use (either in an LVM2 volume group with regular volumes, or in the thin pool containing the volumes with LVM2 Thin provisioning or Stratis storage).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;You&#x27;ll need to know the mount point or block device path for the volumes you wish to include in your snapshot set.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;You need &lt;code&gt;snapm&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;For your first experiment, it doesn&#x27;t matter what you snapshot as long as it meets these criteria. Later, when you are using the tool in anger, you can craft specific commands for different use cases or automate the process via schedules. To get the most from this exercise, it is helpful to be able to make some changes to whatever you snapshot so you&#x27;ll have genuine differences to examine.&lt;&#x2F;p&gt;
+&lt;p&gt;Sources for Snapshot Manager can be either &lt;strong&gt;mount points&lt;&#x2F;strong&gt;, or &lt;strong&gt;block devices&lt;&#x2F;strong&gt;. A &lt;em&gt;mount point&lt;&#x2F;em&gt; source corresponds to a mounted file system. You can specify it either by mount point path (for example, &lt;code&gt;&#x2F;home&lt;&#x2F;code&gt;) or by the underlying block device path (for example, &lt;code&gt;&#x2F;dev&#x2F;vg0&#x2F;home&lt;&#x2F;code&gt;). A &lt;em&gt;block device source&lt;&#x2F;em&gt; is a block device that is not mounted and that need not contain a mountable file system image (for example, databases, virtual machine images, and other non file system content).&lt;&#x2F;p&gt;
+&lt;p&gt;Snapshot Manager uses the mechanism of &lt;em&gt;provider plugins&lt;&#x2F;em&gt; to support different types of storage. A &lt;strong&gt;provider plugin&lt;&#x2F;strong&gt; corresponds to a particular storage technology (LVM2 CoW, LVM2 Thin, Stratis, and so on). The &lt;code&gt;snapm&lt;&#x2F;code&gt; command will determine the correct plugins to use for any given source (assuming that one exists and is able to snapshot the requested volume) — you do not need to specify which plugins to use on the command line.&lt;&#x2F;p&gt;
+&lt;p&gt;Some familiarity with your storage stack&#x27;s management tools (whether that&#x27;s &lt;code&gt;vgs(8)&lt;&#x2F;code&gt;, &lt;code&gt;lvs(8)&lt;&#x2F;code&gt;, et al. for &lt;strong&gt;LVM2&lt;&#x2F;strong&gt;, or the &lt;code&gt;stratis(8)&lt;&#x2F;code&gt; command line tool for &lt;strong&gt;Stratis storage&lt;&#x2F;strong&gt;) will help when it comes to planning, monitoring, and finding your way around. Knowledge of common Linux administrative tools like the &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;mount.8.html&quot;&gt;&lt;code&gt;mount(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; program, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;findmnt.8.html&quot;&gt;&lt;code&gt;findmnt(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lsblk.8.html&quot;&gt;&lt;code&gt;lsblk(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;blkid.8.html&quot;&gt;&lt;code&gt;blkid(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; will also be an advantage — refer to the respective manual pages for more details, or check out one of the many great Linux systems administration tutorials available on the internet.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;naming-your-snapshot-set&quot;&gt;Naming Your Snapshot Set&lt;&#x2F;h2&gt;
+&lt;p&gt;You are free to name your snapshot set anything you like within the constraints enforced by &lt;code&gt;snapm&lt;&#x2F;code&gt; and its provider plugins:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The ‘_’ (underscore) character is not permitted.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;The valid characters for snapshot set names are the ASCII lowercase and uppercase alphabetic characters, the digits, and the symbols ‘.’, ‘+’, and ‘-’.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Certain strings may be forbidden by particular provider plugins: for instance, LVM2 reserves the string &lt;code&gt;_mlog&lt;&#x2F;code&gt; (and others) for internal logical volume names (refer to &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvm.8.html&quot;&gt;&lt;code&gt;lvm(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man7&#x2F;lvmraid.7.html&quot;&gt;&lt;code&gt;lvmraid(7)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; and related manual pages for more information).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Certain providers may enforce a maximum name length, for example, for LVM2 volumes this is 127 characters. Note that this limit includes parts of the internal name generated by &lt;code&gt;snapm&lt;&#x2F;code&gt; (which varies according to the mount point the snapshot refers to), so the usable name length is somewhat shorter. Nobody likes long device names anyway so this should not be a concern in most situations.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Any provider that represents the snapshot name as an entry in the file system (which includes all current and planned snapshot providers) is naturally limited by the maximum allowed file name length on Linux (255 characters). Again, this absolute maximum is reduced somewhat by the need for snapm to encode various information into the names it generates.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;If you include a ‘.’ followed by a nonnegative number at the end of your snapshot set name &lt;code&gt;snapm&lt;&#x2F;code&gt; will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have &lt;code&gt;snapm&lt;&#x2F;code&gt; add one automatically using the --autoindex option (more on that in a later post).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;it is generally best to not include a date or time reference in the name unless you really, really want to: &lt;code&gt;snapm&lt;&#x2F;code&gt; already stores the creation time of the snapshot set as a UNIX epoch value and renders it as human readable date and time strings in the local time zone.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;The name ‘.’ is reserved by snapm for referencing the live root file system.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Aim for memorable and meaningful names: ‘&lt;code&gt;quux-foo-backup&lt;&#x2F;code&gt;’ might seem like a good idea at the time, when you&#x27;re typing in a hurry, but future you will thank present you for coming up with something more self-explanatory.&lt;&#x2F;p&gt;
+&lt;p&gt;Good names might be:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;before-upgrade&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;after-upgrade&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pre-deployment&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;post-deployment&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;hourly.N&lt;&#x2F;code&gt; (where &lt;code&gt;N&lt;&#x2F;code&gt; is an integer uniquifying index either appended manually or enabled automatically with &lt;code&gt;--autoindex&lt;&#x2F;code&gt; - see &lt;code&gt;snapm(8)&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Bad names would include:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;backup&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;thing&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;thisone&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;thatone&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;something-something-something-snapshot-side&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;foo&lt;&#x2F;code&gt;, &lt;code&gt;fubar&lt;&#x2F;code&gt;, &lt;code&gt;plugh&lt;&#x2F;code&gt;, &lt;code&gt;quux&lt;&#x2F;code&gt;, &lt;code&gt;thud&lt;&#x2F;code&gt;, &lt;code&gt;xyzzy&lt;&#x2F;code&gt;, &lt;code&gt;qwerty&lt;&#x2F;code&gt;, etc.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;overriding-the-default-size-policy&quot;&gt;Overriding The Default Size Policy&lt;&#x2F;h2&gt;
+&lt;p&gt;Snapshot Manager provides size policies that allow the user to request that a certain amount of space be available when creating snapshots. For some providers (LVM2 Thin, Stratis) this is simply a check that this space is available at the time the snapshot set is created. For LVM2 CoW it determines the actual size of the snapshot exception store that the tool will allocate.&lt;&#x2F;p&gt;
+&lt;p&gt;The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (‘&lt;code&gt;200%USED&lt;&#x2F;code&gt;’ in size policy notation). For block devices it is one quarter the physical size of the device (‘&lt;code&gt;25%SIZE&lt;&#x2F;code&gt;’).&lt;&#x2F;p&gt;
+&lt;p&gt;To override these defaults, either append a colon and size policy to individual sources (‘&lt;code&gt;:POLICY&lt;&#x2F;code&gt;’) or use &lt;code&gt;--size-policy=POLICY&lt;&#x2F;code&gt; for all sources without explicit policies.&lt;&#x2F;p&gt;
+&lt;p&gt;For example:&lt;&#x2F;p&gt;
+&lt;p&gt;• &lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of ‘&#x2F;’ (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
+&lt;p&gt;• &lt;code&gt;&#x2F;:100%SIZE &#x2F;home:50%SIZE&lt;&#x2F;code&gt; — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes&lt;&#x2F;p&gt;
+&lt;p&gt;• &lt;code&gt;--size-policy=100%SIZE&lt;&#x2F;code&gt; — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;snapm-snapset-create&quot;&gt;snapm snapset create&lt;&#x2F;h1&gt;
+&lt;p&gt;With the basics explained it&#x27;s time to actually create a snapshot set with the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# snapm snapset create my-first-set &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;SnapsetName: my-first-setSources: &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;NrSnapshots: 2
+&lt;&#x2F;span&gt;&lt;span&gt;Time: 2026-01-13 12:44:12
+&lt;&#x2F;span&gt;&lt;span&gt;UUID: 0ea16412-8ceb-59d4-af0b-9afa79d306e9
+&lt;&#x2F;span&gt;&lt;span&gt;Status: Inactive
+&lt;&#x2F;span&gt;&lt;span&gt;Categories: daily, hourly
+&lt;&#x2F;span&gt;&lt;span&gt;Autoactivate: no
+&lt;&#x2F;span&gt;&lt;span&gt;OriginMounted: yes
+&lt;&#x2F;span&gt;&lt;span&gt;Mounted: no
+&lt;&#x2F;span&gt;&lt;span&gt;Bootable: no
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s all there is to it! Before we conclude let&#x27;s take a brief look at the output the tool produces:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SnapsetName&lt;&#x2F;code&gt; — the name you gave to the snapshot set&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Sources&lt;&#x2F;code&gt; — the list of sources (minus any size policy that was specified on the command line)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;NrSnapshots&lt;&#x2F;code&gt; — the number of snapshots contained in this set&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Time&lt;&#x2F;code&gt; — the time and date the snapshot set was created in your local time zone&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;UUID&lt;&#x2F;code&gt; — a unique identifier for the snapshot set (a Version 5 UUID to be exact&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-2-1&quot;&gt;&lt;a href=&quot;#fn-2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Status&lt;&#x2F;code&gt; — the status of this snapshot set: one of &lt;code&gt;Active&lt;&#x2F;code&gt;, &lt;code&gt;Inactive&lt;&#x2F;code&gt;, &lt;code&gt;Invalid&lt;&#x2F;code&gt;, or &lt;code&gt;Reverting&lt;&#x2F;code&gt;)&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Categories&lt;&#x2F;code&gt; — the timeline categories that this snapshot set belongs to: we will cover timeline categories, scheduling, and automatic garbage collection in a future blog post.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Autoactivate&lt;&#x2F;code&gt; — whether automatic boot time activation is enabled for this snapshot set: &lt;code&gt;yes&lt;&#x2F;code&gt; or &lt;code&gt;no&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;OriginMounted&lt;&#x2F;code&gt; — the mount status of this snapshot set&#x27;s origin devices: &lt;code&gt;yes&lt;&#x2F;code&gt; or &lt;code&gt;no&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Mounted&lt;&#x2F;code&gt; — the mount status of this snapshot set: &lt;code&gt;yes&lt;&#x2F;code&gt; or &lt;code&gt;no&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Bootable&lt;&#x2F;code&gt; — whether this snapshot set has &lt;a href=&quot;https:&#x2F;&#x2F;www.mankier.com&#x2F;8&#x2F;boom&quot;&gt;&lt;code&gt;boom(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; boot entries or not: &lt;code&gt;yes&lt;&#x2F;code&gt; or &lt;code&gt;no&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;We will get to all of these properties and their precise meaning in good time, but for now the Status field deserves a little more explanation: some snapshot providers (LVM2 Thin, Stratis) support optional activation for snapshot devices.&lt;&#x2F;p&gt;
+&lt;p&gt;This means that you don&#x27;t have snapshot devices cluttering the system and using resources when they are not required and is therefore more efficient — especially when dealing with very large numbers of snapshots. For LVM2 CoW the snapshot volume must be active at all times that the origin is active.&lt;&#x2F;p&gt;
+&lt;p&gt;If your snapshot set includes thin snapshots (LVM2 Thin or Stratis) then it will begin its life in the &lt;code&gt;Inactive&lt;&#x2F;code&gt; state&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-3-1&quot;&gt;&lt;a href=&quot;#fn-3&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;. If it only includes LVM2 CoW snapshots then it will begin in the &lt;code&gt;Active&lt;&#x2F;code&gt; state (and cannot, in fact, become &lt;code&gt;Inactive&lt;&#x2F;code&gt; unless the origin volume is also inactive).&lt;&#x2F;p&gt;
+&lt;p&gt;If you receive an error message instead of the expected output shown above study it carefully to try to understand what it is telling you. Most error conditions have a clear error message that explains exactly what is wrong. The most common error is ‘not enough space’: if you run into this you will see a message like this rather than the snapshot set summary:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# snapm snapset create my-first-set &#x2F; &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;ERROR - Error creating lvm2-cow snapshot: Volume group fedora has insufficientfree space to snapshot &#x2F; (14.5GiB &amp;lt; 15.1GiB)
+&lt;&#x2F;span&gt;&lt;span&gt;ERROR - Command failed: Insufficient free space for snapshot set my-first-set
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If this happens you can resolve the problem in one of these three ways:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Add more space to the volume group or thin pool&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Delete one or more unneeded volumes to reclaim space&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Change the size policy to create a smaller snapshot&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;If you receive some other error refer to the manual page and the &lt;a href=&quot;https:&#x2F;&#x2F;todo&quot;&gt;FAQ&lt;&#x2F;a&gt;: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution&#x27;s support channels or the developers for assistance (see section [sec:Filing-Issues] for advice on filing issues in the snapm project).&lt;&#x2F;p&gt;
+&lt;p&gt;10.5 Care and Feeding of Your Snapshot Set&lt;&#x2F;p&gt;
+&lt;p&gt;Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in chapter [chap:Storage-Back-ends]. Refer to that chapter for a detailed discussion of the issues and how they apply to the different provider plugins that snapm supports.&lt;&#x2F;p&gt;
+&lt;p&gt;As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program&#x27;s -o&#x2F;--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19&quot;&gt;lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19&lt;&#x2F;h1&gt;
+&lt;p&gt;Note the 0.19% value in the ‘Data%’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it&#x27;s a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.&lt;&#x2F;p&gt;
+&lt;p&gt;We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is lvs(8) for LVM2 volumes, or stratis for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, lvresize(8) for LVM2), or you can use the snapm snapset resize command to apply new size policies to an already created snapshot set.&lt;&#x2F;p&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;The snapshots making up a set are created sequentially, since there is presently no interface in Linux for creating multiple snapshots simultaneously. For this reason the individual snapshots will all have very slightly different timestamps. Snapshot Manager quantises these timestamps to provide a single unambiguous creation time for the set as a whole. &lt;a href=&quot;#fr-1-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Universally_unique_identifier#Versions_3_and_5_(namespace_name-based) &lt;a href=&quot;#fr-2-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-3&quot;&gt;
+&lt;p&gt;Unless creating bootable snapshot sets, in which case autoactivate is always enabled and the set will start out in the &lt;code&gt;Active&lt;&#x2F;code&gt; state (We will cover bootable snapshot sets in detail in a future post). &lt;a href=&quot;#fr-3-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;section&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Getting snapm</title>
         <published>2026-01-13T00:00:00+00:00</published>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Snapshot Manager - faq</title>
+    <subtitle>Easy to use snapshot management for Linux.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://snapshotmanager.github.io/tags/faq/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-01-20T00:00:00+00:00</updated>
+    <id>https://snapshotmanager.github.io/tags/faq/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Frequently Asked Questions (FAQs)</title>
+        <published>2026-01-20T00:00:00+00:00</published>
+        <updated>2026-01-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://snapshotmanager.github.io/blog/faq/"/>
+        <id>https://snapshotmanager.github.io/blog/faq/</id>
+        
+        <content type="html" xml:base="https://snapshotmanager.github.io/blog/faq/">&lt;h1 id=&quot;frequently-asked-questions-faqs&quot;&gt;Frequently Asked Questions (FAQs)&lt;&#x2F;h1&gt;
+&lt;p&gt;Our users ask a lot of reasonable and insightful questions about &lt;code&gt;snapm&lt;&#x2F;code&gt; and its usage. We have collected together some of the more common ones in this post, along with their corresponding answers.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;running-snapshot-manager&quot;&gt;Running Snapshot Manager&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What Python version does snapm require?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; We support Python 3.9 and later.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Do you support other operating systems than Linux?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; No, and this is unlikely to change: the snapshot providers that we support are all Linux specific.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Is my distribution supported?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; The &lt;code&gt;snapm&lt;&#x2F;code&gt; command and &lt;code&gt;boom-boot&lt;&#x2F;code&gt; should work on most recent Linux distributions (using &lt;code&gt;boom&lt;&#x2F;code&gt; to create bootable snapshot sets requires a &lt;a href=&quot;https:&#x2F;&#x2F;uapi-group.org&#x2F;specifications&#x2F;specs&#x2F;boot_loader_specification&#x2F;&quot;&gt;&lt;em&gt;BLS compatible&lt;&#x2F;em&gt;&lt;&#x2F;a&gt; boot loader: some versions of GRUB2, the zSeries zIPL, or &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man7&#x2F;systemd-boot.7.html&quot;&gt;&lt;code&gt;systemd-boot(7)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;). Distribution packages are currently available for, and are tested on, Fedora, CentOS Stream, and Red Hat Enterprise Linux.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I use snapm on systems without LVM?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Snapshot Manager supports LVM2 (CoW and thin) snapshots as well as Stratis snapshots. Other storage back ends (for example, Btrfs) may be supported in future versions.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;using-snapshot-manager&quot;&gt;Using Snapshot Manager&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What&#x27;s the difference between a Snapshot and a Snapshot Set?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; A Snapshot is an individual instance of a block device or file system snapshot (managed by &lt;code&gt;snapm&lt;&#x2F;code&gt; or not, as the case may be). A Snapshot Set is a named collection of snapshots taken at the same moment in time and managed by &lt;code&gt;snapm&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I use the difference engine if I haven&#x27;t created any snapshot sets yet?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; No: it is only possible to create difference reports when there is at least one snapshot set to make a comparison against.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Do I need to use &lt;code&gt;boom&lt;&#x2F;code&gt; in order to use &lt;code&gt;snapm&lt;&#x2F;code&gt;?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; We require &lt;code&gt;boom&lt;&#x2F;code&gt; to create bootable snapshot sets but you don&#x27;t need to interact with it directly (you don&#x27;t even need to install the &lt;code&gt;boom-boot&lt;&#x2F;code&gt; CLI, but it can be useful for inspecting your boot entries). Unless you have specific requirements the &lt;code&gt;snapm&lt;&#x2F;code&gt; tool can take care of all the details for you when you use the &lt;code&gt;--boot&lt;&#x2F;code&gt; or &lt;code&gt;--revert&lt;&#x2F;code&gt; options.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;snapshot-set-creation-and-management&quot;&gt;Snapshot Set Creation and Management&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; How much space do I need for snapshots?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; That is a bit of a ‘how long is a piece of string?’ question: the precise answer depends on the amount of change that occurs to the origin volume or the snapshot during its lifespan. Snapshot Manager defaults to allocating twice the space currently used on a mounted file system, or one quarter the size of block devices when creating snapshot sets, but if you have a better estimate then these values should be adjusted for your particular circumstances.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What happens if a snapshot runs out of space?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; This will produce errors and may invalidate the snapshot. This should be avoided at all costs if you value what the snapshot represents, as it will result in data loss.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I create snapshots of individual files or directories?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; No: none of the current snapshot providers support snapshots at this granularity. A similar result can be obtained on modern file systems via the &lt;em&gt;reflink&lt;&#x2F;em&gt; facility (see &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man1&#x2F;cp.1.html&quot;&gt;&lt;code&gt;cp(1)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;) but these snapshot-like file system objects are not managed by &lt;code&gt;snapm&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I modify the contents of a snapshot after creation?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Yes. Snapshot sets are by default created in read-write mode and can be modified when mounted subject to normal file system permission checks.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Why does my snapshot set show as &quot;&lt;code&gt;Reverting&lt;&#x2F;code&gt;&quot; and how long will it take?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; This is because a &lt;code&gt;snapset revert&lt;&#x2F;code&gt; command has been issued (or the underlying storage tools have been used to initiate a revert). The time it takes depends on the snapshot provider type: in all cases, when snapshots or their origin volumes are in use, the revert operation is deferred until the next activation (normally at boot time). In the case of LVM2 CoW snapshots the underlying merge operation involves physically moving dat&lt;strong&gt;A:&lt;&#x2F;strong&gt; this takes time proportional to the amount of data in the snapshot at the time of the merge and the speed of the storage devices involved. Thin snapshot reverts (LVM2 Thin and Stratis) are instantaneous at the time the pool is activated.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;scheduling-clean-up&quot;&gt;Scheduling &amp;amp; Clean-up&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; How do I know which garbage collection policy to use?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; This depends on how much space you have, and for how long you want to keep snapshot sets around. The four policies (&lt;code&gt;ALL&lt;&#x2F;code&gt;, &lt;code&gt;COUNT&lt;&#x2F;code&gt;, &lt;code&gt;AGE&lt;&#x2F;code&gt;, &lt;code&gt;TIMELINE&lt;&#x2F;code&gt;) cover a multitude of possibilities and accept parameters to configure them for your needs. See the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page for a full description of configuring and managing schedules.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Will scheduled snapshots fill up my disk?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Potentially, yes. The thin provisioned snapshot providers are more space efficient than the LVM2 CoW provider but they will consume space from the pool they are created in (unlike LVM2 CoW which will not exceed the fixed space allocated to it from its containing volume group). You should configure a garbage collection policy with parameters that limit space consumption to an acceptable level.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What happens to my snapshots if I delete a schedule?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; The snapshot sets will remain until they are manually deleted.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I manually delete snapshot sets created by a schedule?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Yes: use the regular &lt;code&gt;snapm snapset delete&lt;&#x2F;code&gt; command with the name or UUID of the snapshot set you want to remove. The schedule garbage collection policy will continue to operate as configured.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;boot-recovery&quot;&gt;Boot &amp;amp; Recovery&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What&#x27;s the difference between &lt;code&gt;-b&#x2F;--bootable&lt;&#x2F;code&gt; and &lt;code&gt;-r&#x2F;--revert&lt;&#x2F;code&gt;?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; The &lt;code&gt;-b&#x2F;--bootable&lt;&#x2F;code&gt; option creates a bootable snapshot set. When you select the resulting Snapshot boot entry the snapshot set will boot in place of the normal system environment, allowing you to look around and make changes. The &lt;code&gt;-r&#x2F;--revert&lt;&#x2F;code&gt; option is used to create a fail safe revert boot entry. This is used in conjunction with the &lt;code&gt;snapm snapset revert&lt;&#x2F;code&gt; command to revert the system to the state reflected in the snapshot set. The revert boot entry uses backup boot images by default to protect against the case where the original copies have already been removed from the live system. See the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page for full instructions on using Snapshot Manager&#x27;s boot integration features.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I boot into a snapshot set without reverting to it?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Yes. Select the appropriate Snapshot boot entry from your system&#x27;s boot menu to boot into the corresponding snapshot set. Subsequently, when you reboot, the system will by default boot into the normal (non snapshot) environment.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What happens if I reboot while a revert is in progress?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; The revert will continue the next time that its volumes are activated.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Do I need to create boot entries manually?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; No: use the &lt;code&gt;-b&#x2F;--bootable&lt;&#x2F;code&gt; and &lt;code&gt;-r&#x2F;--revert&lt;&#x2F;code&gt; options when creating snapshot sets and &lt;code&gt;snapm&lt;&#x2F;code&gt; will take care of the necessary details.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;compatibility-integration&quot;&gt;Compatibility &amp;amp; Integration&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I use regular storage commands on snapm managed volumes?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Yes: you are free to mix LVM2 or Stratis commands with your &lt;code&gt;snapm&lt;&#x2F;code&gt; commands. Just don&#x27;t rename the logical volumes or Stratis file systems (or &lt;code&gt;snapm&lt;&#x2F;code&gt; will no longer recognise them as snapshot set members).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Will snapm interfere with my existing LVM2 or Stratis snapshots?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; No: snapm will not touch any snapshots that it did not create.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Does snapm work with Stratis or other storage systems?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Yes: snapm currently supports LVM2 and Stratis with native (in tree) plugins. Support for Btrfs will be added in a future version.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can I use snapm with encrypted volumes?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; ‘It depends’: &lt;code&gt;snapm&lt;&#x2F;code&gt; currently supports LVM2 volume groups that are encrypted at the physical volume level (encrypted VGs) as well as encrypted Stratis pools. Support for individually encrypted LVM2 logical volumes will be included in a future release: see &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&#x2F;916&quot;&gt;Issue #916&lt;&#x2F;a&gt; for more information.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;performance-safety&quot;&gt;Performance &amp;amp; Safety&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Does creating snapshots impact system performance?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Potentially, yes. This is particularly acute when you have multiple LVM2 CoW snapshots of the same volume. In this case performance is significantly degraded when more than a handful of snapshots exist.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Is it safe to snapshot a running database?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; It depends on your definition of ‘safe’: the resulting snapshot will be internally consistent at the file system level but the database data will almost certainly not be &lt;em&gt;application consistent&lt;&#x2F;em&gt;. See the next question for more information. We are in the process of creating documentation to discuss this important topic in greater detail.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; What level of consistency do snapshots provide?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; It depends on how and when they are taken and whether the system was prepared for the snapshot beforehand. Snapshots are always &lt;em&gt;file system consistent&lt;&#x2F;em&gt; due to the mechanisms used by the kernel but achieving &lt;em&gt;application consistency&lt;&#x2F;em&gt; currently depends on the administrator to stop services or isolate to a &lt;code&gt;systemd&lt;&#x2F;code&gt; target such as &lt;code&gt;rescue&lt;&#x2F;code&gt; before creating snapshot sets.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Can snapshots protect against hardware failure?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; Snapshots live on the same storage as your data. A catastrophic hardware failure may affect both your main volumes and your snapshots. For this reason we always recommend combining snapm use with a carefully designed and tested backup strategy.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; Why can&#x27;t I mount my snapshot set?&lt;br &#x2F;&gt;
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; First check the snapshot set is not Invalid. If this is the case then the volume will be inaccessible (and difficult to repair — recovery of an invalid CoW exception store is beyond the scope of this FAQ). If the snapshot is valid check the output of &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man1&#x2F;dmesg.1.html&quot;&gt;&lt;code&gt;dmesg(1)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; or &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man1&#x2F;journalctl.1.html&quot;&gt;&lt;code&gt;journalctl(1)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; and consider consulting the &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;fsck.8.html&quot;&gt;&lt;code&gt;fsck(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; program for your file system (preferably, to start, in check&#x2F;read only&#x2F;dry run mode if supported).&lt;&#x2F;p&gt;
+&lt;p&gt;Note that if you are trying to mount a snapshot of an &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man5&#x2F;xfs.5.html&quot;&gt;&lt;code&gt;xfs(5)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; file system while its origin volume is also mounted you will need to specify &lt;code&gt;-o nouuid&lt;&#x2F;code&gt; when running the &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;mount.8.html&quot;&gt;&lt;code&gt;mount(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; program to avoid a UUID collision.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;&#x2F;strong&gt; My &lt;code&gt;diff&lt;&#x2F;code&gt; or &lt;code&gt;diffreport&lt;&#x2F;code&gt; command is taking forever — is this normal?
+&lt;strong&gt;A:&lt;&#x2F;strong&gt; The time taken for difference computation is proportional to the size of the file system (number of files and directories) and the degree of change between the volumes being compared. It is normal for difference calculations for large volumes with many changes to take some time (minutes to tens of minutes for very large file systems). You may be able to gain more insight into what is happening by enabling verbose logs and debugging. Refer to the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page for details of available debug and logging settings.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

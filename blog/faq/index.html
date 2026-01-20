@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" dir="i18n_dir">
+
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Frequently Asked Questions (FAQs)</title>
+
+
+
+
+
+<meta name="keywords" content="tips, faq">
+
+
+
+
+<meta name="description" content="Easy to use snapshot management for Linux.">
+
+
+
+
+
+
+
+
+
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;faq&#x2F;">
+
+
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-base.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-common.css">
+<link rel="icon" href="https://snapshotmanager.github.io/snapm-favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://snapshotmanager.github.io/snapm-favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://snapshotmanager.github.io/snapm-favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://snapshotmanager.github.io/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+
+
+
+<link rel="alternate" type="application/atom+xml" title="RSS" href="https://snapshotmanager.github.io/atom.xml">
+
+
+
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+    
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(30, 32, 48);           /* macchiato-mantle */
+                --entry: rgb(36, 39, 58);           /* macchiato-base  */
+                --primary: rgb(202, 211, 245);      /* macchiato-text */
+                --secondary: rgb(184,192, 224);     /* macchiato-subtext1 */
+                --tertiary: rgb(54, 58, 79);        /* macchiato-surface0 */
+                --content: rgb(165, 173, 203);      /* macchiato-subtext0 */
+                --hljs-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --code-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --border: rgb(30, 32, 48);          /* macchiato-mantle */
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+    
+</noscript>
+
+
+</head>
+
+<body
+class="" id="top">
+  <script>
+    const preft = localStorage.getItem("pref-theme");
+    if (preft === "dark") {
+      document.body.classList.add("dark");
+    } else if (preft === "light") {
+      document.body.classList.remove("dark");
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  </script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a
+        href="https:&#x2F;&#x2F;snapshotmanager.github.io"
+        accesskey="h"
+        title="Snapshot Manager (Alt + H)"
+      >
+	<img
+	  src="https://snapshotmanager.github.io/svg/snapm-logo-vector-small.svg"
+	  alt="SnapshotManager logo"
+	/>
+        
+      </a>
+      <div class="logo-switches">
+        <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+          <svg
+            id="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg
+            id="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <ul class="lang-switch">
+          <li>en</li>
+          <li>zh</li>
+        </ul>
+      </div>
+    </div>
+    
+    <ul id="menu">
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;" title="Archive">
+          <span>Archive</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags" title="Tags">
+          <span>Tags</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories" title="Categories">
+          <span>Categories</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io#" title="Search"data-search-toggle="true">
+          <span>Search</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;getzola.org&#x2F;" title="Zola">
+          <span>Zola</span>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  stroke-width="2"·
+  stroke-linecap="round" stroke-linejoin="round" height=12 width=12>
+  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+  <path d="M15 3h6v6"></path>
+  <path d="M10 14L21 3"></path>
+</svg>
+
+
+</a>
+      </li>
+      
+    </ul>
+    
+  </nav>
+</header>
+
+<main class="main">
+  
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;faq&#x2F;">Frequently Asked Questions (FAQs)</a>
+      </div>
+      <h1 class="post-title">Frequently Asked Questions (FAQs)</h1>
+      
+      
+      <div class="post-meta">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;1835 words&nbsp;·&nbsp;
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;faq.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+      
+      </div>
+      
+  </header>
+
+  
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#frequently-asked-questions-faqs" aria-label="Frequently Asked Questions (FAQs)">Frequently Asked Questions (FAQs)</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#running-snapshot-manager" aria-label="Running Snapshot Manager">Running Snapshot Manager</a>
+              
+            </li>
+            
+            <li>
+              <a href="#using-snapshot-manager" aria-label="Using Snapshot Manager">Using Snapshot Manager</a>
+              
+            </li>
+            
+            <li>
+              <a href="#snapshot-set-creation-and-management" aria-label="Snapshot Set Creation and Management">Snapshot Set Creation and Management</a>
+              
+            </li>
+            
+            <li>
+              <a href="#scheduling-clean-up" aria-label="Scheduling &amp; Clean-up">Scheduling &amp; Clean-up</a>
+              
+            </li>
+            
+            <li>
+              <a href="#boot-recovery" aria-label="Boot &amp; Recovery">Boot &amp; Recovery</a>
+              
+            </li>
+            
+            <li>
+              <a href="#compatibility-integration" aria-label="Compatibility &amp; Integration">Compatibility &amp; Integration</a>
+              
+            </li>
+            
+            <li>
+              <a href="#performance-safety" aria-label="Performance &amp; Safety">Performance &amp; Safety</a>
+              
+            </li>
+            
+            <li>
+              <a href="#troubleshooting" aria-label="Troubleshooting">Troubleshooting</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <h1 id="frequently-asked-questions-faqs">Frequently Asked Questions (FAQs)</h1>
+<p>Our users ask a lot of reasonable and insightful questions about <code>snapm</code> and its usage. We have collected together some of the more common ones in this post, along with their corresponding answers.</p>
+<h2 id="running-snapshot-manager">Running Snapshot Manager</h2>
+<p><strong>Q:</strong> What Python version does snapm require?<br />
+<strong>A:</strong> We support Python 3.9 and later.</p>
+<p><strong>Q:</strong> Do you support other operating systems than Linux?<br />
+<strong>A:</strong> No, and this is unlikely to change: the snapshot providers that we support are all Linux specific.</p>
+<p><strong>Q:</strong> Is my distribution supported?<br />
+<strong>A:</strong> The <code>snapm</code> command and <code>boom-boot</code> should work on most recent Linux distributions (using <code>boom</code> to create bootable snapshot sets requires a <a href="https://uapi-group.org/specifications/specs/boot_loader_specification/"><em>BLS compatible</em></a> boot loader: some versions of GRUB2, the zSeries zIPL, or <a href="https://man7.org/linux/man-pages/man7/systemd-boot.7.html"><code>systemd-boot(7)</code></a>). Distribution packages are currently available for, and are tested on, Fedora, CentOS Stream, and Red Hat Enterprise Linux.</p>
+<p><strong>Q:</strong> Can I use snapm on systems without LVM?<br />
+<strong>A:</strong> Snapshot Manager supports LVM2 (CoW and thin) snapshots as well as Stratis snapshots. Other storage back ends (for example, Btrfs) may be supported in future versions.</p>
+<h2 id="using-snapshot-manager">Using Snapshot Manager</h2>
+<p><strong>Q:</strong> What's the difference between a Snapshot and a Snapshot Set?<br />
+<strong>A:</strong> A Snapshot is an individual instance of a block device or file system snapshot (managed by <code>snapm</code> or not, as the case may be). A Snapshot Set is a named collection of snapshots taken at the same moment in time and managed by <code>snapm</code>.</p>
+<p><strong>Q:</strong> Can I use the difference engine if I haven't created any snapshot sets yet?<br />
+<strong>A:</strong> No: it is only possible to create difference reports when there is at least one snapshot set to make a comparison against.</p>
+<p><strong>Q:</strong> Do I need to use <code>boom</code> in order to use <code>snapm</code>?<br />
+<strong>A:</strong> We require <code>boom</code> to create bootable snapshot sets but you don't need to interact with it directly (you don't even need to install the <code>boom-boot</code> CLI, but it can be useful for inspecting your boot entries). Unless you have specific requirements the <code>snapm</code> tool can take care of all the details for you when you use the <code>--boot</code> or <code>--revert</code> options.</p>
+<h2 id="snapshot-set-creation-and-management">Snapshot Set Creation and Management</h2>
+<p><strong>Q:</strong> How much space do I need for snapshots?<br />
+<strong>A:</strong> That is a bit of a ‘how long is a piece of string?’ question: the precise answer depends on the amount of change that occurs to the origin volume or the snapshot during its lifespan. Snapshot Manager defaults to allocating twice the space currently used on a mounted file system, or one quarter the size of block devices when creating snapshot sets, but if you have a better estimate then these values should be adjusted for your particular circumstances.</p>
+<p><strong>Q:</strong> What happens if a snapshot runs out of space?<br />
+<strong>A:</strong> This will produce errors and may invalidate the snapshot. This should be avoided at all costs if you value what the snapshot represents, as it will result in data loss.</p>
+<p><strong>Q:</strong> Can I create snapshots of individual files or directories?<br />
+<strong>A:</strong> No: none of the current snapshot providers support snapshots at this granularity. A similar result can be obtained on modern file systems via the <em>reflink</em> facility (see <a href="https://man7.org/linux/man-pages/man1/cp.1.html"><code>cp(1)</code></a>) but these snapshot-like file system objects are not managed by <code>snapm</code>.</p>
+<p><strong>Q:</strong> Can I modify the contents of a snapshot after creation?<br />
+<strong>A:</strong> Yes. Snapshot sets are by default created in read-write mode and can be modified when mounted subject to normal file system permission checks.</p>
+<p><strong>Q:</strong> Why does my snapshot set show as "<code>Reverting</code>" and how long will it take?<br />
+<strong>A:</strong> This is because a <code>snapset revert</code> command has been issued (or the underlying storage tools have been used to initiate a revert). The time it takes depends on the snapshot provider type: in all cases, when snapshots or their origin volumes are in use, the revert operation is deferred until the next activation (normally at boot time). In the case of LVM2 CoW snapshots the underlying merge operation involves physically moving dat<strong>A:</strong> this takes time proportional to the amount of data in the snapshot at the time of the merge and the speed of the storage devices involved. Thin snapshot reverts (LVM2 Thin and Stratis) are instantaneous at the time the pool is activated.</p>
+<h2 id="scheduling-clean-up">Scheduling &amp; Clean-up</h2>
+<p><strong>Q:</strong> How do I know which garbage collection policy to use?<br />
+<strong>A:</strong> This depends on how much space you have, and for how long you want to keep snapshot sets around. The four policies (<code>ALL</code>, <code>COUNT</code>, <code>AGE</code>, <code>TIMELINE</code>) cover a multitude of possibilities and accept parameters to configure them for your needs. See the <code>snapm(8)</code> manual page for a full description of configuring and managing schedules.</p>
+<p><strong>Q:</strong> Will scheduled snapshots fill up my disk?<br />
+<strong>A:</strong> Potentially, yes. The thin provisioned snapshot providers are more space efficient than the LVM2 CoW provider but they will consume space from the pool they are created in (unlike LVM2 CoW which will not exceed the fixed space allocated to it from its containing volume group). You should configure a garbage collection policy with parameters that limit space consumption to an acceptable level.</p>
+<p><strong>Q:</strong> What happens to my snapshots if I delete a schedule?<br />
+<strong>A:</strong> The snapshot sets will remain until they are manually deleted.</p>
+<p><strong>Q:</strong> Can I manually delete snapshot sets created by a schedule?<br />
+<strong>A:</strong> Yes: use the regular <code>snapm snapset delete</code> command with the name or UUID of the snapshot set you want to remove. The schedule garbage collection policy will continue to operate as configured.</p>
+<h2 id="boot-recovery">Boot &amp; Recovery</h2>
+<p><strong>Q:</strong> What's the difference between <code>-b/--bootable</code> and <code>-r/--revert</code>?<br />
+<strong>A:</strong> The <code>-b/--bootable</code> option creates a bootable snapshot set. When you select the resulting Snapshot boot entry the snapshot set will boot in place of the normal system environment, allowing you to look around and make changes. The <code>-r/--revert</code> option is used to create a fail safe revert boot entry. This is used in conjunction with the <code>snapm snapset revert</code> command to revert the system to the state reflected in the snapshot set. The revert boot entry uses backup boot images by default to protect against the case where the original copies have already been removed from the live system. See the <code>snapm(8)</code> manual page for full instructions on using Snapshot Manager's boot integration features.</p>
+<p><strong>Q:</strong> Can I boot into a snapshot set without reverting to it?<br />
+<strong>A:</strong> Yes. Select the appropriate Snapshot boot entry from your system's boot menu to boot into the corresponding snapshot set. Subsequently, when you reboot, the system will by default boot into the normal (non snapshot) environment.</p>
+<p><strong>Q:</strong> What happens if I reboot while a revert is in progress?<br />
+<strong>A:</strong> The revert will continue the next time that its volumes are activated.</p>
+<p><strong>Q:</strong> Do I need to create boot entries manually?<br />
+<strong>A:</strong> No: use the <code>-b/--bootable</code> and <code>-r/--revert</code> options when creating snapshot sets and <code>snapm</code> will take care of the necessary details.</p>
+<h2 id="compatibility-integration">Compatibility &amp; Integration</h2>
+<p><strong>Q:</strong> Can I use regular storage commands on snapm managed volumes?<br />
+<strong>A:</strong> Yes: you are free to mix LVM2 or Stratis commands with your <code>snapm</code> commands. Just don't rename the logical volumes or Stratis file systems (or <code>snapm</code> will no longer recognise them as snapshot set members).</p>
+<p><strong>Q:</strong> Will snapm interfere with my existing LVM2 or Stratis snapshots?<br />
+<strong>A:</strong> No: snapm will not touch any snapshots that it did not create.</p>
+<p><strong>Q:</strong> Does snapm work with Stratis or other storage systems?<br />
+<strong>A:</strong> Yes: snapm currently supports LVM2 and Stratis with native (in tree) plugins. Support for Btrfs will be added in a future version.</p>
+<p><strong>Q:</strong> Can I use snapm with encrypted volumes?<br />
+<strong>A:</strong> ‘It depends’: <code>snapm</code> currently supports LVM2 volume groups that are encrypted at the physical volume level (encrypted VGs) as well as encrypted Stratis pools. Support for individually encrypted LVM2 logical volumes will be included in a future release: see <a href="https://github.com/snapshotmanager/snapm/issues/916">Issue #916</a> for more information.</p>
+<h2 id="performance-safety">Performance &amp; Safety</h2>
+<p><strong>Q:</strong> Does creating snapshots impact system performance?<br />
+<strong>A:</strong> Potentially, yes. This is particularly acute when you have multiple LVM2 CoW snapshots of the same volume. In this case performance is significantly degraded when more than a handful of snapshots exist.</p>
+<p><strong>Q:</strong> Is it safe to snapshot a running database?<br />
+<strong>A:</strong> It depends on your definition of ‘safe’: the resulting snapshot will be internally consistent at the file system level but the database data will almost certainly not be <em>application consistent</em>. See the next question for more information. We are in the process of creating documentation to discuss this important topic in greater detail.</p>
+<p><strong>Q:</strong> What level of consistency do snapshots provide?<br />
+<strong>A:</strong> It depends on how and when they are taken and whether the system was prepared for the snapshot beforehand. Snapshots are always <em>file system consistent</em> due to the mechanisms used by the kernel but achieving <em>application consistency</em> currently depends on the administrator to stop services or isolate to a <code>systemd</code> target such as <code>rescue</code> before creating snapshot sets.</p>
+<p><strong>Q:</strong> Can snapshots protect against hardware failure?<br />
+<strong>A:</strong> Snapshots live on the same storage as your data. A catastrophic hardware failure may affect both your main volumes and your snapshots. For this reason we always recommend combining snapm use with a carefully designed and tested backup strategy.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Q:</strong> Why can't I mount my snapshot set?<br />
+<strong>A:</strong> First check the snapshot set is not Invalid. If this is the case then the volume will be inaccessible (and difficult to repair — recovery of an invalid CoW exception store is beyond the scope of this FAQ). If the snapshot is valid check the output of <a href="https://man7.org/linux/man-pages/man1/dmesg.1.html"><code>dmesg(1)</code></a> or <a href="https://man7.org/linux/man-pages/man1/journalctl.1.html"><code>journalctl(1)</code></a> and consider consulting the <a href="https://man7.org/linux/man-pages/man8/fsck.8.html"><code>fsck(8)</code></a> program for your file system (preferably, to start, in check/read only/dry run mode if supported).</p>
+<p>Note that if you are trying to mount a snapshot of an <a href="https://man7.org/linux/man-pages/man5/xfs.5.html"><code>xfs(5)</code></a> file system while its origin volume is also mounted you will need to specify <code>-o nouuid</code> when running the <a href="https://man7.org/linux/man-pages/man8/mount.8.html"><code>mount(8)</code></a> program to avoid a UUID collision.</p>
+<p><strong>Q:</strong> My <code>diff</code> or <code>diffreport</code> command is taking forever — is this normal?
+<strong>A:</strong> The time taken for difference computation is proportional to the size of the file system (number of files and directories) and the degree of change between the volumes being compared. It is normal for difference calculations for large volumes with many changes to take some time (minutes to tens of minutes for very large file systems). You may be able to gain more insight into what is happening by enabling verbose logs and debugging. Refer to the <code>snapm(8)</code> manual page for details of available debug and logging settings.</p>
+
+  </div>
+  
+
+  <footer class="post-footer">
+      
+      <ul class="post-tags">
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;tips&#x2F;">tips</a></li>
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;faq&#x2F;">faq</a></li>
+          
+      </ul>
+      
+
+    
+    
+
+
+<nav class="paginav">
+    
+    <a class="prev" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;">
+        <span class="title">« Prev</span>
+        <br>
+        <span>Getting snapm</span>
+    </a>
+    
+    
+    <a class="next" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;welcome&#x2F;">
+        <span class="title">Next »</span>
+        <br>
+        <span>Welcome!</span>
+    </a>
+    
+</nav>
+
+    
+    
+  </footer>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  
+  <span>&copy; 2026 <a href="https:&#x2F;&#x2F;snapshotmanager.github.io"></a></span>
+  
+  <span>
+      Powered by
+      <a href="https://www.getzola.org/" rel="noopener noreferrer" target="_blank">Zola</a> &
+      <a href="https://github.com/edwardzcn-decade/cela" rel="noopener" target="_blank">Cela</a>
+  </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+  </svg>
+</a>
+
+
+<script>
+  let menu = document.getElementById('menu')
+  if (menu) {
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+      menu.onscroll = function () {
+          localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      }
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          var id = this.getAttribute("href").substr(1);
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                  behavior: "smooth"
+              });
+          } else {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+          }
+          if (id === "top") {
+              history.replaceState(null, null, " ");
+          } else {
+              history.pushState(null, null, `#${id}`);
+          }
+      });
+  });
+
+</script>
+
+
+<script>
+  var mybutton = document.getElementById("top-link");
+  window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+          mybutton.style.visibility = "visible";
+          mybutton.style.opacity = "1";
+      } else {
+          mybutton.style.visibility = "hidden";
+          mybutton.style.opacity = "0";
+      }
+  };
+
+</script>
+
+
+
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+      if (document.body.className.includes("dark")) {
+          document.body.classList.remove('dark');
+          localStorage.setItem("pref-theme", 'light');
+      } else {
+          document.body.classList.add('dark');
+          localStorage.setItem("pref-theme", 'dark');
+      }
+  })
+
+</script>
+
+
+<script>
+  document.querySelectorAll('pre > code').forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      const copybutton = document.createElement('button');
+      copybutton.classList.add('copy-code');
+      copybutton.innerText = 'copy';
+      function copyingDone() {
+          copybutton.innerText = 'copied!';
+          setTimeout(() => {
+              copybutton.innerText = 'copy';
+          }, 2000);
+      }
+
+      copybutton.addEventListener('click', (cb) => {
+          if ('clipboard' in navigator) {
+              var content = codeblock.textContent;
+              if(codeblock.firstChild.tagName == 'TABLE') {
+                  content = Array(...codeblock.firstChild.getElementsByTagName('span')).map((span) => { return span.textContent; }).join('');
+              }
+              navigator.clipboard.writeText(content);
+              copyingDone();
+              return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+              document.execCommand('copy');
+              copyingDone();
+          } catch (e) { };
+          selection.removeRange(range);
+      });
+
+      if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+      } else if (container.parentNode.firstChild == container) {
+          // td containing LineNos
+      } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+          // table containing LineNos and code
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+      } else {
+          // code blocks not having highlight as parent class
+          codeblock.parentNode.appendChild(copybutton);
+      }
+  });
+</script>
+
+
+
+
+
+
+
+
+<div id="search-toggle-box" class="hidden">
+  <div class="search-toggle-modal">
+    <input type="text" id="search-toggle-input" placeholder="Type to search..." />
+    <button id="search-toggle-button">Search</button>
+  </div>
+</div>
+
+
+
+<script src="https://snapshotmanager.github.io/js/toggle-sections.js"></script>
+
+
+</body>
+
+</html>

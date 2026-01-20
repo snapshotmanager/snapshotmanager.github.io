@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en" dir="i18n_dir">
+
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Your First Snapshot Set</title>
+
+
+
+
+
+<meta name="keywords" content="tips, getting started">
+
+
+
+
+<meta name="description" content="Easy to use snapshot management for Linux.">
+
+
+
+
+
+
+
+
+
+  
+  <link rel="canonical" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;&#x2F;blog&#x2F;your-first-snapshot-set&#x2F;">
+
+
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-vars.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-base.css">
+<link rel="stylesheet" href="https://snapshotmanager.github.io/css/theme-common.css">
+<link rel="icon" href="https://snapshotmanager.github.io/snapm-favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://snapshotmanager.github.io/snapm-favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://snapshotmanager.github.io/snapm-favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://snapshotmanager.github.io/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+
+
+
+<link rel="alternate" type="application/atom+xml" title="RSS" href="https://snapshotmanager.github.io/atom.xml">
+
+
+
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+    </style>
+    
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(30, 32, 48);           /* macchiato-mantle */
+                --entry: rgb(36, 39, 58);           /* macchiato-base  */
+                --primary: rgb(202, 211, 245);      /* macchiato-text */
+                --secondary: rgb(184,192, 224);     /* macchiato-subtext1 */
+                --tertiary: rgb(54, 58, 79);        /* macchiato-surface0 */
+                --content: rgb(165, 173, 203);      /* macchiato-subtext0 */
+                --hljs-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --code-bg: rgb(24, 25, 38);         /* macchiato-crust */
+                --border: rgb(30, 32, 48);          /* macchiato-mantle */
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+    
+</noscript>
+
+
+</head>
+
+<body
+class="" id="top">
+  <script>
+    const preft = localStorage.getItem("pref-theme");
+    if (preft === "dark") {
+      document.body.classList.add("dark");
+    } else if (preft === "light") {
+      document.body.classList.remove("dark");
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  </script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a
+        href="https:&#x2F;&#x2F;snapshotmanager.github.io"
+        accesskey="h"
+        title="Snapshot Manager (Alt + H)"
+      >
+	<img
+	  src="https://snapshotmanager.github.io/svg/snapm-logo-vector-small.svg"
+	  alt="SnapshotManager logo"
+	/>
+        
+      </a>
+      <div class="logo-switches">
+        <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+          <svg
+            id="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg
+            id="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <ul class="lang-switch">
+          <li>en</li>
+          <li>zh</li>
+        </ul>
+      </div>
+    </div>
+    
+    <ul id="menu">
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;" title="Archive">
+          <span>Archive</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags" title="Tags">
+          <span>Tags</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;categories" title="Categories">
+          <span>Categories</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;snapshotmanager.github.io#" title="Search"data-search-toggle="true">
+          <span>Search</span></a>
+      </li>
+      
+        
+        
+          
+        
+        
+      <li>
+        <a href="https:&#x2F;&#x2F;getzola.org&#x2F;" title="Zola">
+          <span>Zola</span>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+  stroke-width="2"·
+  stroke-linecap="round" stroke-linejoin="round" height=12 width=12>
+  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+  <path d="M15 3h6v6"></path>
+  <path d="M10 14L21 3"></path>
+</svg>
+
+
+</a>
+      </li>
+      
+    </ul>
+    
+  </nav>
+</header>
+
+<main class="main">
+  
+<article class="post-single">
+  <header class="post-header">
+      <div class="breadcrumbs">
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io">Home</a>&nbsp;»&nbsp;
+          <a href="https://snapshotmanager.github.io/blog/">Posts</a>&nbsp;»&nbsp;
+          <a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;your-first-snapshot-set&#x2F;">Your First Snapshot Set</a>
+      </div>
+      <h1 class="post-title">Your First Snapshot Set</h1>
+      
+      
+      <div class="post-meta">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2172 words&nbsp;·&nbsp;
+      
+          
+&nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;your-first-snapshot-set.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
+
+      
+      </div>
+      
+  </header>
+
+  
+  
+
+<div class="toc">
+  <details >
+    <summary accesskey="c" title="(Alt + C)">
+      <span class="details">Table of Contents</span>
+    </summary>
+
+    <div class="inner">
+      <ul>
+        
+        <li>
+          <a href="#your-first-snapshot-set" aria-label="Your First Snapshot Set">Your First Snapshot Set</a>
+          
+          <ul>
+            
+            <li>
+              <a href="#choosing-sources-first-things-to-know" aria-label="Choosing Sources: First Things to know.">Choosing Sources: First Things to know.</a>
+              
+            </li>
+            
+            <li>
+              <a href="#naming-your-snapshot-set" aria-label="Naming Your Snapshot Set">Naming Your Snapshot Set</a>
+              
+            </li>
+            
+            <li>
+              <a href="#overriding-the-default-size-policy" aria-label="Overriding The Default Size Policy">Overriding The Default Size Policy</a>
+              
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a href="#snapm-snapset-create" aria-label="snapm snapset create">snapm snapset create</a>
+          
+        </li>
+        
+        <li>
+          <a href="#lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19" aria-label="lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19">lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19</a>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+  
+
+  
+  <div class="post-content">
+      <h1 id="your-first-snapshot-set">Your First Snapshot Set</h1>
+<p>A snapshot set is a collection of snapshots, bound together with a name, and created at a common moment in time<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup>. At a bare minimum, to create one, you just need a name and a list of sources (<em>mount points</em> or <em>block devices</em>) that you would like to include in the set. More advanced options exist to give additional control over the creation process and the resulting snapshot set: we will cover these in detail in future blog posts.</p>
+<h2 id="choosing-sources-first-things-to-know">Choosing Sources: First Things to know.</h2>
+<p>Before you can create your first snapshot set you'll need to ensure that you have everything necessary in place:</p>
+<ul>
+<li>
+<p>You need snapshot capable storage: LVM2 regular or thin provisioned volumes, or Stratis file systems.</p>
+</li>
+<li>
+<p>You need free space for your snapshots to use (either in an LVM2 volume group with regular volumes, or in the thin pool containing the volumes with LVM2 Thin provisioning or Stratis storage).</p>
+</li>
+<li>
+<p>You'll need to know the mount point or block device path for the volumes you wish to include in your snapshot set.</p>
+</li>
+<li>
+<p>You need <code>snapm</code>.</p>
+</li>
+</ul>
+<p>For your first experiment, it doesn't matter what you snapshot as long as it meets these criteria. Later, when you are using the tool in anger, you can craft specific commands for different use cases or automate the process via schedules. To get the most from this exercise, it is helpful to be able to make some changes to whatever you snapshot so you'll have genuine differences to examine.</p>
+<p>Sources for Snapshot Manager can be either <strong>mount points</strong>, or <strong>block devices</strong>. A <em>mount point</em> source corresponds to a mounted file system. You can specify it either by mount point path (for example, <code>/home</code>) or by the underlying block device path (for example, <code>/dev/vg0/home</code>). A <em>block device source</em> is a block device that is not mounted and that need not contain a mountable file system image (for example, databases, virtual machine images, and other non file system content).</p>
+<p>Snapshot Manager uses the mechanism of <em>provider plugins</em> to support different types of storage. A <strong>provider plugin</strong> corresponds to a particular storage technology (LVM2 CoW, LVM2 Thin, Stratis, and so on). The <code>snapm</code> command will determine the correct plugins to use for any given source (assuming that one exists and is able to snapshot the requested volume) — you do not need to specify which plugins to use on the command line.</p>
+<p>Some familiarity with your storage stack's management tools (whether that's <code>vgs(8)</code>, <code>lvs(8)</code>, et al. for <strong>LVM2</strong>, or the <code>stratis(8)</code> command line tool for <strong>Stratis storage</strong>) will help when it comes to planning, monitoring, and finding your way around. Knowledge of common Linux administrative tools like the <a href="https://man7.org/linux/man-pages/man8/mount.8.html"><code>mount(8)</code></a> program, <a href="https://man7.org/linux/man-pages/man8/findmnt.8.html"><code>findmnt(8)</code></a>, <a href="https://man7.org/linux/man-pages/man8/lsblk.8.html"><code>lsblk(8)</code></a>, and <a href="https://man7.org/linux/man-pages/man8/blkid.8.html"><code>blkid(8)</code></a> will also be an advantage — refer to the respective manual pages for more details, or check out one of the many great Linux systems administration tutorials available on the internet.</p>
+<h2 id="naming-your-snapshot-set">Naming Your Snapshot Set</h2>
+<p>You are free to name your snapshot set anything you like within the constraints enforced by <code>snapm</code> and its provider plugins:</p>
+<ol>
+<li>
+<p>The ‘_’ (underscore) character is not permitted.</p>
+</li>
+<li>
+<p>The valid characters for snapshot set names are the ASCII lowercase and uppercase alphabetic characters, the digits, and the symbols ‘.’, ‘+’, and ‘-’.</p>
+</li>
+<li>
+<p>Certain strings may be forbidden by particular provider plugins: for instance, LVM2 reserves the string <code>_mlog</code> (and others) for internal logical volume names (refer to <a href="https://man7.org/linux/man-pages/man8/lvm.8.html"><code>lvm(8)</code></a>, <a href="https://man7.org/linux/man-pages/man7/lvmraid.7.html"><code>lvmraid(7)</code></a> and related manual pages for more information).</p>
+</li>
+<li>
+<p>Certain providers may enforce a maximum name length, for example, for LVM2 volumes this is 127 characters. Note that this limit includes parts of the internal name generated by <code>snapm</code> (which varies according to the mount point the snapshot refers to), so the usable name length is somewhat shorter. Nobody likes long device names anyway so this should not be a concern in most situations.</p>
+</li>
+<li>
+<p>Any provider that represents the snapshot name as an entry in the file system (which includes all current and planned snapshot providers) is naturally limited by the maximum allowed file name length on Linux (255 characters). Again, this absolute maximum is reduced somewhat by the need for snapm to encode various information into the names it generates.</p>
+</li>
+<li>
+<p>If you include a ‘.’ followed by a nonnegative number at the end of your snapshot set name <code>snapm</code> will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have <code>snapm</code> add one automatically using the --autoindex option (more on that in a later post).</p>
+</li>
+<li>
+<p>it is generally best to not include a date or time reference in the name unless you really, really want to: <code>snapm</code> already stores the creation time of the snapshot set as a UNIX epoch value and renders it as human readable date and time strings in the local time zone.</p>
+</li>
+<li>
+<p>The name ‘.’ is reserved by snapm for referencing the live root file system.</p>
+</li>
+</ol>
+<p>Aim for memorable and meaningful names: ‘<code>quux-foo-backup</code>’ might seem like a good idea at the time, when you're typing in a hurry, but future you will thank present you for coming up with something more self-explanatory.</p>
+<p>Good names might be:</p>
+<ul>
+<li>
+<p><code>before-upgrade</code></p>
+</li>
+<li>
+<p><code>after-upgrade</code></p>
+</li>
+<li>
+<p><code>pre-deployment</code></p>
+</li>
+<li>
+<p><code>post-deployment</code></p>
+</li>
+<li>
+<p><code>hourly.N</code> (where <code>N</code> is an integer uniquifying index either appended manually or enabled automatically with <code>--autoindex</code> - see <code>snapm(8)</code>)</p>
+</li>
+</ul>
+<p>Bad names would include:</p>
+<ul>
+<li>
+<p><code>backup</code></p>
+</li>
+<li>
+<p><code>thing</code></p>
+</li>
+<li>
+<p><code>thisone</code></p>
+</li>
+<li>
+<p><code>thatone</code></p>
+</li>
+<li>
+<p><code>something-something-something-snapshot-side</code></p>
+</li>
+<li>
+<p><code>foo</code>, <code>fubar</code>, <code>plugh</code>, <code>quux</code>, <code>thud</code>, <code>xyzzy</code>, <code>qwerty</code>, etc.</p>
+</li>
+</ul>
+<h2 id="overriding-the-default-size-policy">Overriding The Default Size Policy</h2>
+<p>Snapshot Manager provides size policies that allow the user to request that a certain amount of space be available when creating snapshots. For some providers (LVM2 Thin, Stratis) this is simply a check that this space is available at the time the snapshot set is created. For LVM2 CoW it determines the actual size of the snapshot exception store that the tool will allocate.</p>
+<p>The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (‘<code>200%USED</code>’ in size policy notation). For block devices it is one quarter the physical size of the device (‘<code>25%SIZE</code>’).</p>
+<p>To override these defaults, either append a colon and size policy to individual sources (‘<code>:POLICY</code>’) or use <code>--size-policy=POLICY</code> for all sources without explicit policies.</p>
+<p>For example:</p>
+<p>• <code>/:2GiB</code> — specify a source of ‘/’ (the root file system) with a fixed 2GiB size policy</p>
+<p>• <code>/:100%SIZE /home:50%SIZE</code> — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes</p>
+<p>• <code>--size-policy=100%SIZE</code> — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size</p>
+<h1 id="snapm-snapset-create">snapm snapset create</h1>
+<p>With the basics explained it's time to actually create a snapshot set with the <code>snapm snapset create</code> command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
+</span><span>SnapsetName: my-first-setSources: /, /var
+</span><span>NrSnapshots: 2
+</span><span>Time: 2026-01-13 12:44:12
+</span><span>UUID: 0ea16412-8ceb-59d4-af0b-9afa79d306e9
+</span><span>Status: Inactive
+</span><span>Categories: daily, hourly
+</span><span>Autoactivate: no
+</span><span>OriginMounted: yes
+</span><span>Mounted: no
+</span><span>Bootable: no
+</span></code></pre>
+<p>That's all there is to it! Before we conclude let's take a brief look at the output the tool produces:</p>
+<ul>
+<li>
+<p><code>SnapsetName</code> — the name you gave to the snapshot set</p>
+</li>
+<li>
+<p><code>Sources</code> — the list of sources (minus any size policy that was specified on the command line)</p>
+</li>
+<li>
+<p><code>NrSnapshots</code> — the number of snapshots contained in this set</p>
+</li>
+<li>
+<p><code>Time</code> — the time and date the snapshot set was created in your local time zone</p>
+</li>
+<li>
+<p><code>UUID</code> — a unique identifier for the snapshot set (a Version 5 UUID to be exact<sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup>)</p>
+</li>
+<li>
+<p><code>Status</code> — the status of this snapshot set: one of <code>Active</code>, <code>Inactive</code>, <code>Invalid</code>, or <code>Reverting</code>)</p>
+</li>
+<li>
+<p><code>Categories</code> — the timeline categories that this snapshot set belongs to: we will cover timeline categories, scheduling, and automatic garbage collection in a future blog post.</p>
+</li>
+<li>
+<p><code>Autoactivate</code> — whether automatic boot time activation is enabled for this snapshot set: <code>yes</code> or <code>no</code></p>
+</li>
+<li>
+<p><code>OriginMounted</code> — the mount status of this snapshot set's origin devices: <code>yes</code> or <code>no</code></p>
+</li>
+<li>
+<p><code>Mounted</code> — the mount status of this snapshot set: <code>yes</code> or <code>no</code></p>
+</li>
+<li>
+<p><code>Bootable</code> — whether this snapshot set has <a href="https://www.mankier.com/8/boom"><code>boom(8)</code></a> boot entries or not: <code>yes</code> or <code>no</code></p>
+</li>
+</ul>
+<p>We will get to all of these properties and their precise meaning in good time, but for now the Status field deserves a little more explanation: some snapshot providers (LVM2 Thin, Stratis) support optional activation for snapshot devices.</p>
+<p>This means that you don't have snapshot devices cluttering the system and using resources when they are not required and is therefore more efficient — especially when dealing with very large numbers of snapshots. For LVM2 CoW the snapshot volume must be active at all times that the origin is active.</p>
+<p>If your snapshot set includes thin snapshots (LVM2 Thin or Stratis) then it will begin its life in the <code>Inactive</code> state<sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup>. If it only includes LVM2 CoW snapshots then it will begin in the <code>Active</code> state (and cannot, in fact, become <code>Inactive</code> unless the origin volume is also inactive).</p>
+<p>If you receive an error message instead of the expected output shown above study it carefully to try to understand what it is telling you. Most error conditions have a clear error message that explains exactly what is wrong. The most common error is ‘not enough space’: if you run into this you will see a message like this rather than the snapshot set summary:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
+</span><span>ERROR - Error creating lvm2-cow snapshot: Volume group fedora has insufficientfree space to snapshot / (14.5GiB &lt; 15.1GiB)
+</span><span>ERROR - Command failed: Insufficient free space for snapshot set my-first-set
+</span></code></pre>
+<p>If this happens you can resolve the problem in one of these three ways:</p>
+<ul>
+<li>
+<p>Add more space to the volume group or thin pool</p>
+</li>
+<li>
+<p>Delete one or more unneeded volumes to reclaim space</p>
+</li>
+<li>
+<p>Change the size policy to create a smaller snapshot</p>
+</li>
+</ul>
+<p>If you receive some other error refer to the manual page and the <a href="https://todo">FAQ</a>: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution's support channels or the developers for assistance (see section [sec:Filing-Issues] for advice on filing issues in the snapm project).</p>
+<p>10.5 Care and Feeding of Your Snapshot Set</p>
+<p>Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in chapter [chap:Storage-Back-ends]. Refer to that chapter for a detailed discussion of the issues and how they apply to the different provider plugins that snapm supports.</p>
+<p>As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program's -o/--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:</p>
+<h1 id="lvs-o-lv-name-lv-size-data-percentlv-lsize-data-root-10-00g-root-snapset-my-first-set-1768308252-1-00g-0-19-swap-512-00m-var-12-00g-var-snapset-my-first-set-1768308252-var-1-20g-0-19">lvs -o lv_name,lv_size,data_percentLV                                           LSize Data% root                                        10.00g root-snapset_my-first-set_1768308252_-       1.00g  0.19 swap                                       512.00m var                                         12.00g var-snapset_my-first-set_1768308252_-var     1.20g  0.19</h1>
+<p>Note the 0.19% value in the ‘Data%’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.</p>
+<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is lvs(8) for LVM2 volumes, or stratis for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, lvresize(8) for LVM2), or you can use the snapm snapset resize command to apply new size policies to an already created snapshot set.</p>
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>The snapshots making up a set are created sequentially, since there is presently no interface in Linux for creating multiple snapshots simultaneously. For this reason the individual snapshots will all have very slightly different timestamps. Snapshot Manager quantises these timestamps to provide a single unambiguous creation time for the set as a whole. <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="fn-2">
+<p>https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions_3_and_5_(namespace_name-based) <a href="#fr-2-1">↩</a></p>
+</li>
+<li id="fn-3">
+<p>Unless creating bootable snapshot sets, in which case autoactivate is always enabled and the set will start out in the <code>Active</code> state (We will cover bootable snapshot sets in detail in a future post). <a href="#fr-3-1">↩</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  
+
+  <footer class="post-footer">
+      
+      <ul class="post-tags">
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;tips&#x2F;">tips</a></li>
+          
+          
+          <li><a href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;tags&#x2F;getting-started&#x2F;">getting started</a></li>
+          
+      </ul>
+      
+
+    
+    
+
+
+<nav class="paginav">
+    
+    <a class="prev" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;snapm-release-notes-0-7-0&#x2F;">
+        <span class="title">« Prev</span>
+        <br>
+        <span>snapm 0.7.0 Release Notes</span>
+    </a>
+    
+    
+    <a class="next" href="https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;getting-snapm&#x2F;">
+        <span class="title">Next »</span>
+        <br>
+        <span>Getting snapm</span>
+    </a>
+    
+</nav>
+
+    
+    
+  </footer>
+
+</article>
+
+</main>
+
+<footer class="footer">
+  
+  <span>&copy; 2026 <a href="https:&#x2F;&#x2F;snapshotmanager.github.io"></a></span>
+  
+  <span>
+      Powered by
+      <a href="https://www.getzola.org/" rel="noopener noreferrer" target="_blank">Zola</a> &
+      <a href="https://github.com/edwardzcn-decade/cela" rel="noopener" target="_blank">Cela</a>
+  </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+      <path d="M12 6H0l6-6z" />
+  </svg>
+</a>
+
+
+<script>
+  let menu = document.getElementById('menu')
+  if (menu) {
+      menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+      menu.onscroll = function () {
+          localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+      }
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          var id = this.getAttribute("href").substr(1);
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                  behavior: "smooth"
+              });
+          } else {
+              document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+          }
+          if (id === "top") {
+              history.replaceState(null, null, " ");
+          } else {
+              history.pushState(null, null, `#${id}`);
+          }
+      });
+  });
+
+</script>
+
+
+<script>
+  var mybutton = document.getElementById("top-link");
+  window.onscroll = function () {
+      if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+          mybutton.style.visibility = "visible";
+          mybutton.style.opacity = "1";
+      } else {
+          mybutton.style.visibility = "hidden";
+          mybutton.style.opacity = "0";
+      }
+  };
+
+</script>
+
+
+
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", () => {
+      if (document.body.className.includes("dark")) {
+          document.body.classList.remove('dark');
+          localStorage.setItem("pref-theme", 'light');
+      } else {
+          document.body.classList.add('dark');
+          localStorage.setItem("pref-theme", 'dark');
+      }
+  })
+
+</script>
+
+
+<script>
+  document.querySelectorAll('pre > code').forEach((codeblock) => {
+      const container = codeblock.parentNode.parentNode;
+
+      const copybutton = document.createElement('button');
+      copybutton.classList.add('copy-code');
+      copybutton.innerText = 'copy';
+      function copyingDone() {
+          copybutton.innerText = 'copied!';
+          setTimeout(() => {
+              copybutton.innerText = 'copy';
+          }, 2000);
+      }
+
+      copybutton.addEventListener('click', (cb) => {
+          if ('clipboard' in navigator) {
+              var content = codeblock.textContent;
+              if(codeblock.firstChild.tagName == 'TABLE') {
+                  content = Array(...codeblock.firstChild.getElementsByTagName('span')).map((span) => { return span.textContent; }).join('');
+              }
+              navigator.clipboard.writeText(content);
+              copyingDone();
+              return;
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(codeblock);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try {
+              document.execCommand('copy');
+              copyingDone();
+          } catch (e) { };
+          selection.removeRange(range);
+      });
+
+      if (container.classList.contains("highlight")) {
+          container.appendChild(copybutton);
+      } else if (container.parentNode.firstChild == container) {
+          // td containing LineNos
+      } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+          // table containing LineNos and code
+          codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+      } else {
+          // code blocks not having highlight as parent class
+          codeblock.parentNode.appendChild(copybutton);
+      }
+  });
+</script>
+
+
+
+
+
+
+
+
+<div id="search-toggle-box" class="hidden">
+  <div class="search-toggle-modal">
+    <input type="text" id="search-toggle-input" placeholder="Type to search..." />
+    <button id="search-toggle-button">Search</button>
+  </div>
+</div>
+
+
+
+<script src="https://snapshotmanager.github.io/js/toggle-sections.js"></script>
+
+
+</body>
+
+</html>
