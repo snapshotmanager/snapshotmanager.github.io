@@ -259,7 +259,7 @@ class="" id="top">
 
 
 
-<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;2153 words&nbsp;·&nbsp;
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;2500 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;your-first-snapshot-set.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -315,6 +315,16 @@ class="" id="top">
               
             </li>
             
+            <li>
+              <a href="#visualizing-changes" aria-label="Visualizing Changes">Visualizing Changes</a>
+              
+            </li>
+            
+            <li>
+              <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+              
+            </li>
+            
           </ul>
           
         </li>
@@ -347,9 +357,10 @@ class="" id="top">
 </li>
 </ul>
 <p>For your first experiment, it doesn't matter what you snapshot as long as it meets these criteria. Later, when you are using the tool in anger, you can craft specific commands for different use cases or automate the process via schedules. To get the most from this exercise, it is helpful to be able to make some changes to whatever you snapshot so you'll have genuine differences to examine.</p>
+<p>If you haven't already installed the <code>snapm</code> command on your system read <a href="https://snapshotmanager.github.io/blog/getting-snapm/">Getting <code>snapm</code></a> and follow the instructions there: then return here to continue.</p>
 <p>Sources for Snapshot Manager can be either <strong>mount points</strong>, or <strong>block devices</strong>. A <em>mount point</em> source corresponds to a mounted file system. You can specify it either by mount point path (for example, <code>/home</code>) or by the underlying block device path (for example, <code>/dev/vg0/home</code>). A <em>block device source</em> is a block device that is not mounted and that need not contain a mountable file system image (for example, databases, virtual machine images, and other non file system content).</p>
 <p>Snapshot Manager uses the mechanism of <em>provider plugins</em> to support different types of storage. A <strong>provider plugin</strong> corresponds to a particular storage technology (LVM2 CoW, LVM2 Thin, Stratis, and so on). The <code>snapm</code> command will determine the correct plugins to use for any given source (assuming that one exists and is able to snapshot the requested volume) — you do not need to specify which plugins to use on the command line.</p>
-<p>Some familiarity with your storage stack's management tools (whether that's <code>vgs(8)</code>, <code>lvs(8)</code>, et al. for <strong>LVM2</strong>, or the <code>stratis(8)</code> command line tool for <strong>Stratis storage</strong>) will help when it comes to planning, monitoring, and finding your way around. Knowledge of common Linux administrative tools like the <a href="https://man7.org/linux/man-pages/man8/mount.8.html"><code>mount(8)</code></a> program, <a href="https://man7.org/linux/man-pages/man8/findmnt.8.html"><code>findmnt(8)</code></a>, <a href="https://man7.org/linux/man-pages/man8/lsblk.8.html"><code>lsblk(8)</code></a>, and <a href="https://man7.org/linux/man-pages/man8/blkid.8.html"><code>blkid(8)</code></a> will also be an advantage — refer to the respective manual pages for more details, or check out one of the many great Linux systems administration tutorials available on the internet.</p>
+<p>Some familiarity with your storage stack's management tools will help when it comes to planning, monitoring, and finding your way around (whether that's <a href="https://man7.org/linux/man-pages/man8/vgs.8.html"><code>vgs(8)</code></a>, <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a>, et al. for <strong>LVM2</strong>, or the <a href="https://www.mankier.com/8/stratis"><code>stratis(8)</code></a> command line tool for <strong>Stratis storage</strong>). Knowledge of common Linux administrative tools like the <a href="https://man7.org/linux/man-pages/man8/mount.8.html"><code>mount(8)</code></a> program, <a href="https://man7.org/linux/man-pages/man8/findmnt.8.html"><code>findmnt(8)</code></a>, <a href="https://man7.org/linux/man-pages/man8/lsblk.8.html"><code>lsblk(8)</code></a>, and <a href="https://man7.org/linux/man-pages/man8/blkid.8.html"><code>blkid(8)</code></a> will also be an advantage — refer to the respective manual pages for more details, or check out one of the many great Linux systems administration tutorials available on the internet.</p>
 <h2 id="naming-your-snapshot-set">Naming Your Snapshot Set</h2>
 <p>You are free to name your snapshot set anything you like within the constraints enforced by <code>snapm</code> and its provider plugins:</p>
 <ol>
@@ -366,13 +377,13 @@ class="" id="top">
 <p>Certain providers may enforce a maximum name length, for example, for LVM2 volumes this is 127 characters. Note that this limit includes parts of the internal name generated by <code>snapm</code> (which varies according to the mount point the snapshot refers to), so the usable name length is somewhat shorter. Nobody likes long device names anyway so this should not be a concern in most situations.</p>
 </li>
 <li>
-<p>Any provider that represents the snapshot name as an entry in the file system (which includes all current and planned snapshot providers) is naturally limited by the maximum allowed file name length on Linux (255 characters). Again, this absolute maximum is reduced somewhat by the need for snapm to encode various information into the names it generates.</p>
+<p>Any provider that represents the snapshot name as an entry in the file system (which includes all current and planned snapshot providers) is naturally limited by the maximum allowed file name length on Linux (255 characters). Again, this absolute maximum is reduced somewhat by the need for <code>snapm</code> to encode various information into the names it generates.</p>
 </li>
 <li>
-<p>If you include a ‘.’ followed by a nonnegative number at the end of your snapshot set name <code>snapm</code> will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have <code>snapm</code> add one automatically using the --autoindex option (more on that in a later post).</p>
+<p>If you include a ‘.’ followed by a nonnegative number at the end of your snapshot set name <code>snapm</code> will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have <code>snapm</code> add one automatically using the <code>--autoindex</code> option (more on that in a later post).</p>
 </li>
 <li>
-<p>it is generally best to not include a date or time reference in the name unless you really, really want to: <code>snapm</code> already stores the creation time of the snapshot set as a UNIX epoch value and renders it as human readable date and time strings in the local time zone.</p>
+<p>it is generally best to not include a date or time reference in the name unless you really, really want to: <code>snapm</code> already stores the creation time of the snapshot set as a UNIX epoch timestamp value and renders it as human readable date and time strings in the local time zone.</p>
 </li>
 <li>
 <p>The name ‘.’ is reserved by snapm for referencing the live root file system.</p>
@@ -415,7 +426,7 @@ class="" id="top">
 <p><code>something-something-something-snapshot-side</code></p>
 </li>
 <li>
-<p><code>foo</code>, <code>fubar</code>, <code>plugh</code>, <code>quux</code>, <code>thud</code>, <code>xyzzy</code>, <code>qwerty</code>, etc.</p>
+<p><code>foo</code>, <code>fubar</code>, <code>plugh</code>, <code>quux</code>, <code>qwerty</code>, <code>thud</code>, <code>xyzzy</code>, etc.</p>
 </li>
 </ul>
 <h2 id="overriding-the-default-size-policy">Overriding The Default Size Policy</h2>
@@ -481,7 +492,7 @@ class="" id="top">
 <p>If your snapshot set includes thin snapshots (LVM2 Thin or Stratis) then it will begin its life in the <code>Inactive</code> state<sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup>. If it only includes LVM2 CoW snapshots then it will begin in the <code>Active</code> state (and cannot, in fact, become <code>Inactive</code> unless the origin volume is also inactive).</p>
 <p>If you receive an error message instead of the expected output shown above study it carefully to try to understand what it is telling you. Most error conditions have a clear error message that explains exactly what is wrong. The most common error is ‘not enough space’: if you run into this you will see a message like this rather than the snapshot set summary:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
-</span><span>ERROR - Error creating lvm2-cow snapshot: Volume group fedora has insufficientfree space to snapshot / (14.5GiB &lt; 15.1GiB)
+</span><span>ERROR - Error creating lvm2-cow snapshot: Volume group fedora has insufficient free space to snapshot / (14.5GiB &lt; 15.1GiB)
 </span><span>ERROR - Command failed: Insufficient free space for snapshot set my-first-set
 </span></code></pre>
 <p>If this happens you can resolve the problem in one of these three ways:</p>
@@ -509,7 +520,47 @@ class="" id="top">
 </span><span>var-snapset_my-first-set_1768308252_-var     1.20g  0.19 
 </span></code></pre>
 <p>Note the 0.19% value in the ‘<code>Data%</code>’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.</p>
-<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> for LVM2 volumes, or the <code>stratis</code> command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> for LVM2), or you can use the <code>snapm snapset resize</code> command to apply new size policies to an already created snapshot set.</p>
+<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> for LVM2 volumes, or the <a href="https://www.mankier.com/8/stratis"><code>stratis(8)</code></a> command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> for LVM2), or you can use the <code>snapm snapset resize</code> command to apply new size policies to an already created snapshot set.</p>
+<h2 id="visualizing-changes">Visualizing Changes</h2>
+<p>Before we conclude let's take a look at some of the advanced features in recent versions of <code>snapm</code>. For this part of the exercise, it helps if you can make some small change to the system. We will assume that your snapshot set included the root file system in this example but if that isn't the case you can adjust the paths used accordingly. We suggest creating a single new file — something simple made with the <code>echo</code> command is fine for our purposes:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># echo &quot;Something changed!&quot; &gt; /etc/my-new-file.conf
+</span></code></pre>
+<p>Now that you have a definitive change in the file system state, use the <code>snapm snapset diff</code> command to view it:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset diff my-first-set . -s /etc -i /etc/my-new-file.conf
+</span><span>Gathering paths from my-first-set /etc: found 1879 paths
+</span><span>Scanned 1879 paths in 0:00:00.784354 (excluded 0)
+</span><span>Gathering paths from System Root /etc: found 1880 paths
+</span><span>Scanned 1880 paths in 0:00:00.539372 (excluded 0)
+</span><span>Found 7 differences in 0:00:00.012717
+</span><span>Found 0 moves in 0:00:00.004574
+</span><span>Saved 7 records to diffcache in 0:00:00.014500
+</span><span>Built tree with 7 nodes
+</span><span>/
+</span><span>└── [*] etc
+</span><span>    └── [+] my-new-file.conf
+</span></code></pre>
+<p>Note that <code>my-new-file.conf</code> appears with the <code>[+]</code> annotation (in red if your terminal supports color output) indicating that it is a new file system entry added since <code>my-first-set</code> was created.</p>
+<p>To see the exact change in the file content you can use the <code>-o/--output-format diff</code> option of the <code>snapm snapset diff</code> command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset diff my-first-set . -o diff -s /etc -i /etc/my-new-file.conf
+</span><span>Loaded 1 records from diffcache in 0:00:00.000226
+</span><span>Found 1 content differences
+</span><span>diff a/etc/my-new-file.conf b/etc/my-new-file.conf
+</span><span>new file mode 0o100644
+</span><span>--- /dev/null	
+</span><span>+++ b/etc/my-new-file.conf	2026-01-20 16:59:42.257636
+</span><span>@@ -0,0 +1 @@
+</span><span>+Something changed!
+</span></code></pre>
+<p>There are two key details to notice here:</p>
+<ul>
+<li>The <code>-o diff</code> output is displayed in <em>unified diff</em> format (again with color coding if your terminal supports that)</li>
+<li>The results appear quickly when the second command is run. This is because the differences from the first run are cached and reused.</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>That's it for now! We will look at more advanced uses of <code>snapm</code> and the full set of Difference Engine features in future blog posts. In the meantime check out the <code>snapm(8)</code> manual page and the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html">User Guide</a> if this post whetted your appetite for more Snapshot Manager features!</p>
+<p>If you would like to clean up the snapshot set on your system, use the <code>snapm snapset delete</code> command:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset delete my-first-set
+</span></code></pre>
 <section class="footnotes">
 <ol class="footnotes-list">
 <li id="fn-1">
