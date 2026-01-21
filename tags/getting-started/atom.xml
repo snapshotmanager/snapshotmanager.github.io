@@ -119,13 +119,22 @@
 &lt;p&gt;The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (‘&lt;code&gt;200%USED&lt;&#x2F;code&gt;’ in size policy notation). For block devices it is one quarter the physical size of the device (‘&lt;code&gt;25%SIZE&lt;&#x2F;code&gt;’).&lt;&#x2F;p&gt;
 &lt;p&gt;To override these defaults, either append a colon and size policy to individual sources (‘&lt;code&gt;:POLICY&lt;&#x2F;code&gt;’) or use &lt;code&gt;--size-policy=POLICY&lt;&#x2F;code&gt; for all sources without explicit policies.&lt;&#x2F;p&gt;
 &lt;p&gt;For example:&lt;&#x2F;p&gt;
-&lt;p&gt;• &lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of ‘&#x2F;’ (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
-&lt;p&gt;• &lt;code&gt;&#x2F;:100%SIZE &#x2F;home:50%SIZE&lt;&#x2F;code&gt; — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes&lt;&#x2F;p&gt;
-&lt;p&gt;• &lt;code&gt;--size-policy=100%SIZE&lt;&#x2F;code&gt; — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of ‘&#x2F;’ (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&#x2F;:100%SIZE &#x2F;home:50%SIZE&lt;&#x2F;code&gt; — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;--size-policy=100%SIZE&lt;&#x2F;code&gt; — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
 &lt;h1 id=&quot;snapm-snapset-create&quot;&gt;&lt;code&gt;snapm snapset create&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
 &lt;p&gt;With the basics explained it&#x27;s time to actually create a snapshot set with the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:&lt;&#x2F;p&gt;
 &lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# snapm snapset create my-first-set &#x2F; &#x2F;var
-&lt;&#x2F;span&gt;&lt;span&gt;SnapsetName: my-first-setSources: &#x2F;, &#x2F;var
+&lt;&#x2F;span&gt;&lt;span&gt;SnapsetName: my-first-set
+&lt;&#x2F;span&gt;&lt;span&gt;Sources: &#x2F;, &#x2F;var
 &lt;&#x2F;span&gt;&lt;span&gt;NrSnapshots: 2
 &lt;&#x2F;span&gt;&lt;span&gt;Time: 2026-01-13 12:44:12
 &lt;&#x2F;span&gt;&lt;span&gt;UUID: 0ea16412-8ceb-59d4-af0b-9afa79d306e9
@@ -195,7 +204,7 @@
 &lt;p&gt;If you receive some other error refer to the &lt;code&gt;snapm(8)&lt;&#x2F;code&gt; manual page and the &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;faq&#x2F;&quot;&gt;FAQ&lt;&#x2F;a&gt;: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution&#x27;s support channels or the developers for assistance&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-4-1&quot;&gt;&lt;a href=&quot;#fn-4&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;care-and-feeding-of-your-snapshot-set&quot;&gt;Care and Feeding of Your Snapshot Set&lt;&#x2F;h2&gt;
 &lt;p&gt;Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in the &lt;a href=&quot;https:&#x2F;&#x2F;snapshotmanager.github.io&#x2F;blog&#x2F;faq&#x2F;#performance-safety&quot;&gt;Performance &amp;amp; Safety section of the Snapshot Manager FAQ&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
-&lt;p&gt;As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program&#x27;s -o&#x2F;--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:&lt;&#x2F;p&gt;
+&lt;p&gt;As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) program&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-5-1&quot;&gt;&lt;a href=&quot;#fn-5&quot;&gt;5&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;:&lt;&#x2F;p&gt;
 &lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# lvs -o lv_name,lv_size,data_percent
 &lt;&#x2F;span&gt;&lt;span&gt;LV                                           LSize Data% 
 &lt;&#x2F;span&gt;&lt;span&gt;root                                        10.00g 
@@ -259,6 +268,9 @@
 &lt;&#x2F;li&gt;
 &lt;li id=&quot;fn-4&quot;&gt;
 &lt;p&gt;https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapm&#x2F;issues&#x2F; &lt;a href=&quot;#fr-4-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-5&quot;&gt;
+&lt;p&gt;We are using the &lt;code&gt;lvs&lt;&#x2F;code&gt; program&#x27;s &lt;code&gt;-o&#x2F;--options&lt;&#x2F;code&gt; argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output. &lt;a href=&quot;#fr-5-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
 &lt;&#x2F;section&gt;

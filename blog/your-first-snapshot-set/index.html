@@ -259,7 +259,7 @@ class="" id="top">
 
 
 
-<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;2500 words&nbsp;·&nbsp;
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;2503 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;your-first-snapshot-set.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -434,13 +434,22 @@ class="" id="top">
 <p>The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (‘<code>200%USED</code>’ in size policy notation). For block devices it is one quarter the physical size of the device (‘<code>25%SIZE</code>’).</p>
 <p>To override these defaults, either append a colon and size policy to individual sources (‘<code>:POLICY</code>’) or use <code>--size-policy=POLICY</code> for all sources without explicit policies.</p>
 <p>For example:</p>
-<p>• <code>/:2GiB</code> — specify a source of ‘/’ (the root file system) with a fixed 2GiB size policy</p>
-<p>• <code>/:100%SIZE /home:50%SIZE</code> — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes</p>
-<p>• <code>--size-policy=100%SIZE</code> — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size</p>
+<ul>
+<li>
+<p><code>/:2GiB</code> — specify a source of ‘/’ (the root file system) with a fixed 2GiB size policy</p>
+</li>
+<li>
+<p><code>/:100%SIZE /home:50%SIZE</code> — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes</p>
+</li>
+<li>
+<p><code>--size-policy=100%SIZE</code> — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size</p>
+</li>
+</ul>
 <h1 id="snapm-snapset-create"><code>snapm snapset create</code></h1>
 <p>With the basics explained it's time to actually create a snapshot set with the <code>snapm snapset create</code> command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
-</span><span>SnapsetName: my-first-setSources: /, /var
+</span><span>SnapsetName: my-first-set
+</span><span>Sources: /, /var
 </span><span>NrSnapshots: 2
 </span><span>Time: 2026-01-13 12:44:12
 </span><span>UUID: 0ea16412-8ceb-59d4-af0b-9afa79d306e9
@@ -510,7 +519,7 @@ class="" id="top">
 <p>If you receive some other error refer to the <code>snapm(8)</code> manual page and the <a href="https://snapshotmanager.github.io/blog/faq/">FAQ</a>: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution's support channels or the developers for assistance<sup class="footnote-reference" id="fr-4-1"><a href="#fn-4">4</a></sup>.</p>
 <h2 id="care-and-feeding-of-your-snapshot-set">Care and Feeding of Your Snapshot Set</h2>
 <p>Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in the <a href="https://snapshotmanager.github.io/blog/faq/#performance-safety">Performance &amp; Safety section of the Snapshot Manager FAQ</a>.</p>
-<p>As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) programWe are using the lvs program's -o/--options argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output.:</p>
+<p>As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) program<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">5</a></sup>:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># lvs -o lv_name,lv_size,data_percent
 </span><span>LV                                           LSize Data% 
 </span><span>root                                        10.00g 
@@ -574,6 +583,9 @@ class="" id="top">
 </li>
 <li id="fn-4">
 <p>https://github.com/snapshotmanager/snapm/issues/ <a href="#fr-4-1">↩</a></p>
+</li>
+<li id="fn-5">
+<p>We are using the <code>lvs</code> program's <code>-o/--options</code> argument here to make sure the displayed fields fit on the page. By default you will see more columns in the tool output. <a href="#fr-5-1">↩</a></p>
 </li>
 </ol>
 </section>
