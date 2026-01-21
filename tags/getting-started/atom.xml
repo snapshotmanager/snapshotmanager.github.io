@@ -50,10 +50,10 @@
 &lt;p&gt;You are free to name your snapshot set anything you like within the constraints enforced by &lt;code&gt;snapm&lt;&#x2F;code&gt; and its provider plugins:&lt;&#x2F;p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;The ‘_’ (underscore) character is not permitted.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;_&lt;&#x2F;code&gt; (underscore) character is not permitted.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
-&lt;p&gt;The valid characters for snapshot set names are the ASCII lowercase and uppercase alphabetic characters, the digits, and the symbols ‘.’, ‘+’, and ‘-’.&lt;&#x2F;p&gt;
+&lt;p&gt;The valid characters for snapshot set names are the ASCII lowercase and uppercase alphabetic characters, the digits, and the symbols &lt;code&gt;.&lt;&#x2F;code&gt;, &lt;code&gt;+&lt;&#x2F;code&gt;, and &lt;code&gt;-&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
 &lt;p&gt;Certain strings may be forbidden by particular provider plugins: for instance, LVM2 reserves the string &lt;code&gt;_mlog&lt;&#x2F;code&gt; (and others) for internal logical volume names (refer to &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvm.8.html&quot;&gt;&lt;code&gt;lvm(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man7&#x2F;lvmraid.7.html&quot;&gt;&lt;code&gt;lvmraid(7)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; and related manual pages for more information).&lt;&#x2F;p&gt;
@@ -65,16 +65,16 @@
 &lt;p&gt;Any provider that represents the snapshot name as an entry in the file system (which includes all current and planned snapshot providers) is naturally limited by the maximum allowed file name length on Linux (255 characters). Again, this absolute maximum is reduced somewhat by the need for &lt;code&gt;snapm&lt;&#x2F;code&gt; to encode various information into the names it generates.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
-&lt;p&gt;If you include a ‘.’ followed by a nonnegative number at the end of your snapshot set name &lt;code&gt;snapm&lt;&#x2F;code&gt; will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have &lt;code&gt;snapm&lt;&#x2F;code&gt; add one automatically using the &lt;code&gt;--autoindex&lt;&#x2F;code&gt; option (more on that in a later post).&lt;&#x2F;p&gt;
+&lt;p&gt;If you include a &lt;code&gt;.&lt;&#x2F;code&gt; followed by a nonnegative number at the end of your snapshot set name &lt;code&gt;snapm&lt;&#x2F;code&gt; will consider it to be an index. This is useful when taking recurring snapshots sets of the same things with a common base name. You can also have &lt;code&gt;snapm&lt;&#x2F;code&gt; add one automatically using the &lt;code&gt;--autoindex&lt;&#x2F;code&gt; option (more on that in a later post).&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
 &lt;p&gt;it is generally best to not include a date or time reference in the name unless you really, really want to: &lt;code&gt;snapm&lt;&#x2F;code&gt; already stores the creation time of the snapshot set as a UNIX epoch timestamp value and renders it as human readable date and time strings in the local time zone.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
-&lt;p&gt;The name ‘.’ is reserved by snapm for referencing the live root file system.&lt;&#x2F;p&gt;
+&lt;p&gt;The name &lt;code&gt;.&lt;&#x2F;code&gt; is reserved by snapm for referencing the live root file system.&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ol&gt;
-&lt;p&gt;Aim for memorable and meaningful names: ‘&lt;code&gt;quux-foo-backup&lt;&#x2F;code&gt;’ might seem like a good idea at the time, when you&#x27;re typing in a hurry, but future you will thank present you for coming up with something more self-explanatory.&lt;&#x2F;p&gt;
+&lt;p&gt;Aim for memorable and meaningful names: &lt;code&gt;quux-foo-backup&lt;&#x2F;code&gt; might seem like a good idea at the time, when you&#x27;re typing in a hurry, but future you will thank present you for coming up with something more self-explanatory.&lt;&#x2F;p&gt;
 &lt;p&gt;Good names might be:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -116,12 +116,12 @@
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;overriding-the-default-size-policy&quot;&gt;Overriding The Default Size Policy&lt;&#x2F;h2&gt;
 &lt;p&gt;Snapshot Manager provides size policies that allow the user to request that a certain amount of space be available when creating snapshots. For some providers (LVM2 Thin, Stratis) this is simply a check that this space is available at the time the snapshot set is created. For LVM2 CoW it determines the actual size of the snapshot exception store that the tool will allocate.&lt;&#x2F;p&gt;
-&lt;p&gt;The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (‘&lt;code&gt;200%USED&lt;&#x2F;code&gt;’ in size policy notation). For block devices it is one quarter the physical size of the device (‘&lt;code&gt;25%SIZE&lt;&#x2F;code&gt;’).&lt;&#x2F;p&gt;
-&lt;p&gt;To override these defaults, either append a colon and size policy to individual sources (‘&lt;code&gt;:POLICY&lt;&#x2F;code&gt;’) or use &lt;code&gt;--size-policy=POLICY&lt;&#x2F;code&gt; for all sources without explicit policies.&lt;&#x2F;p&gt;
+&lt;p&gt;The default size policy is different depending on whether you are creating a snapshot from a mount point source or a block device source. For mount points the default size policy specifies twice the space currently used on the mount point (&lt;code&gt;200%USED&lt;&#x2F;code&gt; in size policy notation). For block devices it is one quarter the physical size of the device (&lt;code&gt;25%SIZE&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;To override these defaults, either append a colon and size policy to individual sources (&lt;code&gt;:POLICY&lt;&#x2F;code&gt;) or use &lt;code&gt;--size-policy=POLICY&lt;&#x2F;code&gt; for all sources without explicit policies.&lt;&#x2F;p&gt;
 &lt;p&gt;For example:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of ‘&#x2F;’ (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;&#x2F;:2GiB&lt;&#x2F;code&gt; — specify a source of &lt;code&gt;&#x2F;&lt;&#x2F;code&gt; (the root file system) with a fixed 2GiB size policy&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;&#x2F;:100%SIZE &#x2F;home:50%SIZE&lt;&#x2F;code&gt; — specify sources for root and home with a policy requesting 100% and 50% of their respective device sizes&lt;&#x2F;p&gt;
@@ -213,7 +213,7 @@
 &lt;&#x2F;span&gt;&lt;span&gt;var                                         12.00g 
 &lt;&#x2F;span&gt;&lt;span&gt;var-snapset_my-first-set_1768308252_-var     1.20g  0.19 
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;Note the 0.19% value in the ‘&lt;code&gt;Data%&lt;&#x2F;code&gt;’ column: this is the percentage of the snapshot exception store that has been used so far. In this case it&#x27;s a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.&lt;&#x2F;p&gt;
+&lt;p&gt;Note the 0.19% value in the &lt;code&gt;Data%&lt;&#x2F;code&gt; column: this is the percentage of the snapshot exception store that has been used so far. In this case it&#x27;s a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.&lt;&#x2F;p&gt;
 &lt;p&gt;We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvs.8.html&quot;&gt;&lt;code&gt;lvs(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; for LVM2 volumes, or the &lt;a href=&quot;https:&#x2F;&#x2F;www.mankier.com&#x2F;8&#x2F;stratis&quot;&gt;&lt;code&gt;stratis(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, &lt;a href=&quot;https:&#x2F;&#x2F;man7.org&#x2F;linux&#x2F;man-pages&#x2F;man8&#x2F;lvresize.8.html&quot;&gt;&lt;code&gt;lvresize(8)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; for LVM2), or you can use the &lt;code&gt;snapm snapset resize&lt;&#x2F;code&gt; command to apply new size policies to an already created snapshot set.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;visualizing-changes&quot;&gt;Visualizing Changes&lt;&#x2F;h2&gt;
 &lt;p&gt;Before we conclude let&#x27;s take a look at some of the advanced features in recent versions of &lt;code&gt;snapm&lt;&#x2F;code&gt;. For this part of the exercise, it helps if you can make some small change to the system. We will assume that your snapshot set included the root file system in this example but if that isn&#x27;t the case you can adjust the paths used accordingly. We suggest creating a single new file — something simple made with the &lt;code&gt;echo&lt;&#x2F;code&gt; command is fine for our purposes:&lt;&#x2F;p&gt;
