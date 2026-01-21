@@ -130,7 +130,7 @@
 &lt;p&gt;&lt;code&gt;--size-policy=100%SIZE&lt;&#x2F;code&gt; — set the policy for all sources not otherwise specified on the command line to be 100% of the corresponding device size&lt;&#x2F;p&gt;
 &lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;h1 id=&quot;snapm-snapset-create&quot;&gt;&lt;code&gt;snapm snapset create&lt;&#x2F;code&gt;&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;the-snapm-snapset-create-command&quot;&gt;The &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command&lt;&#x2F;h2&gt;
 &lt;p&gt;With the basics explained it&#x27;s time to actually create a snapshot set with the &lt;code&gt;snapm snapset create&lt;&#x2F;code&gt; command. Take your chosen name and list of sources and append them to the command line, then hit Enter to run the program and create the snapshot set:&lt;&#x2F;p&gt;
 &lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;# snapm snapset create my-first-set &#x2F; &#x2F;var
 &lt;&#x2F;span&gt;&lt;span&gt;SnapsetName: my-first-set
