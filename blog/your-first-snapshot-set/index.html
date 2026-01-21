@@ -259,7 +259,7 @@ class="" id="top">
 
 
 
-<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;2505 words&nbsp;·&nbsp;
+<span title="2026-01-20 00:00:00 +0000">2026-01-20</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2638 words&nbsp;·&nbsp;
       
           
 &nbsp;|&nbsp;<a href="https:&#x2F;&#x2F;github.com&#x2F;snapshotmanager&#x2F;snapshotmanager-docs&#x2F;tree&#x2F;main/content/blog&#x2F;your-first-snapshot-set.md" rel="noopener noreferrer" target="_blank">Suggest changes</a>
@@ -492,10 +492,10 @@ class="" id="top">
 <p><code>Bootable</code> — whether this snapshot set has <a href="https://www.mankier.com/8/boom"><code>boom(8)</code></a> boot entries or not: <code>yes</code> or <code>no</code></p>
 </li>
 </ul>
-<p>We will get to all of these properties and their precise meaning in good time, but for now the Status field deserves a little more explanation: some snapshot providers (LVM2 Thin, Stratis) support optional activation for snapshot devices.</p>
+<p>We will get to all of these properties and their precise meaning in good time, but for now the <code>Status</code> field deserves a little more explanation: some snapshot providers (LVM2 Thin, Stratis) support optional activation for snapshot devices.</p>
 <p>This means that you don't have snapshot devices cluttering the system and using resources when they are not required and is therefore more efficient — especially when dealing with very large numbers of snapshots. For LVM2 CoW the snapshot volume must be active at all times that the origin is active.</p>
 <p>If your snapshot set includes thin snapshots (LVM2 Thin or Stratis) then it will begin its life in the <code>Inactive</code> state<sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup>. If it only includes LVM2 CoW snapshots then it will begin in the <code>Active</code> state (and cannot, in fact, become <code>Inactive</code> unless the origin volume is also inactive).</p>
-<p>If you receive an error message instead of the expected output shown above study it carefully to try to understand what it is telling you. Most error conditions have a clear error message that explains exactly what is wrong. The most common error is ‘not enough space’: if you run into this you will see a message like this rather than the snapshot set summary:</p>
+<p>If you receive an error message instead of the expected output shown above study it carefully to try to understand what it is telling you. Most error conditions have a clear message that explains exactly what is wrong. The most common error is ‘not enough space’: if you run into this you will see a message like this rather than the snapshot set summary:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset create my-first-set / /var
 </span><span>ERROR - Error creating lvm2-cow snapshot: Volume group fedora has insufficient free space to snapshot / (14.5GiB &lt; 15.1GiB)
 </span><span>ERROR - Command failed: Insufficient free space for snapshot set my-first-set
@@ -515,7 +515,7 @@ class="" id="top">
 <p>If you receive some other error refer to the <code>snapm(8)</code> manual page and the <a href="https://snapshotmanager.github.io/blog/faq/">FAQ</a>: you may find that your problem already has a straightforward answer. If not then you can reach out to your distribution's support channels or the developers for assistance<sup class="footnote-reference" id="fr-4-1"><a href="#fn-4">4</a></sup>.</p>
 <h2 id="care-and-feeding-of-your-snapshot-set">Care and Feeding of Your Snapshot Set</h2>
 <p>Now that you have a snapshot set that captures the state of your system at some moment in time you need to know how to look after it. This is essentially the same task as you would need to carry out for any other volume managed with your tool of choice. The major point to bear in mind is that both thin and LVM2 CoW snapshots can run out of space. It is important to ensure that this does not happen for the reasons explained in the <a href="https://snapshotmanager.github.io/blog/faq/#performance-safety">Performance &amp; Safety section of the Snapshot Manager FAQ</a>.</p>
-<p>As an example, using the snapshot set created in the previous step we see the following output when running the lvs(8) program<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">5</a></sup>:</p>
+<p>As an example, using the snapshot set created in the previous step we see the following output when running the <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> program<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">5</a></sup>:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># lvs -o lv_name,lv_size,data_percent
 </span><span>LV                                           LSize Data% 
 </span><span>root                                        10.00g 
@@ -524,8 +524,8 @@ class="" id="top">
 </span><span>var                                         12.00g 
 </span><span>var-snapset_my-first-set_1768308252_-var     1.20g  0.19 
 </span></code></pre>
-<p>Note the 0.19% value in the <code>Data%</code> column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using lvresize or snapm snapset resize in order to avoid the snapshot being invalidated.</p>
-<p>We will discuss more comprehensive monitoring and maintenance strategies in later chapters. For now, use your regular storage administration tools (whether that is <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> for LVM2 volumes, or the <a href="https://www.mankier.com/8/stratis"><code>stratis(8)</code></a> command for Stratis storage) to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> for LVM2), or you can use the <code>snapm snapset resize</code> command to apply new size policies to an already created snapshot set.</p>
+<p>Note the 0.19% value in the <code>Data%</code> column: this is the percentage of the snapshot exception store that has been used so far. In this case it's a very healthy value. If the value begins to approach 100% you need to take action using <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> or <code>snapm snapset resize</code> in order to avoid the snapshot being invalidated.</p>
+<p>We will discuss more comprehensive monitoring and maintenance strategies in later blog updates. For now, you can use your regular storage administration tools (whether that is <a href="https://man7.org/linux/man-pages/man8/lvs.8.html"><code>lvs(8)</code></a> for LVM2 volumes, or the <a href="https://www.mankier.com/8/stratis"><code>stratis(8)</code></a> command for Stratis storage), or the <code>snapm snapshot list</code> command to keep an eye on the space available to your snapshots. You can resize individual snapshots using the corresponding tool (for example, <a href="https://man7.org/linux/man-pages/man8/lvresize.8.html"><code>lvresize(8)</code></a> for LVM2), or you can use the <code>snapm snapset resize</code> command to apply new size policies to an already created snapshot set.</p>
 <h2 id="visualizing-changes">Visualizing Changes</h2>
 <p>Before we conclude let's take a look at some of the advanced features in recent versions of <code>snapm</code>. For this part of the exercise, it helps if you can make some small change to the system. We will assume that your snapshot set included the root file system in this example but if that isn't the case you can adjust the paths used accordingly. We suggest creating a single new file — something simple made with the <code>echo</code> command is fine for our purposes:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># echo &quot;Something changed!&quot; &gt; /etc/my-new-file.conf
@@ -544,7 +544,7 @@ class="" id="top">
 </span><span>└── [*] etc
 </span><span>    └── [+] my-new-file.conf
 </span></code></pre>
-<p>Note that <code>my-new-file.conf</code> appears with the <code>[+]</code> annotation (in red if your terminal supports color output) indicating that it is a new file system entry added since <code>my-first-set</code> was created.</p>
+<p>Note that <code>my-new-file.conf</code> appears with the <code>[+]</code> annotation (in green if your terminal supports color output) indicating that it is a new file system entry added since <code>my-first-set</code> was created.</p>
 <p>To see the exact change in the file content you can use the <code>-o/--output-format diff</code> option of the <code>snapm snapset diff</code> command:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset diff my-first-set . -o diff -s /etc -i /etc/my-new-file.conf
 </span><span>Loaded 1 records from diffcache in 0:00:00.000226
@@ -561,9 +561,30 @@ class="" id="top">
 <li>The <code>-o diff</code> output is displayed in <em>unified diff</em> format (again with color coding if your terminal supports that)</li>
 <li>The results appear quickly when the second command is run. This is because the differences from the first run are cached and reused.</li>
 </ul>
+<p>To see all the differences found between the snapshot set and the live system, remove the <code>-i /etc/my-new-file.conf</code> argument and run the command again:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset diff my-first-set . -s /etc
+</span><span>Gathering paths from my-first-set /etc: found 1879 paths
+</span><span>Scanned 1879 paths in 0:00:00.662213 (excluded 0)
+</span><span>Gathering paths from System Root /etc: found 1880 paths
+</span><span>Scanned 1880 paths in 0:00:00.527266 (excluded 0)
+</span><span>Found 7 differences in 0:00:00.012590
+</span><span>Found 0 moves in 0:00:00.004542
+</span><span>Saved 7 records to diffcache in 0:00:00.014054
+</span><span>Built tree with 7 nodes
+</span><span>/
+</span><span>└── [*] etc
+</span><span>    ├── lvm
+</span><span>    │   ├── [*] archive
+</span><span>    │   │   ├── [-] fedora_00018-1908271671.vg
+</span><span>    │   │   └── [+] fedora_00028-486902226.vg
+</span><span>    │   └── [*] backup
+</span><span>    │       └── [*] fedora
+</span><span>    └── [+] my-new-file.conf
+</span></code></pre>
+<p>Note that in this example we see changes in the <code>/etc/lvm</code> directory: we are using LVM2 on this system and this is a natural consequence of LVM2's default metadata archival and backup settings. Do not be concerned if you see similar changes on your system when trying this out. In this example we also see that the cache is not used - this is because the new <code>snapset diff</code> command is using different options.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>That's it for now! We will look at more advanced uses of <code>snapm</code> and the full set of Difference Engine features in future blog posts. In the meantime check out the <code>snapm(8)</code> manual page and the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html">User Guide</a> if this post whetted your appetite for more Snapshot Manager features!</p>
-<p>If you would like to clean up the snapshot set on your system, use the <code>snapm snapset delete</code> command:</p>
+<p>That's it for now! We will look at more advanced uses of <code>snapm</code> and the full set of <em>Difference Engine</em> features in future blog posts. In the meantime check out the <code>snapm(8)</code> manual page and the <a href="https://snapm.readthedocs.io/en/latest/user_guide.html">User Guide</a> if this post whetted your appetite for more Snapshot Manager features!</p>
+<p>If you would like to clean up and remove the snapshot set on your system, use the <code>snapm snapset delete</code> command:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># snapm snapset delete my-first-set
 </span></code></pre>
 <section class="footnotes">
